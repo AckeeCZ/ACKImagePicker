@@ -26,9 +26,6 @@ final public class PhotosViewController: UIViewController {
     /// Entity which localizes the title of the controller
     public var localization = LocalizationStrings()
     
-    /// Entity which handles selection state of the photo cell
-    public var selectionState: PickerSelectionState = DefaultPickerSeletionState()
-    
     private weak var activityIndicator: UIActivityIndicatorView!
     private weak var collectionView: UICollectionView!
     
@@ -84,7 +81,14 @@ final public class PhotosViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
+        let listRequest = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+        listRequest.enumerateObjects { collection, index, _ in
+            let c = collection
+            print(index)
+        }
+        
         updateTitle()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneBarButtonTapped(_:)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
         
@@ -188,8 +192,8 @@ extension PhotosViewController: UICollectionViewDataSource {
             cell.image = result
         }
         
-        cell.layer.borderWidth = selectionState.borderWidth(selected: viewModel.isSelected)
-        cell.layer.borderColor = selectionState.borderColor(selected: viewModel.isSelected).cgColor
+        cell.layer.borderWidth = viewModel.isSelected ? 2 : 0
+        cell.layer.borderColor = viewModel.isSelected ? UIColor.red.cgColor : UIColor.clear.cgColor
         
         return cell
     }

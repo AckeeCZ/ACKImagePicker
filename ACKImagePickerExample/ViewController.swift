@@ -45,12 +45,13 @@ final class ViewController: UIViewController {
     
     @objc
     private func galleryBarButtonTapped(_ sender: UIBarButtonItem) {
-        let controller = PhotosViewController()
-        controller.onImagesPicked = { [weak self] images in
-            self?.images = images
-            self?.collectionView.reloadData()
-            self?.dismiss(animated: true)
-        }
+        let controller = ACKPhotosViewController()
+//        let controller = PhotosViewController()
+//        controller.onImagesPicked = { [weak self] images in
+//            self?.images = images
+//            self?.collectionView.reloadData()
+//            self?.dismiss(animated: true)
+//        }
         present(UINavigationController(rootViewController: controller), animated: true)
     }
 

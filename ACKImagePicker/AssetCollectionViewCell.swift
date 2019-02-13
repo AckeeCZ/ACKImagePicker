@@ -13,11 +13,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
     
     var image: UIImage? {
         get { return imageView.image }
-        set {
-            imageView.image = newValue
-            imageView.isAccessibilityElement = true
-            imageView.accessibilityTraits = UIAccessibilityTraitImage
-        }
+        set { imageView.image = newValue }
     }
     
     var asset: PHAsset? {
@@ -66,6 +62,8 @@ final class AssetCollectionViewCell: UICollectionViewCell {
     private func setup() {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isAccessibilityElement = true
+        imageView.accessibilityTraits = UIAccessibilityTraitImage
         contentView.addSubview(imageView)
         contentView.addConstraints([
             NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
