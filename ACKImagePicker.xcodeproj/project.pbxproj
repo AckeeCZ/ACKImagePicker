@@ -19,6 +19,7 @@
 		A381750D20EE1DCA00611B03 /* LocalizationStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F0D75420EE1814004DB2C9 /* LocalizationStrings.swift */; };
 		A381750E20EE1DCA00611B03 /* AssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F0D75220EE0EC8004DB2C9 /* AssetViewModel.swift */; };
 		A38D34A922144A370016AB9A /* ACKPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D34A822144A370016AB9A /* ACKPhotosViewController.swift */; };
+		A38D34AD221459310016AB9A /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D34AC221459310016AB9A /* UIViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		A38174FF20EE1D9E00611B03 /* ACKImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACKImagePicker.h; sourceTree = "<group>"; };
 		A381750020EE1D9E00611B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A38D34A822144A370016AB9A /* ACKPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACKPhotosViewController.swift; sourceTree = "<group>"; };
+		A38D34AC221459310016AB9A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		A3F0D74F20EDEC6C004DB2C9 /* AssetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetCollectionViewCell.swift; sourceTree = "<group>"; };
 		A3F0D75220EE0EC8004DB2C9 /* AssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewModel.swift; sourceTree = "<group>"; };
 		A3F0D75420EE1814004DB2C9 /* LocalizationStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationStrings.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				A304D1C820ED239C002ACD9E /* AppDelegate.swift */,
 				A304D1CA20ED239C002ACD9E /* ViewController.swift */,
 				A38D34A822144A370016AB9A /* ACKPhotosViewController.swift */,
+				A38D34AC221459310016AB9A /* UIViewExtensions.swift */,
 				A304D1CF20ED23A1002ACD9E /* Assets.xcassets */,
 				A304D1D120ED23A1002ACD9E /* LaunchScreen.storyboard */,
 				A304D1D420ED23A1002ACD9E /* Info.plist */,
@@ -247,6 +250,7 @@
 			files = (
 				A38D34A922144A370016AB9A /* ACKPhotosViewController.swift in Sources */,
 				A304D1CB20ED239C002ACD9E /* ViewController.swift in Sources */,
+				A38D34AD221459310016AB9A /* UIViewExtensions.swift in Sources */,
 				A304D1C920ED239C002ACD9E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

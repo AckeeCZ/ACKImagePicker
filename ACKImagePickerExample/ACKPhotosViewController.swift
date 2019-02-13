@@ -11,7 +11,7 @@ import Photos
 
 final class ACKPhotosViewController: UIViewController {
     
-    private var collections: PHFetchResult<PHCollection>?
+    private var collections: PHFetchResult<PHCollection>!
     
     private weak var tableView: UITableView!
     
@@ -23,14 +23,8 @@ final class ACKPhotosViewController: UIViewController {
         view.backgroundColor = .white
         
         let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        view.addConstraints([
-            NSLayoutConstraint(item: tableView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: tableView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: tableView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: tableView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0),
-            ])
+        tableView.makeEdgesEqualToSuperview()
         self.tableView = tableView
     }
     
@@ -49,12 +43,12 @@ final class ACKPhotosViewController: UIViewController {
 extension ACKPhotosViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return collections?.count ?? 0
+        return collections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = collections?[indexPath.row].localizedTitle
+        cell.textLabel?.text = collections[indexPath.row].localizedTitle
         
         return cell
     }
