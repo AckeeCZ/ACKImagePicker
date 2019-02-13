@@ -45,7 +45,7 @@ final class ViewController: UIViewController {
     
     @objc
     private func galleryBarButtonTapped(_ sender: UIBarButtonItem) {
-        let controller = ACKPhotosViewController()
+        let controller = ImagePickerViewController()
 //        let controller = PhotosViewController()
 //        controller.onImagesPicked = { [weak self] images in
 //            self?.images = images
