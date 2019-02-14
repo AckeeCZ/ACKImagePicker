@@ -20,23 +20,15 @@ private extension UICollectionView {
 final class ACKPhotosViewController: UIViewController {
     
     var numberOfColumns: CGFloat = 3
-
-    // Start: From Apple
-    var availableWidth: CGFloat = 0
     
-    fileprivate let imageManager = PHCachingImageManager()
-    fileprivate var thumbnailSize: CGSize!
-    fileprivate var previousPreheatRect = CGRect.zero
-    // End: From Apple
+    private let imageManager = PHCachingImageManager()
+    private var thumbnailSize: CGSize!
+    private var previousPreheatRect = CGRect.zero
     
     private var fetchResult: PHFetchResult<PHAsset>
     private let assetCollection: PHAssetCollection?
 
     private weak var collectionView: UICollectionView!
-    
-    private var collectionViewFlowLayout: UICollectionViewFlowLayout {
-        return collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-    }
     
     // MARK: - Initialization
     
@@ -145,21 +137,17 @@ final class ACKPhotosViewController: UIViewController {
         if old.intersects(new) {
             var added = [CGRect]()
             if new.maxY > old.maxY {
-                added += [CGRect(x: new.origin.x, y: old.maxY,
-                                 width: new.width, height: new.maxY - old.maxY)]
+                added += [CGRect(x: new.origin.x, y: old.maxY, width: new.width, height: new.maxY - old.maxY)]
             }
             if old.minY > new.minY {
-                added += [CGRect(x: new.origin.x, y: new.minY,
-                                 width: new.width, height: old.minY - new.minY)]
+                added += [CGRect(x: new.origin.x, y: new.minY, width: new.width, height: old.minY - new.minY)]
             }
             var removed = [CGRect]()
             if new.maxY < old.maxY {
-                removed += [CGRect(x: new.origin.x, y: new.maxY,
-                                   width: new.width, height: old.maxY - new.maxY)]
+                removed += [CGRect(x: new.origin.x, y: new.maxY, width: new.width, height: old.maxY - new.maxY)]
             }
             if old.minY < new.minY {
-                removed += [CGRect(x: new.origin.x, y: old.minY,
-                                   width: new.width, height: new.minY - old.minY)]
+                removed += [CGRect(x: new.origin.x, y: old.minY, width: new.width, height: new.minY - old.minY)]
             }
             return (added, removed)
         } else {

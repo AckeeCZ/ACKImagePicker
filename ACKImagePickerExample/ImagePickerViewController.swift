@@ -55,7 +55,7 @@ final class ImagePickerViewController: UIViewController {
         tableView.delegate = self
         
         let allPhotosOptions = PHFetchOptions()
-        allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
         smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
         userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
@@ -128,9 +128,13 @@ extension ImagePickerViewController: UITableViewDelegate {
         case .smartAlbums:
             print("TODO")
         case .userCollections:
-            guard let child = userCollections[indexPath.row] as? PHCollectionList else { assertionFailure(); return }
-            let controller = ACKCollectionViewController(collection: child)
-            navigationController?.pushViewController(controller, animated: true)
+            if let child = userCollections[indexPath.row] as? PHCollectionList {
+                let controller = ACKCollectionViewController(collection: child)
+                navigationController?.pushViewController(controller, animated: true)
+            } else if let child = userCollections[indexPath.row] as? PHAssetCollection {
+                let controller = ACKPhotosViewController(assetCollection: child)
+                navigationController?.pushViewController(controller, animated: true)
+            }
         }
     }
     

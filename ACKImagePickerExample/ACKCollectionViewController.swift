@@ -101,6 +101,8 @@ extension ACKCollectionViewController: UITableViewDelegate {
         switch sections[indexPath.section] {
         case .allPhotos:
             print("TODO")
+            tableView.deselectRow(at: indexPath, animated: true)
+            break
         case .collections:
             let childCollection = collections?[indexPath.row]
             if let child = childCollection as? PHCollectionList {
