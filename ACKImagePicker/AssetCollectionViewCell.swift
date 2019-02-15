@@ -63,7 +63,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isAccessibilityElement = true
-        imageView.accessibilityTraits = UIAccessibilityTraitImage
+        imageView.accessibilityTraits = UIAccessibilityTraits.image
         contentView.addSubview(imageView)
         contentView.addConstraints([
             NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),

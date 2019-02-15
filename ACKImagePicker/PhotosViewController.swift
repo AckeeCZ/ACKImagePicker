@@ -49,7 +49,7 @@ final public class PhotosViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)

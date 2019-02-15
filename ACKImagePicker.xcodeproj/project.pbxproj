@@ -22,6 +22,7 @@
 		A38D34B222147ABE0016AB9A /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A304D1DA20ED24F9002ACD9E /* PhotosViewController.swift */; };
 		A38D34B322147AC70016AB9A /* AssetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F0D74F20EDEC6C004DB2C9 /* AssetCollectionViewCell.swift */; };
 		A38D34B522147AD60016AB9A /* ACKPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D34B422147AD60016AB9A /* ACKPhotosViewController.swift */; };
+		A3C170F42215CFDE004F53D8 /* PHCollectionListExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C170F32215CFDE004F53D8 /* PHCollectionListExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		A38D34AC221459310016AB9A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		A38D34AE22145B9C0016AB9A /* ACKCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACKCollectionViewController.swift; sourceTree = "<group>"; };
 		A38D34B422147AD60016AB9A /* ACKPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACKPhotosViewController.swift; sourceTree = "<group>"; };
+		A3C170F32215CFDE004F53D8 /* PHCollectionListExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHCollectionListExtensions.swift; sourceTree = "<group>"; };
 		A3F0D74F20EDEC6C004DB2C9 /* AssetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetCollectionViewCell.swift; sourceTree = "<group>"; };
 		A3F0D75220EE0EC8004DB2C9 /* AssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetViewModel.swift; sourceTree = "<group>"; };
 		A3F0D75420EE1814004DB2C9 /* LocalizationStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationStrings.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		A304D1C720ED239C002ACD9E /* ACKImagePickerExample */ = {
 			isa = PBXGroup;
 			children = (
+				A3C170F32215CFDE004F53D8 /* PHCollectionListExtensions.swift */,
 				A38D34B422147AD60016AB9A /* ACKPhotosViewController.swift */,
 				A304D1C820ED239C002ACD9E /* AppDelegate.swift */,
 				A304D1CA20ED239C002ACD9E /* ViewController.swift */,
@@ -205,9 +208,11 @@
 				TargetAttributes = {
 					A304D1C420ED239C002ACD9E = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					A38174FC20EE1D9E00611B03 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -260,6 +265,7 @@
 				A38D34B522147AD60016AB9A /* ACKPhotosViewController.swift in Sources */,
 				A38D34AD221459310016AB9A /* UIViewExtensions.swift in Sources */,
 				A304D1C920ED239C002ACD9E /* AppDelegate.swift in Sources */,
+				A3C170F42215CFDE004F53D8 /* PHCollectionListExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +433,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b986e132-a736-40dd-8464-8fffc12bd89d";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development cz.ackee.enterprise.*";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -448,7 +454,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cz.ackee.enterprise.ACKImagePickerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -474,7 +480,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cz.ackee.enterprise.ACKImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -502,7 +508,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cz.ackee.enterprise.ACKImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

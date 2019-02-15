@@ -17,33 +17,57 @@ private extension UICollectionView {
     }
 }
 
+enum ScreenState<T> {
+    case loading
+    case data(T)
+    case noData
+    case error
+}
+
 final class ACKPhotosViewController: UIViewController {
     
     var numberOfColumns: CGFloat = 3
+    
+    var state: ScreenState<PHFetchResult<PHAsset>> = .loading {
+        didSet {
+            updateState()
+        }
+    }
     
     private let imageManager = PHCachingImageManager()
     private var thumbnailSize: CGSize!
     private var previousPreheatRect = CGRect.zero
     
-    private var fetchResult: PHFetchResult<PHAsset>
-    private let assetCollection: PHAssetCollection?
+    private var fetchResult: PHFetchResult<PHAsset>?
 
     private weak var collectionView: UICollectionView!
+    private weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Initialization
     
     init(assetCollection: PHAssetCollection) {
-        self.assetCollection = assetCollection
-        self.fetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
-        
         super.init(nibName: nil, bundle: nil)
+
+        let fetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
+        state = .data(fetchResult)
+    }
+    
+    init(collectionList: PHCollectionList) {
+        super.init(nibName: nil, bundle: nil)
+        
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            let fetchResult = collectionList.fetchAllAssets()
+            DispatchQueue.main.async { [weak self] in
+                self?.state = .data(fetchResult)
+            }
+        }
     }
     
     init(fetchResult: PHFetchResult<PHAsset>) {
-        self.assetCollection = nil
-        self.fetchResult = fetchResult
-        
         super.init(nibName: nil, bundle: nil)
+        
+        self.fetchResult = fetchResult
+        self.state = .data(fetchResult)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,6 +85,16 @@ final class ACKPhotosViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraints([
+            NSLayoutConstraint(item: activityIndicator, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: activityIndicator, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
+        self.activityIndicator = activityIndicator
+        
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 2
         let width = ((view.bounds.width - layout.minimumInteritemSpacing * numberOfColumns) / numberOfColumns).rounded(.towardZero)
@@ -77,6 +111,8 @@ final class ACKPhotosViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.makeEdgesEqualToSuperview()
         self.collectionView = collectionView
+        
+        updateState()
     }
     
     override func viewDidLoad() {
@@ -97,6 +133,20 @@ final class ACKPhotosViewController: UIViewController {
         updateCachedAssets()
     }
     
+    private func updateState() {
+        switch state {
+        case .loading:
+            activityIndicator.startAnimating()
+            collectionView.isHidden = true
+        case .data:
+            activityIndicator.stopAnimating()
+            collectionView.reloadData()
+            collectionView.isHidden = false
+        default:
+            break
+        }
+    }
+    
     // MARK: Asset Caching
     
     fileprivate func resetCachedAssets() {
@@ -106,7 +156,7 @@ final class ACKPhotosViewController: UIViewController {
     
     fileprivate func updateCachedAssets() {
         // Update only if the view is visible.
-        guard isViewLoaded && view.window != nil else { return }
+        guard isViewLoaded, view.window != nil, let fetchResult = fetchResult else { return }
         
         // The window you prepare ahead of time is twice the height of the visible rect.
         let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
@@ -160,11 +210,11 @@ final class ACKPhotosViewController: UIViewController {
 extension ACKPhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResult.count
+        return fetchResult?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let asset = fetchResult.object(at: indexPath.item)
+        guard let asset = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return UICollectionViewCell() }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridViewCell.identifier, for: indexPath) as! GridViewCell
         
@@ -197,7 +247,7 @@ extension ACKPhotosViewController: UICollectionViewDelegateFlowLayout {
 extension ACKPhotosViewController: PHPhotoLibraryChangeObserver {
    
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let changes = changeInstance.changeDetails(for: fetchResult) else { return }
+        guard let fetchResult = fetchResult, let changes = changeInstance.changeDetails(for: fetchResult) else { return }
 
         // Change notifications may originate from a background queue.
         // As such, re-dispatch execution to the main queue before acting
@@ -205,7 +255,7 @@ extension ACKPhotosViewController: PHPhotoLibraryChangeObserver {
         DispatchQueue.main.sync { [weak self] in
            
             // Hang on to the new fetch result.
-            fetchResult = changes.fetchResultAfterChanges
+            self?.fetchResult = changes.fetchResultAfterChanges
             
             // If we have incremental changes, animate them in the collection view.
             if changes.hasIncrementalChanges {

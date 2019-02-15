@@ -11,7 +11,7 @@ import Photos
 
 final class ImagePickerViewController: UIViewController {
     
-    enum Section {
+    enum Section: Int {
         case allPhotos
         case smartAlbums
         case userCollections
@@ -49,7 +49,7 @@ final class ImagePickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Fotografie"
+        navigationItem.title = NSLocalizedString("Photos", comment: "")
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -73,6 +73,13 @@ final class ImagePickerViewController: UIViewController {
     
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
+    }
+    
+    // MARK: - Helpers
+    
+    private func reloadSection(_ section: Section) {
+        guard let index = sections.enumerated().first(where: { _, element in element == section })?.offset else { return }
+        tableView.reloadSections(IndexSet(integer: index), with: .automatic)
     }
     
 }
@@ -147,24 +154,25 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
         // Change notifications may originate from a background queue.
         // Re-dispatch to the main queue before acting on the change,
         // so you can update the UI.
-//        DispatchQueue.main.sync {
-//            // Check each of the three top-level fetches for changes.
-//            if let changeDetails = changeInstance.changeDetails(for: allPhotos) {
-//                // Update the cached fetch result.
-//                allPhotos = changeDetails.fetchResultAfterChanges
-//                // Don't update the table row that always reads "All Photos."
-//            }
-//
-//            // Update the cached fetch results, and reload the table sections to match.
-//            if let changeDetails = changeInstance.changeDetails(for: smartAlbums) {
-//                smartAlbums = changeDetails.fetchResultAfterChanges
-//                tableView.reloadSections(IndexSet(integer: Section.smartAlbums.rawValue), with: .automatic)
-//            }
-//            if let changeDetails = changeInstance.changeDetails(for: userCollections) {
-//                userCollections = changeDetails.fetchResultAfterChanges
-//                tableView.reloadSections(IndexSet(integer: Section.userCollections.rawValue), with: .automatic)
-//            }
-//        }
-    }
-}
+        DispatchQueue.main.sync { [weak self] in
+            // Check each of the three top-level fetches for changes.
+            if let changeDetails = changeInstance.changeDetails(for: allPhotos) {
+                // Update the cached fetch result.
+                allPhotos = changeDetails.fetchResultAfterChanges
+                // Don't update the table row that always reads "All Photos."
+            }
 
+            // Update the cached fetch results, and reload the table sections to match.
+            if let changeDetails = changeInstance.changeDetails(for: smartAlbums) {
+                smartAlbums = changeDetails.fetchResultAfterChanges
+                self?.reloadSection(.smartAlbums)
+            }
+            
+            if let changeDetails = changeInstance.changeDetails(for: userCollections) {
+                userCollections = changeDetails.fetchResultAfterChanges
+                self?.reloadSection(.userCollections)
+            }
+        }
+    }
+
+}
