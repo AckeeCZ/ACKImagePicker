@@ -133,7 +133,8 @@ extension ImagePickerViewController: UITableViewDelegate {
             let controller = ACKPhotosViewController(fetchResult: allPhotos)
             navigationController?.pushViewController(controller, animated: true)
         case .smartAlbums:
-            print("TODO")
+            let controller = ACKPhotosViewController(assetCollection: smartAlbums[indexPath.row])
+            navigationController?.pushViewController(controller, animated: true)
         case .userCollections:
             if let child = userCollections[indexPath.row] as? PHCollectionList {
                 let controller = ACKCollectionViewController(collection: child)
