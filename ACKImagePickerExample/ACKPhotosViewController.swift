@@ -77,10 +77,6 @@ final class ACKPhotosViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        PHPhotoLibrary.shared().unregisterChangeObserver(self)
-    }
-    
     // MARK: - Controller lifecycle
     
     override func loadView() {
@@ -124,8 +120,6 @@ final class ACKPhotosViewController: UIViewController {
         super.viewDidLoad()
         
         resetCachedAssets()
-        
-        PHPhotoLibrary.shared().register(self)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -234,12 +228,13 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
         
         // Request an image for the asset from the PHCachingImageManager.
         cell.assetIdentifier = asset.localIdentifier
-        imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { image, _ in
+        cell.imageRequestID = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { image, _ in
             // UIKit may have recycled this cell by the handler's activation time.
             // Set the cell's thumbnail image only if it's still showing the same asset.
             guard cell.assetIdentifier == asset.localIdentifier else { return }
             cell.thumbnailImage = image
         }
+        
         return cell
     }
 }
@@ -250,52 +245,9 @@ extension ACKPhotosViewController: UICollectionViewDelegateFlowLayout {
         updateCachedAssets()
     }
 
-}
-
-// MARK: PHPhotoLibraryChangeObserver
-extension ACKPhotosViewController: PHPhotoLibraryChangeObserver {
-   
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let fetchResult = fetchResult, let changes = changeInstance.changeDetails(for: fetchResult) else { return }
-
-        // Change notifications may originate from a background queue.
-        // As such, re-dispatch execution to the main queue before acting
-        // on the change, so you can update the UI.
-        DispatchQueue.main.sync { [weak self] in
-           
-            // Hang on to the new fetch result.
-            self?.fetchResult = changes.fetchResultAfterChanges
-            
-            // If we have incremental changes, animate them in the collection view.
-            if changes.hasIncrementalChanges {
-                guard let collectionView = self?.collectionView else { fatalError() }
-            
-                // Handle removals, insertions, and moves in a batch update.
-                collectionView.performBatchUpdates({
-                    if let removed = changes.removedIndexes, !removed.isEmpty {
-                        collectionView.deleteItems(at: removed.map { IndexPath(item: $0, section: 0) })
-                    }
-                    if let inserted = changes.insertedIndexes, !inserted.isEmpty {
-                        collectionView.insertItems(at: inserted.map { IndexPath(item: $0, section: 0) })
-                    }
-                    changes.enumerateMoves { fromIndex, toIndex in
-                        collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0), to: IndexPath(item: toIndex, section: 0))
-                    }
-                })
-                
-                // We are reloading items after the batch update since `PHFetchResultChangeDetails.changedIndexes` refers to
-                // items in the *after* state and not the *before* state as expected by `performBatchUpdates(_:completion:)`.
-                if let changed = changes.changedIndexes, !changed.isEmpty {
-                    collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
-                }
-            } else {
-                
-                // Reload the collection view if incremental changes are not available.
-                collectionView?.reloadData()
-            }
-            
-            resetCachedAssets()
-        }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? GridViewCell else { return }
+        imageManager.cancelImageRequest(cell.imageRequestID)
     }
 
 }
@@ -306,6 +258,7 @@ final class GridViewCell: UICollectionViewCell {
     
     // Needed for correct asset to be loaded after request
     var assetIdentifier: String!
+    var imageRequestID: PHImageRequestID!
     
     var thumbnailImage: UIImage? {
         get { return imageView.image }
