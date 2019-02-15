@@ -22,4 +22,24 @@ extension UIView {
         ])
     }
     
+    func makeCenterEqualToSuperview() {
+        guard let superview = superview else { assertionFailure(); return }
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        superview.addConstraints([
+            NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: superview, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: superview, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
+    }
+    
+}
+
+extension UILabel {
+    
+    static func createEmptyLabel() -> UILabel {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        return label
+    }
+    
 }

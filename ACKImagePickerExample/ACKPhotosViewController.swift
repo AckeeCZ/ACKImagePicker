@@ -21,7 +21,6 @@ enum ScreenState {
     case loading
     case data
     case noData
-    case error
 }
 
 final class ACKPhotosViewController: UIViewController {
@@ -42,6 +41,7 @@ final class ACKPhotosViewController: UIViewController {
 
     private weak var collectionView: UICollectionView!
     private weak var activityIndicator: UIActivityIndicatorView!
+    private weak var emptyLabel: UILabel!
     
     // MARK: - Initialization
     
@@ -51,7 +51,7 @@ final class ACKPhotosViewController: UIViewController {
         self.title = assetCollection.localizedTitle
 
         self.fetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
-        state = .data
+        self.state = fetchResult?.count == 0 ? .noData : .data
     }
     
     init(collectionList: PHCollectionList) {
@@ -61,7 +61,7 @@ final class ACKPhotosViewController: UIViewController {
             let fetchResult = collectionList.fetchAllAssets()
             DispatchQueue.main.async { [weak self] in
                 self?.fetchResult = fetchResult
-                self?.state = .data
+                self?.state = fetchResult.count == 0 ? .noData : .data
             }
         }
     }
@@ -70,7 +70,7 @@ final class ACKPhotosViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
 
         self.fetchResult = fetchResult
-        self.state = .data
+        self.state = fetchResult.count == 0 ? .noData : .data
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -91,11 +91,7 @@ final class ACKPhotosViewController: UIViewController {
         let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addConstraints([
-            NSLayoutConstraint(item: activityIndicator, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: activityIndicator, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0)
-        ])
+        activityIndicator.makeCenterEqualToSuperview()
         self.activityIndicator = activityIndicator
         
         let layout = UICollectionViewFlowLayout()
@@ -114,6 +110,12 @@ final class ACKPhotosViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.makeEdgesEqualToSuperview()
         self.collectionView = collectionView
+        
+        let emptyLabel = UILabel.createEmptyLabel()
+        emptyLabel.text = "Nic tady není 😕"
+        view.addSubview(emptyLabel)
+        emptyLabel.makeCenterEqualToSuperview()
+        self.emptyLabel = emptyLabel
         
         updateState()
     }
@@ -141,12 +143,16 @@ final class ACKPhotosViewController: UIViewController {
         case .loading:
             activityIndicator.startAnimating()
             collectionView.isHidden = true
+            emptyLabel.isHidden = true
         case .data:
             activityIndicator.stopAnimating()
+            emptyLabel.isHidden = true
             collectionView.isHidden = false
             collectionView.reloadData()
-        default:
-            break
+        case .noData:
+            activityIndicator.stopAnimating()
+            collectionView.isHidden = true
+            emptyLabel.isHidden = false
         }
     }
     
