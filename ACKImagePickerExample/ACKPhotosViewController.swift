@@ -17,9 +17,9 @@ private extension UICollectionView {
     }
 }
 
-enum ScreenState<T> {
+enum ScreenState {
     case loading
-    case data(T)
+    case data
     case noData
     case error
 }
@@ -28,7 +28,7 @@ final class ACKPhotosViewController: UIViewController {
     
     var numberOfColumns: CGFloat = 3
     
-    var state: ScreenState<PHFetchResult<PHAsset>> = .loading {
+    var state: ScreenState = .loading {
         didSet {
             updateState()
         }
@@ -47,9 +47,11 @@ final class ACKPhotosViewController: UIViewController {
     
     init(assetCollection: PHAssetCollection) {
         super.init(nibName: nil, bundle: nil)
+        
+        self.title = assetCollection.localizedTitle
 
-        let fetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
-        state = .data(fetchResult)
+        self.fetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
+        state = .data
     }
     
     init(collectionList: PHCollectionList) {
@@ -58,16 +60,17 @@ final class ACKPhotosViewController: UIViewController {
         DispatchQueue.global(qos: .background).async { [weak self] in
             let fetchResult = collectionList.fetchAllAssets()
             DispatchQueue.main.async { [weak self] in
-                self?.state = .data(fetchResult)
+                self?.fetchResult = fetchResult
+                self?.state = .data
             }
         }
     }
     
     init(fetchResult: PHFetchResult<PHAsset>) {
         super.init(nibName: nil, bundle: nil)
-        
+
         self.fetchResult = fetchResult
-        self.state = .data(fetchResult)
+        self.state = .data
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -140,8 +143,8 @@ final class ACKPhotosViewController: UIViewController {
             collectionView.isHidden = true
         case .data:
             activityIndicator.stopAnimating()
-            collectionView.reloadData()
             collectionView.isHidden = false
+            collectionView.reloadData()
         default:
             break
         }
