@@ -23,6 +23,45 @@ enum ScreenState {
     case noData
 }
 
+final class CacheKey: NSObject {
+    let indexPath: IndexPath
+    
+    init(indexPath: IndexPath) {
+        self.indexPath = indexPath
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let rhs = object as? CacheKey else { return false }
+        return indexPath == rhs.indexPath
+    }
+    
+    override var hash: Int {
+        return indexPath.hashValue
+    }
+    
+}
+
+final class ImageCache {
+    typealias Storage = NSCache<CacheKey, UIImage>
+    let fastCache = Storage()
+    let highQualityCache = Storage()
+    
+    func hasFastImage(for indexPath: IndexPath) -> Bool {
+        let key = CacheKey(indexPath: indexPath)
+        return fastCache.object(forKey: key) != nil
+    }
+    
+    func hasHighQualityImage(for indexPath: IndexPath) -> Bool {
+        let key = CacheKey(indexPath: indexPath)
+        return highQualityCache.object(forKey: key) != nil
+    }
+    
+    func bestImage(for indexPath: IndexPath) -> UIImage? {
+        let key = CacheKey(indexPath: indexPath)
+        return highQualityCache.object(forKey: key) ?? fastCache.object(forKey: key)
+    }
+}
+
 final class ACKPhotosViewController: UIViewController {
     
     var numberOfColumns: CGFloat = 3
@@ -33,7 +72,8 @@ final class ACKPhotosViewController: UIViewController {
         }
     }
     
-    private let imageManager = PHCachingImageManager()
+    private let imageManager = PHImageManager()
+    private let imageCache = ImageCache()
     private var thumbnailSize: CGSize!
     private var previousPreheatRect = CGRect.zero
     
@@ -119,18 +159,12 @@ final class ACKPhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resetCachedAssets()
-        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(GridViewCell.self, forCellWithReuseIdentifier: GridViewCell.identifier)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-     
-        updateCachedAssets()
-    }
+    // MARK: - Helpers
     
     private func updateState() {
         switch state {
@@ -149,65 +183,6 @@ final class ACKPhotosViewController: UIViewController {
             emptyLabel.isHidden = false
         }
     }
-    
-    // MARK: Asset Caching
-    
-    fileprivate func resetCachedAssets() {
-        imageManager.stopCachingImagesForAllAssets()
-        previousPreheatRect = .zero
-    }
-    
-    fileprivate func updateCachedAssets() {
-        // Update only if the view is visible.
-        guard isViewLoaded, view.window != nil, let fetchResult = fetchResult else { return }
-        
-        // The window you prepare ahead of time is twice the height of the visible rect.
-        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-        let preheatRect = visibleRect.insetBy(dx: 0, dy: -0.5 * visibleRect.height)
-        
-        // Update only if the visible area is significantly different from the last preheated area.
-        let delta = abs(preheatRect.midY - previousPreheatRect.midY)
-        guard delta > view.bounds.height / 3 else { return }
-        
-        // Compute the assets to start and stop caching.
-        let (addedRects, removedRects) = differencesBetweenRects(previousPreheatRect, preheatRect)
-        let addedAssets = addedRects
-            .flatMap { collectionView.indexPathsForElements(in: $0) }
-            .map { fetchResult.object(at: $0.item) }
-        let removedAssets = removedRects
-            .flatMap { collectionView.indexPathsForElements(in: $0) }
-            .map { fetchResult.object(at: $0.item) }
-        
-        // Update the assets the PHCachingImageManager is caching.
-        imageManager.startCachingImages(for: addedAssets, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
-        imageManager.stopCachingImages(for: removedAssets, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
-        
-        // Store the computed rectangle for future comparison.
-        previousPreheatRect = preheatRect
-    }
-    
-    fileprivate func differencesBetweenRects(_ old: CGRect, _ new: CGRect) -> (added: [CGRect], removed: [CGRect]) {
-        if old.intersects(new) {
-            var added = [CGRect]()
-            if new.maxY > old.maxY {
-                added += [CGRect(x: new.origin.x, y: old.maxY, width: new.width, height: new.maxY - old.maxY)]
-            }
-            if old.minY > new.minY {
-                added += [CGRect(x: new.origin.x, y: new.minY, width: new.width, height: old.minY - new.minY)]
-            }
-            var removed = [CGRect]()
-            if new.maxY < old.maxY {
-                removed += [CGRect(x: new.origin.x, y: new.maxY, width: new.width, height: old.maxY - new.maxY)]
-            }
-            if old.minY < new.minY {
-                removed += [CGRect(x: new.origin.x, y: old.minY, width: new.width, height: new.minY - old.minY)]
-            }
-            return (added, removed)
-        } else {
-            return ([new], [old])
-        }
-    }
-
 }
 
 extension ACKPhotosViewController: UICollectionViewDataSource {
@@ -221,98 +196,58 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridViewCell.identifier, for: indexPath) as! GridViewCell
         
-        // Add a badge to the cell if the PHAsset represents a Live Photo.
+        // Add a badge to the Live Photo
         if asset.mediaSubtypes.contains(.photoLive) {
             cell.livePhotoBadgeImage = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
         }
         
-        // Request an image for the asset from the PHCachingImageManager.
+        // Set identifier for image completion, needed because of reuse
         cell.assetIdentifier = asset.localIdentifier
-        cell.imageRequestID = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { image, _ in
-            // UIKit may have recycled this cell by the handler's activation time.
-            // Set the cell's thumbnail image only if it's still showing the same asset.
-            guard cell.assetIdentifier == asset.localIdentifier else { return }
-            cell.thumbnailImage = image
+        
+        if let bestImage = imageCache.bestImage(for: indexPath) {
+            cell.thumbnailImage = bestImage
+        }
+        
+        if imageCache.hasFastImage(for: indexPath) == false {
+            let fastFormatOptions = PHImageRequestOptions()
+            fastFormatOptions.deliveryMode = .fastFormat
+            
+            cell.fastFormatIdentifier = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: fastFormatOptions) { [weak self] image, _ in
+                guard cell.assetIdentifier == asset.localIdentifier else { return }
+                cell.fastFormatIdentifier = nil
+                if let image = image {
+                    self?.imageCache.fastCache.setObject(image, forKey: CacheKey(indexPath: indexPath))
+                }
+                cell.thumbnailImage = self?.imageCache.bestImage(for: indexPath)
+            }
+        }
+        
+        if imageCache.hasHighQualityImage(for: indexPath) == false {
+            let highQualityFormatOptions = PHImageRequestOptions()
+            highQualityFormatOptions.deliveryMode = .highQualityFormat
+            
+            cell.highQualityFormatIdentifier = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: highQualityFormatOptions) { [weak self] image, _ in
+                guard cell.assetIdentifier == asset.localIdentifier else { return }
+                cell.highQualityFormatIdentifier = nil
+                if let image = image {
+                    self?.imageCache.highQualityCache.setObject(image, forKey: CacheKey(indexPath: indexPath))
+                }
+                cell.thumbnailImage = self?.imageCache.bestImage(for: indexPath)
+            }
         }
         
         return cell
     }
 }
     
-extension ACKPhotosViewController: UICollectionViewDelegateFlowLayout {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateCachedAssets()
-    }
+extension ACKPhotosViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? GridViewCell else { return }
-        imageManager.cancelImageRequest(cell.imageRequestID)
-    }
-
-}
-
-final class GridViewCell: UICollectionViewCell {
-    
-    static let identifier = "GridViewCell"
-    
-    // Needed for correct asset to be loaded after request
-    var assetIdentifier: String!
-    var imageRequestID: PHImageRequestID!
-    
-    var thumbnailImage: UIImage? {
-        get { return imageView.image }
-        set { imageView.image = newValue }
-    }
-    
-    var livePhotoBadgeImage: UIImage? {
-        get { return livePhotoBadgeImageView.image }
-        set { livePhotoBadgeImageView.image = newValue }
-    }
-
-    private weak var imageView: UIImageView!
-    private weak var livePhotoBadgeImageView: UIImageView!
-    
-    // MARK: - Initialization
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
         
-        setup()
+        [cell.fastFormatIdentifier, cell.highQualityFormatIdentifier]
+            .compactMap { $0 }
+            .forEach { imageManager.cancelImageRequest($0) }
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Components setup
-    
-    private func setup() {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        contentView.addSubview(imageView)
-        imageView.makeEdgesEqualToSuperview()
-        self.imageView = imageView
-        
-        let livePhotoBadgeImageView = UIImageView()
-        contentView.addSubview(livePhotoBadgeImageView)
-        livePhotoBadgeImageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addConstraints([
-            NSLayoutConstraint(item: livePhotoBadgeImageView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: livePhotoBadgeImageView, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: livePhotoBadgeImageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 28),
-            NSLayoutConstraint(item: livePhotoBadgeImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 28),
-        ])
-        self.livePhotoBadgeImageView = livePhotoBadgeImageView
-    }
-    
-    // MARK: - Reuse
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
 
-        imageView.image = nil
-        livePhotoBadgeImageView.image = nil
-    }
 }

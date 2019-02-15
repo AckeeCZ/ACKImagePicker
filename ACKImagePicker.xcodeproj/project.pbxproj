@@ -11,6 +11,7 @@
 		A304D1CB20ED239C002ACD9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A304D1CA20ED239C002ACD9E /* ViewController.swift */; };
 		A304D1D020ED23A1002ACD9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A304D1CF20ED23A1002ACD9E /* Assets.xcassets */; };
 		A304D1D320ED23A1002ACD9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A304D1D120ED23A1002ACD9E /* LaunchScreen.storyboard */; };
+		A3465E1D2217006C00509246 /* GridViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3465E1C2217006C00509246 /* GridViewCell.swift */; };
 		A381750120EE1D9E00611B03 /* ACKImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = A38174FF20EE1D9E00611B03 /* ACKImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A381750420EE1D9E00611B03 /* ACKImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A38174FD20EE1D9E00611B03 /* ACKImagePicker.framework */; };
 		A381750620EE1D9E00611B03 /* ACKImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A38174FD20EE1D9E00611B03 /* ACKImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -57,6 +58,7 @@
 		A304D1D220ED23A1002ACD9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A304D1D420ED23A1002ACD9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A304D1DA20ED24F9002ACD9E /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		A3465E1C2217006C00509246 /* GridViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewCell.swift; sourceTree = "<group>"; };
 		A38174FD20EE1D9E00611B03 /* ACKImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ACKImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38174FF20EE1D9E00611B03 /* ACKImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACKImagePicker.h; sourceTree = "<group>"; };
 		A381750020EE1D9E00611B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				A3C170F32215CFDE004F53D8 /* PHCollectionListExtensions.swift */,
+				A3465E1C2217006C00509246 /* GridViewCell.swift */,
 				A38D34B422147AD60016AB9A /* ACKPhotosViewController.swift */,
 				A304D1C820ED239C002ACD9E /* AppDelegate.swift */,
 				A304D1CA20ED239C002ACD9E /* ViewController.swift */,
@@ -265,6 +268,7 @@
 				A38D34B522147AD60016AB9A /* ACKPhotosViewController.swift in Sources */,
 				A38D34AD221459310016AB9A /* UIViewExtensions.swift in Sources */,
 				A304D1C920ED239C002ACD9E /* AppDelegate.swift in Sources */,
+				A3465E1D2217006C00509246 /* GridViewCell.swift in Sources */,
 				A3C170F42215CFDE004F53D8 /* PHCollectionListExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
