@@ -81,12 +81,6 @@ final public class PhotosViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        let listRequest = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-        listRequest.enumerateObjects { collection, index, _ in
-            let c = collection
-            print(index)
-        }
-        
         updateTitle()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneBarButtonTapped(_:)))

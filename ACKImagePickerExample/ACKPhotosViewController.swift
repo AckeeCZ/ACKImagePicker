@@ -10,56 +10,10 @@ import UIKit
 import Photos
 import PhotosUI
 
-private extension UICollectionView {
-    func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
-        let allLayoutAttributes = collectionViewLayout.layoutAttributesForElements(in: rect)!
-        return allLayoutAttributes.map { $0.indexPath }
-    }
-}
-
 enum ScreenState {
     case loading
     case data
     case noData
-}
-
-final class CacheKey: NSObject {
-    let indexPath: IndexPath
-    
-    init(indexPath: IndexPath) {
-        self.indexPath = indexPath
-    }
-    
-    override func isEqual(_ object: Any?) -> Bool {
-        guard let rhs = object as? CacheKey else { return false }
-        return indexPath == rhs.indexPath
-    }
-    
-    override var hash: Int {
-        return indexPath.hashValue
-    }
-    
-}
-
-final class ImageCache {
-    typealias Storage = NSCache<CacheKey, UIImage>
-    let fastCache = Storage()
-    let highQualityCache = Storage()
-    
-    func hasFastImage(for indexPath: IndexPath) -> Bool {
-        let key = CacheKey(indexPath: indexPath)
-        return fastCache.object(forKey: key) != nil
-    }
-    
-    func hasHighQualityImage(for indexPath: IndexPath) -> Bool {
-        let key = CacheKey(indexPath: indexPath)
-        return highQualityCache.object(forKey: key) != nil
-    }
-    
-    func bestImage(for indexPath: IndexPath) -> UIImage? {
-        let key = CacheKey(indexPath: indexPath)
-        return highQualityCache.object(forKey: key) ?? fastCache.object(forKey: key)
-    }
 }
 
 final class ACKPhotosViewController: UIViewController {
@@ -72,8 +26,7 @@ final class ACKPhotosViewController: UIViewController {
         }
     }
     
-    private let imageManager = PHImageManager()
-    private let imageCache = ImageCache()
+    private let imageManager = PHCachingImageManager()
     private var thumbnailSize: CGSize!
     private var previousPreheatRect = CGRect.zero
     
@@ -201,53 +154,25 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
             cell.livePhotoBadgeImage = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
         }
         
-        // Set identifier for image completion, needed because of reuse
+        // Set identifier for the image completion, needed because of the reuse
         cell.assetIdentifier = asset.localIdentifier
-        
-        if let bestImage = imageCache.bestImage(for: indexPath) {
-            cell.thumbnailImage = bestImage
-        }
-        
-        if imageCache.hasFastImage(for: indexPath) == false {
-            let fastFormatOptions = PHImageRequestOptions()
-            fastFormatOptions.deliveryMode = .fastFormat
-            
-            cell.fastFormatIdentifier = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: fastFormatOptions) { [weak self] image, _ in
-                guard cell.assetIdentifier == asset.localIdentifier else { return }
-                cell.fastFormatIdentifier = nil
-                if let image = image {
-                    self?.imageCache.fastCache.setObject(image, forKey: CacheKey(indexPath: indexPath))
-                }
-                cell.thumbnailImage = self?.imageCache.bestImage(for: indexPath)
-            }
-        }
-        
-        if imageCache.hasHighQualityImage(for: indexPath) == false {
-            let highQualityFormatOptions = PHImageRequestOptions()
-            highQualityFormatOptions.deliveryMode = .highQualityFormat
-            
-            cell.highQualityFormatIdentifier = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: highQualityFormatOptions) { [weak self] image, _ in
-                guard cell.assetIdentifier == asset.localIdentifier else { return }
-                cell.highQualityFormatIdentifier = nil
-                if let image = image {
-                    self?.imageCache.highQualityCache.setObject(image, forKey: CacheKey(indexPath: indexPath))
-                }
-                cell.thumbnailImage = self?.imageCache.bestImage(for: indexPath)
-            }
+        cell.imageRequestID = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { [weak cell] image, _ in
+            guard cell?.assetIdentifier == asset.localIdentifier else { return }
+            cell?.thumbnailImage = image
+            cell?.imageRequestID = nil
         }
         
         return cell
     }
 }
-    
+
 extension ACKPhotosViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? GridViewCell else { return }
         
-        [cell.fastFormatIdentifier, cell.highQualityFormatIdentifier]
-            .compactMap { $0 }
-            .forEach { imageManager.cancelImageRequest($0) }
+        if let imageRequestID = cell.imageRequestID {
+            imageManager.cancelImageRequest(imageRequestID)
+        }
     }
-
 }

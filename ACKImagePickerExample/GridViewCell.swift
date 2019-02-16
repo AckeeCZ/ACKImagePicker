@@ -15,8 +15,7 @@ final class GridViewCell: UICollectionViewCell {
     
     // Needed for correct asset to be loaded after request
     var assetIdentifier: String!
-    var fastFormatIdentifier: PHImageRequestID?
-    var highQualityFormatIdentifier: PHImageRequestID?
+    var imageRequestID: PHImageRequestID?
     
     var thumbnailImage: UIImage? {
         get { return imageView.image }
