@@ -53,6 +53,7 @@ final class ImagePickerViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = NSLocalizedString("Photos", comment: "")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -76,6 +77,13 @@ final class ImagePickerViewController: UIViewController {
     
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    private func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
     
     // MARK: - Helpers

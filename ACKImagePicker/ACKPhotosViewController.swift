@@ -18,7 +18,7 @@ enum ScreenState {
 
 final class ACKPhotosViewController: UIViewController {
     
-    var numberOfColumns: CGFloat = 3
+    var numberOfColumns: CGFloat = 4
     
     weak var delegate: ACKImagePickerDelegate?
     
@@ -88,7 +88,7 @@ final class ACKPhotosViewController: UIViewController {
         self.activityIndicator = activityIndicator
         
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 2
+        layout.minimumInteritemSpacing = 1
         let width = ((view.bounds.width - layout.minimumInteritemSpacing * numberOfColumns) / numberOfColumns).rounded(.towardZero)
         let cellSize = CGSize(width: width, height: width)
         layout.itemSize = cellSize
