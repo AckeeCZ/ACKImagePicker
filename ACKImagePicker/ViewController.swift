@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ACKImagePicker
 
 final class ViewController: UIViewController {
     
@@ -46,13 +45,15 @@ final class ViewController: UIViewController {
     @objc
     private func galleryBarButtonTapped(_ sender: UIBarButtonItem) {
         let controller = ImagePickerViewController()
-//        let controller = PhotosViewController()
-//        controller.onImagesPicked = { [weak self] images in
-//            self?.images = images
-//            self?.collectionView.reloadData()
-//            self?.dismiss(animated: true)
-//        }
-        present(UINavigationController(rootViewController: controller), animated: true)
+        controller.onImagesPicked = { [weak self] images in
+            self?.images = images
+            self?.collectionView.reloadData()
+            self?.dismiss(animated: true)
+        }
+        
+        let navigationController = UINavigationController(rootViewController: controller)
+        
+        present(navigationController, animated: true)
     }
 
 }

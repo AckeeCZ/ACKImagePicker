@@ -27,6 +27,13 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         set { livePhotoBadgeImageView.image = newValue }
     }
     
+    override var isSelected: Bool {
+        didSet {
+            contentView.layer.borderColor = UIColor.red.cgColor
+            contentView.layer.borderWidth = isSelected ? 2 : 0
+        }
+    }
+    
     private weak var imageView: UIImageView!
     private weak var livePhotoBadgeImageView: UIImageView!
     

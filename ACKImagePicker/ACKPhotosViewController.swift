@@ -16,15 +16,23 @@ enum ScreenState {
     case noData
 }
 
+protocol ACKPhotosViewControllerDelegate: class {
+    func didSelectPhotos(_ photos: OrderedSet<PHAsset>)
+}
+
 final class ACKPhotosViewController: UIViewController {
     
     var numberOfColumns: CGFloat = 3
+    
+    weak var delegate: ACKPhotosViewControllerDelegate?
     
     private var state: ScreenState = .loading {
         didSet {
             updateState()
         }
     }
+    
+    private var selectedImages: OrderedSet<PHAsset> = .init()
     
     private let imageManager = PHCachingImageManager()
     private var thumbnailSize = CGSize.zero
@@ -96,6 +104,7 @@ final class ACKPhotosViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
+        collectionView.allowsMultipleSelection = true
         view.addSubview(collectionView)
         collectionView.makeEdgesEqualToSuperview()
         self.collectionView = collectionView
@@ -116,6 +125,15 @@ final class ACKPhotosViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(AssetCollectionViewCell.self, forCellWithReuseIdentifier: AssetCollectionViewCell.identifier)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Vybrat", style: .plain, target: self, action: #selector(selectBarButtonTapped(_:)))
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    private func selectBarButtonTapped(_ sender: UIBarButtonItem) {
+        delegate?.didSelectPhotos(selectedImages)
     }
     
     // MARK: - Helpers
@@ -136,6 +154,10 @@ final class ACKPhotosViewController: UIViewController {
             collectionView.isHidden = true
             emptyLabel.isHidden = false
         }
+    }
+    
+    private func updateSelectButton() {
+        navigationItem.rightBarButtonItem?.isEnabled = selectedImages.count > 0
     }
 }
 
@@ -175,5 +197,19 @@ extension ACKPhotosViewController: UICollectionViewDelegate {
         if let imageRequestID = cell.imageRequestID {
             imageManager.cancelImageRequest(imageRequestID)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
+        
+        selectedImages.add(object)
+        updateSelectButton()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
+        
+        selectedImages.remove(object)
+        updateSelectButton()
     }
 }

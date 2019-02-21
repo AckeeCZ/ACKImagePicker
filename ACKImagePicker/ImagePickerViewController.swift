@@ -25,6 +25,8 @@ final class ImagePickerViewController: UIViewController {
         }
     }
     
+    var onImagesPicked: (([UIImage]) -> Void)?
+    
     private let sections: [Section] = [.allPhotos, .smartAlbums, .userCollections]
     
     private var allPhotos: PHFetchResult<PHAsset>!
@@ -131,16 +133,20 @@ extension ImagePickerViewController: UITableViewDelegate {
         switch sections[indexPath.section] {
         case .allPhotos:
             let controller = ACKPhotosViewController(fetchResult: allPhotos)
+            controller.delegate = self
             navigationController?.pushViewController(controller, animated: true)
         case .smartAlbums:
             let controller = ACKPhotosViewController(assetCollection: smartAlbums[indexPath.row])
+            controller.delegate = self
             navigationController?.pushViewController(controller, animated: true)
         case .userCollections:
             if let child = userCollections[indexPath.row] as? PHCollectionList {
                 let controller = ACKCollectionViewController(collection: child)
+                controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
             } else if let child = userCollections[indexPath.row] as? PHAssetCollection {
                 let controller = ACKPhotosViewController(assetCollection: child)
+                controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
             }
         }
@@ -176,4 +182,22 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
         }
     }
 
+}
+
+extension ImagePickerViewController: ACKCollectionViewControllerDelegate, ACKPhotosViewControllerDelegate {
+    
+    func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
+        var images: [UIImage] = []
+        let manager = PHImageManager()
+//        manager.synchro
+        photos.forEach { asset in
+            manager.requestImage(for: asset, targetSize: .zero, contentMode: .aspectFill, options: nil) { image, _ in
+                guard let image = image else { return }
+                images.append(image)
+            }
+        }
+        
+        onImagesPicked?(images)
+    }
+    
 }

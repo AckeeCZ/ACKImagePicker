@@ -9,12 +9,18 @@
 import UIKit
 import Photos
 
+protocol ACKCollectionViewControllerDelegate: class {
+    func didSelectPhotos(_ photos: OrderedSet<PHAsset>)
+}
+
 final class ACKCollectionViewController: UIViewController {
     
     enum Section {
         case allPhotos
         case collections
     }
+    
+    weak var delegate: ACKCollectionViewControllerDelegate?
     
     private let sections: [Section] = [.allPhotos, .collections]
     
@@ -101,17 +107,28 @@ extension ACKCollectionViewController: UITableViewDelegate {
         switch sections[indexPath.section] {
         case .allPhotos:
             let controller = ACKPhotosViewController(collectionList: collection)
+            controller.delegate = self
             navigationController?.pushViewController(controller, animated: true)
         case .collections:
             let childCollection = collections?[indexPath.row]
             if let child = childCollection as? PHCollectionList {
                 let controller = ACKCollectionViewController(collection: child)
+                controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
             } else if let child = childCollection as? PHAssetCollection {
                 let controller = ACKPhotosViewController(assetCollection: child)
+                controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
             }
         }
+    }
+    
+}
+
+extension ACKCollectionViewController: ACKCollectionViewControllerDelegate, ACKPhotosViewControllerDelegate {
+    
+    func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
+        delegate?.didSelectPhotos(photos)
     }
     
 }
