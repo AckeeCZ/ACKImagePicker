@@ -45,6 +45,7 @@ final class ViewController: UIViewController {
     @objc
     private func galleryBarButtonTapped(_ sender: UIBarButtonItem) {
         let controller = ImagePickerViewController()
+        controller.maximumNumberOfImages = 3
         controller.onImagesPicked = { [weak self] images in
             self?.images = images
             self?.collectionView.reloadData()

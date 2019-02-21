@@ -24,7 +24,7 @@ final class OrderedSet<Item> {
     }
     
     func forEach(_ body: (Item) -> Void) {
-        storage.forEach(body)
+        storage.forEach { body($0 as! Item) }
     }
     
 }

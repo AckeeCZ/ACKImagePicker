@@ -26,6 +26,7 @@ final class ImagePickerViewController: UIViewController {
     }
     
     var onImagesPicked: (([UIImage]) -> Void)?
+    var maximumNumberOfImages: Int? = nil
     
     private let sections: [Section] = [.allPhotos, .smartAlbums, .userCollections]
     
@@ -184,14 +185,22 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
 
 }
 
-extension ImagePickerViewController: ACKCollectionViewControllerDelegate, ACKPhotosViewControllerDelegate {
+extension ImagePickerViewController: ACKImagePickerDelegate {
+    
+    func maximumNumberOfSelectedImages() -> Int? {
+        return maximumNumberOfImages
+    }
     
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
         var images: [UIImage] = []
-        let manager = PHImageManager()
-//        manager.synchro
+        let manager = PHImageManager.default()
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        options.resizeMode = .exact
+        options.deliveryMode = .highQualityFormat
+        
         photos.forEach { asset in
-            manager.requestImage(for: asset, targetSize: .zero, contentMode: .aspectFill, options: nil) { image, _ in
+            manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, _ in
                 guard let image = image else { return }
                 images.append(image)
             }
@@ -199,5 +208,5 @@ extension ImagePickerViewController: ACKCollectionViewControllerDelegate, ACKPho
         
         onImagesPicked?(images)
     }
-    
+
 }

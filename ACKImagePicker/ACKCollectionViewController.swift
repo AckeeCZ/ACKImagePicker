@@ -9,8 +9,9 @@
 import UIKit
 import Photos
 
-protocol ACKCollectionViewControllerDelegate: class {
+protocol ACKImagePickerDelegate: class {
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>)
+    func maximumNumberOfSelectedImages() -> Int?
 }
 
 final class ACKCollectionViewController: UIViewController {
@@ -20,7 +21,7 @@ final class ACKCollectionViewController: UIViewController {
         case collections
     }
     
-    weak var delegate: ACKCollectionViewControllerDelegate?
+    weak var delegate: ACKImagePickerDelegate?
     
     private let sections: [Section] = [.allPhotos, .collections]
     
@@ -125,10 +126,14 @@ extension ACKCollectionViewController: UITableViewDelegate {
     
 }
 
-extension ACKCollectionViewController: ACKCollectionViewControllerDelegate, ACKPhotosViewControllerDelegate {
+extension ACKCollectionViewController: ACKImagePickerDelegate {
     
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
         delegate?.didSelectPhotos(photos)
+    }
+    
+    func maximumNumberOfSelectedImages() -> Int? {
+        return delegate?.maximumNumberOfSelectedImages()
     }
     
 }

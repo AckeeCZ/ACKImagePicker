@@ -16,15 +16,11 @@ enum ScreenState {
     case noData
 }
 
-protocol ACKPhotosViewControllerDelegate: class {
-    func didSelectPhotos(_ photos: OrderedSet<PHAsset>)
-}
-
 final class ACKPhotosViewController: UIViewController {
     
     var numberOfColumns: CGFloat = 3
     
-    weak var delegate: ACKPhotosViewControllerDelegate?
+    weak var delegate: ACKImagePickerDelegate?
     
     private var state: ScreenState = .loading {
         didSet {
@@ -127,6 +123,7 @@ final class ACKPhotosViewController: UIViewController {
         collectionView.register(AssetCollectionViewCell.self, forCellWithReuseIdentifier: AssetCollectionViewCell.identifier)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Vybrat", style: .plain, target: self, action: #selector(selectBarButtonTapped(_:)))
+        updateSelection()
     }
     
     // MARK: - Actions
@@ -156,7 +153,12 @@ final class ACKPhotosViewController: UIViewController {
         }
     }
     
-    private func updateSelectButton() {
+    private func updateSelection() {
+        if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages() {
+            navigationItem.title = "Vybráno " + String(selectedImages.count) + " / " + String(maxNumberOfImages)
+        } else {
+            navigationItem.title = "Vybráno " + String(selectedImages.count)
+        }
         navigationItem.rightBarButtonItem?.isEnabled = selectedImages.count > 0
     }
 }
@@ -202,14 +204,19 @@ extension ACKPhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
         
+        if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages(), selectedImages.count >= maxNumberOfImages {
+            collectionView.deselectItem(at: indexPath, animated: false)
+            return
+        }
+        
         selectedImages.add(object)
-        updateSelectButton()
+        updateSelection()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
         
         selectedImages.remove(object)
-        updateSelectButton()
+        updateSelection()
     }
 }
