@@ -29,13 +29,13 @@ final class AssetCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            contentView.layer.borderColor = UIColor.red.cgColor
-            contentView.layer.borderWidth = isSelected ? 2 : 0
+            checkmarkView.isChecked = isSelected
         }
     }
     
     private weak var imageView: UIImageView!
     private weak var livePhotoBadgeImageView: UIImageView!
+    private weak var checkmarkView: SSCheckMark!
     
     // MARK: - Initialization
     
@@ -69,6 +69,18 @@ final class AssetCollectionViewCell: UICollectionViewCell {
             NSLayoutConstraint(item: livePhotoBadgeImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 28),
         ])
         self.livePhotoBadgeImageView = livePhotoBadgeImageView
+        
+        let checkmarkView = SSCheckMark()
+        checkmarkView.checkMarkColor = .blue
+        contentView.addSubview(checkmarkView)
+        checkmarkView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addConstraints([
+            NSLayoutConstraint(item: checkmarkView, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: checkmarkView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: checkmarkView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 28),
+            NSLayoutConstraint(item: checkmarkView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 28)
+        ])
+        self.checkmarkView = checkmarkView
     }
     
     // MARK: - Reuse
