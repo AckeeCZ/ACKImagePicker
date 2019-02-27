@@ -11,6 +11,8 @@ import Photos
 
 final class ImagePickerViewController: UIViewController {
     
+    private let imageManager = PHImageManager()
+    
     enum Section: Int {
         case allPhotos
         case smartAlbums
@@ -44,6 +46,8 @@ final class ImagePickerViewController: UIViewController {
         view.backgroundColor = .white
         
         let tableView = UITableView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
         view.addSubview(tableView)
         tableView.makeEdgesEqualToSuperview()
         self.tableView = tableView
@@ -63,6 +67,8 @@ final class ImagePickerViewController: UIViewController {
         allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
         smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
         userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+        
+        tableView.register(CollectionTableViewCell.self, forCellReuseIdentifier: CollectionTableViewCell.reuseIdentifier)
         
         PHPhotoLibrary.shared().register(self)
     }
@@ -117,9 +123,21 @@ extension ImagePickerViewController: UITableViewDataSource {
             return cell
             
         case .smartAlbums:
-            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.reuseIdentifier, for: indexPath) as! CollectionTableViewCell
             let collection = smartAlbums.object(at: indexPath.row)
-            cell.textLabel!.text = collection.localizedTitle
+            cell.title = collection.localizedTitle
+            let options = PHFetchOptions()
+            options.fetchLimit = 1
+            let result = PHAsset.fetchAssets(in: collection, options: options)
+            if let firstAsset = result.firstObject {
+                cell.assetIdentifier = firstAsset.localIdentifier
+                let size = CGSize(width: 50, height: 50)
+                imageManager.requestImage(for: firstAsset, targetSize: size, contentMode: .aspectFill, options: nil) { image, _ in
+                    guard cell.assetIdentifier == firstAsset.localIdentifier else { return }
+                    cell.thumbImage = image
+                }
+            }
+            
             return cell
             
         case .userCollections:

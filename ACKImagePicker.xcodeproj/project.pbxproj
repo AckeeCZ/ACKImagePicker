@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A30D6F1F221EA56100622E65 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30D6F1E221EA56100622E65 /* OrderedSet.swift */; };
 		A3CC9FFD2226B0AE000F3FBA /* SSCheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */; };
+		A3CC9FFF2226DF2B000F3FBA /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */; };
 		A3D918D9221888320040F791 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D918D8221888320040F791 /* AppDelegate.swift */; };
 		A3D918E0221888340040F791 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D918DF221888340040F791 /* Assets.xcassets */; };
 		A3D918E3221888340040F791 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3D918E1221888340040F791 /* LaunchScreen.storyboard */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		A30D6F1E221EA56100622E65 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSCheckMark.swift; sourceTree = "<group>"; };
+		A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		A3D918D5221888320040F791 /* ACKImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACKImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D918D8221888320040F791 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3D918DF221888340040F791 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		A3D918D7221888320040F791 /* ACKImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */,
 				A3D918D8221888320040F791 /* AppDelegate.swift */,
 				A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */,
 				A30D6F1E221EA56100622E65 /* OrderedSet.swift */,
@@ -169,6 +172,7 @@
 				A3D918F5221888B70040F791 /* ACKCollectionViewController.swift in Sources */,
 				A30D6F1F221EA56100622E65 /* OrderedSet.swift in Sources */,
 				A3D918F2221888B70040F791 /* UIViewExtensions.swift in Sources */,
+				A3CC9FFF2226DF2B000F3FBA /* CollectionTableViewCell.swift in Sources */,
 				A3D918F4221888B70040F791 /* ImagePickerViewController.swift in Sources */,
 				A3D918F6221888B70040F791 /* PHCollectionListExtensions.swift in Sources */,
 				A3D918F8221888B70040F791 /* ViewController.swift in Sources */,
@@ -314,6 +318,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = PXDF48X6VX;
 				INFOPLIST_FILE = "ACKImagePicker/Supporting files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,6 +339,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "ACKImagePicker/Supporting files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

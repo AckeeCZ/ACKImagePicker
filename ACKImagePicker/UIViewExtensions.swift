@@ -34,10 +34,15 @@ extension UIView {
     
 }
 
-extension UICollectionViewCell {
+protocol Reusable { }
+
+extension Reusable {
     
     static var reuseIdentifier: String {
-        return NSStringFromClass(self)
+        return NSStringFromClass(self as! AnyObject.Type)
     }
     
 }
+
+extension UICollectionViewCell: Reusable { }
+extension UITableViewCell: Reusable { }
