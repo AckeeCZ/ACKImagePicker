@@ -33,3 +33,11 @@ extension UIView {
     }
     
 }
+
+extension UICollectionViewCell {
+    
+    static var reuseIdentifier: String {
+        return NSStringFromClass(self)
+    }
+    
+}

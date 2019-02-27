@@ -11,8 +11,6 @@ import Photos
 
 final class AssetCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "AssetCollectionViewCell"
-    
     // Needed for correct asset to be loaded after request
     var assetIdentifier: String!
     var imageRequestID: PHImageRequestID?

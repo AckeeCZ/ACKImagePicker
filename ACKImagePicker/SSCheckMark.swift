@@ -29,11 +29,13 @@ open class SSCheckMark: UIView {
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+     
         commonInit()
     }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        
         commonInit()
     }
     
@@ -43,6 +45,7 @@ open class SSCheckMark: UIView {
     
     open override func draw(_ rect: CGRect) {
         super.draw(rect)
+       
         if isChecked {
             drawRectChecked(rect: rect)
         } else {

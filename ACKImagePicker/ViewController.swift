@@ -34,7 +34,7 @@ final class ViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.identifier)
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.reuseIdentifier)
         
         navigationItem.title = "ACKImagePicker"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(galleryBarButtonTapped(_:)))
@@ -66,7 +66,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.identifier, for: indexPath) as! ImageCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.reuseIdentifier, for: indexPath) as! ImageCell
         cell.image = images[indexPath.row]
         
         return cell
@@ -83,8 +83,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 private class ImageCell: UICollectionViewCell {
-    
-    static let identifier = "ImageCell"
     
     var image: UIImage? {
         get { return imageView.image }

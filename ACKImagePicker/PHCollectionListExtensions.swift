@@ -26,6 +26,7 @@ extension PHCollectionList {
         
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+       
         return PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: options)
     }
 
