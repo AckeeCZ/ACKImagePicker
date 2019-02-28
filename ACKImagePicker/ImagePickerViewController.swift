@@ -119,7 +119,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         switch sections[indexPath.section] {
         case .allPhotos:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel!.text = NSLocalizedString("All Photos", comment: "")
+            cell.textLabel?.text = NSLocalizedString("All Photos", comment: "")
             return cell
             
         case .smartAlbums:
@@ -143,7 +143,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         case .userCollections:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             let collection = userCollections.object(at: indexPath.row)
-            cell.textLabel!.text = collection.localizedTitle
+            cell.textLabel?.text = collection.localizedTitle
             return cell
         }
     }
