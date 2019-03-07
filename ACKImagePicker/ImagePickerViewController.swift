@@ -129,23 +129,17 @@ extension ImagePickerViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.reuseIdentifier, for: indexPath) as! CollectionTableViewCell
             cell.title = collection.localizedTitle
             
-            if let albumViewModel = albumViewModels[indexPath] {
-                cell.thumbImage = albumViewModel.image
-                cell.assetIdentifier = albumViewModel.assetIdentifier
-                albumViewModel.onImage = { [weak cell] image, identifier in
-                    guard cell?.assetIdentifier == identifier else { return }
-                    cell?.thumbImage = image
-                }
-            } else {
-                let albumViewModel = AlbumViewModel(collection: collection, imageManager: imageManager)
-                cell.assetIdentifier = albumViewModel.assetIdentifier
-                cell.thumbImage = albumViewModel.image
-                albumViewModel.onImage = { [weak cell] image, identifier in
-                    guard cell?.assetIdentifier == identifier else { return }
-                    cell?.thumbImage = image
-                }
-                
-                albumViewModels[indexPath] = albumViewModel
+            // Initialize new viewModel which performs the fetch
+            if albumViewModels[indexPath] == nil {
+                albumViewModels[indexPath] = AlbumViewModel(collection: collection, imageManager: imageManager)
+            }
+            
+            let albumViewModel = albumViewModels[indexPath]
+            cell.thumbImage = albumViewModel?.image
+            cell.assetIdentifier = albumViewModel?.assetIdentifier
+            albumViewModel?.onImage = { [weak cell] image, identifier in
+                guard cell?.assetIdentifier == identifier else { return }
+                cell?.thumbImage = image
             }
             
             return cell
