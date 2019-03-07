@@ -31,6 +31,7 @@ final class ImagePickerViewController: UIViewController {
     var maximumNumberOfImages: Int? = nil
     
     private let sections: [Section] = [.allPhotos, .smartAlbums, .userCollections]
+    private var albumViewModels: [IndexPath: AlbumViewModel] = [:]
     
     private var allPhotos: PHFetchResult<PHAsset>!
     private var smartAlbums: PHFetchResult<PHAssetCollection>!
@@ -123,19 +124,28 @@ extension ImagePickerViewController: UITableViewDataSource {
             return cell
             
         case .smartAlbums:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.reuseIdentifier, for: indexPath) as! CollectionTableViewCell
             let collection = smartAlbums.object(at: indexPath.row)
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.reuseIdentifier, for: indexPath) as! CollectionTableViewCell
             cell.title = collection.localizedTitle
-            let options = PHFetchOptions()
-            options.fetchLimit = 1
-            let result = PHAsset.fetchAssets(in: collection, options: options)
-            if let firstAsset = result.firstObject {
-                cell.assetIdentifier = firstAsset.localIdentifier
-                let size = CGSize(width: 50, height: 50)
-                imageManager.requestImage(for: firstAsset, targetSize: size, contentMode: .aspectFill, options: nil) { image, _ in
-                    guard cell.assetIdentifier == firstAsset.localIdentifier else { return }
-                    cell.thumbImage = image
+            
+            if let albumViewModel = albumViewModels[indexPath] {
+                cell.thumbImage = albumViewModel.image
+                cell.assetIdentifier = albumViewModel.assetIdentifier
+                albumViewModel.onImage = { [weak cell] image, identifier in
+                    guard cell?.assetIdentifier == identifier else { return }
+                    cell?.thumbImage = image
                 }
+            } else {
+                let albumViewModel = AlbumViewModel(collection: collection, imageManager: imageManager)
+                cell.assetIdentifier = albumViewModel.assetIdentifier
+                cell.thumbImage = albumViewModel.image
+                albumViewModel.onImage = { [weak cell] image, identifier in
+                    guard cell?.assetIdentifier == identifier else { return }
+                    cell?.thumbImage = image
+                }
+                
+                albumViewModels[indexPath] = albumViewModel
             }
             
             return cell
