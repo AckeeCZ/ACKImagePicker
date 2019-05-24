@@ -154,10 +154,11 @@ final class ACKPhotosViewController: UIViewController {
     }
     
     private func updateSelection() {
+        let title = NSLocalizedString("Selected", comment: "") + " " + String(selectedImages.count)
         if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages() {
-            navigationItem.title = NSLocalizedString("Selected", comment: "") + " " + String(selectedImages.count) + " / " + String(maxNumberOfImages)
+            navigationItem.title = title + " / " + String(maxNumberOfImages)
         } else {
-            navigationItem.title = NSLocalizedString("Selected", comment: "") + " " + String(selectedImages.count)
+            navigationItem.title = title
         }
         navigationItem.rightBarButtonItem?.isEnabled = selectedImages.count > 0
     }
