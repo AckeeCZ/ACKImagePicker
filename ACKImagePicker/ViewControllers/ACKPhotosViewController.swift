@@ -120,9 +120,9 @@ final class ACKPhotosViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(AssetCollectionViewCell.self, forCellWithReuseIdentifier: AssetCollectionViewCell.reuseIdentifier)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Select", comment: ""), style: .plain, target: self, action: #selector(selectBarButtonTapped(_:)))
+        
         updateSelection()
     }
     
@@ -184,6 +184,7 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
         cell.assetIdentifier = asset.localIdentifier
         cell.imageRequestID = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { [weak cell] image, _ in
             guard cell?.assetIdentifier == asset.localIdentifier else { return }
+            cell?.asset = asset
             cell?.thumbnailImage = image
             cell?.imageRequestID = nil
         }
