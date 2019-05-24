@@ -41,6 +41,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setup()
+        setupAccessibility()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,5 +89,14 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         
         imageView.image = nil
         livePhotoBadgeImageView.image = nil
+    }
+    
+    // MARK: - Accessibility
+    
+    private func setupAccessibility() {
+        isAccessibilityElement = true
+        accessibilityLabel = "Hahaha" // snímek obrazovky, Obrázek / live photo, panorama?, oblíbené?, efekt hloubky?, na výšku / na šířku // (zpomalené)? video, duration
+        accessibilityValue = "Hodnota" // Datum a čas
+        accessibilityTraits = [.image]
     }
 }
