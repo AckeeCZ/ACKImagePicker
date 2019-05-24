@@ -126,7 +126,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         case .smartAlbums:
             let collection = smartAlbums.object(at: indexPath.row)
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.reuseIdentifier, for: indexPath) as! CollectionTableViewCell
+            let cell: CollectionTableViewCell = tableView.dequeueCell(for: indexPath)
             cell.title = collection.localizedTitle
             
             // Initialize new viewModel which performs the fetch

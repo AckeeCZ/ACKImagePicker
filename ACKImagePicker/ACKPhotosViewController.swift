@@ -172,7 +172,7 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let asset = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return UICollectionViewCell() }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssetCollectionViewCell.reuseIdentifier, for: indexPath) as! AssetCollectionViewCell
+        let cell: AssetCollectionViewCell = collectionView.dequeueCell(for: indexPath)
         
         // Add a badge to the Live Photo
         if asset.mediaSubtypes.contains(.photoLive) {

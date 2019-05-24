@@ -33,16 +33,3 @@ extension UIView {
     }
     
 }
-
-protocol Reusable { }
-
-extension Reusable {
-    
-    static var reuseIdentifier: String {
-        return NSStringFromClass(self as! AnyObject.Type)
-    }
-    
-}
-
-extension UICollectionViewCell: Reusable { }
-extension UITableViewCell: Reusable { }

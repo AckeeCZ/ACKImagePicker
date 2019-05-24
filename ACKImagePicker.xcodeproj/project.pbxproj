@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A30D6F1F221EA56100622E65 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30D6F1E221EA56100622E65 /* OrderedSet.swift */; };
+		A34519D92297C6370019A777 /* NSLayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */; };
+		A34519DB2297C65E0019A777 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34519DA2297C65E0019A777 /* Reusable.swift */; };
 		A35764192231112F002DBF99 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35764182231112F002DBF99 /* AlbumViewModel.swift */; };
 		A3CC9FFD2226B0AE000F3FBA /* SSCheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */; };
 		A3CC9FFF2226DF2B000F3FBA /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		A30D6F1E221EA56100622E65 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
+		A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
+		A34519DA2297C65E0019A777 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		A35764182231112F002DBF99 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSCheckMark.swift; sourceTree = "<group>"; };
 		A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
@@ -53,6 +57,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A34519D72297C6210019A777 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */,
+				A3D918EF221888B60040F791 /* PHCollectionListExtensions.swift */,
+				A34519DA2297C65E0019A777 /* Reusable.swift */,
+				A3D918EB221888B60040F791 /* UIViewExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A3D918CC221888320040F791 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +87,7 @@
 		A3D918D7221888320040F791 /* ACKImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				A34519D72297C6210019A777 /* Extensions */,
 				A35764182231112F002DBF99 /* AlbumViewModel.swift */,
 				A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */,
 				A3D918D8221888320040F791 /* AppDelegate.swift */,
@@ -81,8 +97,6 @@
 				A3D918EC221888B60040F791 /* ACKPhotosViewController.swift */,
 				A3D918F0221888B70040F791 /* AssetCollectionViewCell.swift */,
 				A3D918ED221888B60040F791 /* ImagePickerViewController.swift */,
-				A3D918EF221888B60040F791 /* PHCollectionListExtensions.swift */,
-				A3D918EB221888B60040F791 /* UIViewExtensions.swift */,
 				A3D918F1221888B70040F791 /* ViewController.swift */,
 				A3D918EA221888620040F791 /* Supporting files */,
 			);
@@ -176,6 +190,8 @@
 				A3D918F7221888B70040F791 /* AssetCollectionViewCell.swift in Sources */,
 				A3D918F5221888B70040F791 /* ACKCollectionViewController.swift in Sources */,
 				A30D6F1F221EA56100622E65 /* OrderedSet.swift in Sources */,
+				A34519DB2297C65E0019A777 /* Reusable.swift in Sources */,
+				A34519D92297C6370019A777 /* NSLayoutConstraintExtensions.swift in Sources */,
 				A3D918F2221888B70040F791 /* UIViewExtensions.swift in Sources */,
 				A3CC9FFF2226DF2B000F3FBA /* CollectionTableViewCell.swift in Sources */,
 				A3D918F4221888B70040F791 /* ImagePickerViewController.swift in Sources */,
