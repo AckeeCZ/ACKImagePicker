@@ -22,12 +22,6 @@ final class CollectionTableViewCell: UITableViewCell {
         set { titleLabel.text = newValue }
     }
     
-    override var isSelected: Bool {
-        didSet {
-            thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-        }
-    }
-    
     private weak var thumbImageView: UIImageView!
     private weak var titleLabel: UILabel!
     
@@ -80,6 +74,24 @@ final class CollectionTableViewCell: UITableViewCell {
         
         thumbImage = nil
     }
+    
+    // MARK: - Selection
+    
+    private func updateSelection(_ isSelected: Bool, animated: Bool) {
+        thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        updateSelection(selected, animated: animated)
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        updateSelection(highlighted, animated: animated)
+    }
 }
 
 extension NSLayoutConstraint {
@@ -88,6 +100,5 @@ extension NSLayoutConstraint {
         self.init(item: view1, attribute: attr1, relatedBy: relation, toItem: view2, attribute: attr2, multiplier: multiplier, constant: c)
         priority = UILayoutPriority(rawValue: p)
     }
-    
     
 }
