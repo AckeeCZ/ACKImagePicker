@@ -68,6 +68,25 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		A34519DC2297C7D30019A777 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A3D918F0221888B70040F791 /* AssetCollectionViewCell.swift */,
+				A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A34519DD2297C7E50019A777 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A3D918EE221888B60040F791 /* ACKCollectionViewController.swift */,
+				A3D918EC221888B60040F791 /* ACKPhotosViewController.swift */,
+				A3D918ED221888B60040F791 /* ImagePickerViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		A3D918CC221888320040F791 = {
 			isa = PBXGroup;
 			children = (
@@ -88,15 +107,12 @@
 			isa = PBXGroup;
 			children = (
 				A34519D72297C6210019A777 /* Extensions */,
-				A35764182231112F002DBF99 /* AlbumViewModel.swift */,
-				A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */,
-				A3D918D8221888320040F791 /* AppDelegate.swift */,
+				A34519DD2297C7E50019A777 /* ViewControllers */,
+				A34519DC2297C7D30019A777 /* Cells */,
 				A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */,
+				A35764182231112F002DBF99 /* AlbumViewModel.swift */,
 				A30D6F1E221EA56100622E65 /* OrderedSet.swift */,
-				A3D918EE221888B60040F791 /* ACKCollectionViewController.swift */,
-				A3D918EC221888B60040F791 /* ACKPhotosViewController.swift */,
-				A3D918F0221888B70040F791 /* AssetCollectionViewCell.swift */,
-				A3D918ED221888B60040F791 /* ImagePickerViewController.swift */,
+				A3D918D8221888320040F791 /* AppDelegate.swift */,
 				A3D918F1221888B70040F791 /* ViewController.swift */,
 				A3D918EA221888620040F791 /* Supporting files */,
 			);
