@@ -102,63 +102,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         isAccessibilityElement = true
 
         accessibilityLabel = asset?.accessibilityLabelText
-        if let creationDate = asset?.creationDate {
-            let dateText = DateFormatter.localizedString(from: creationDate, dateStyle: .medium, timeStyle: .none)
-            let hourComponents = Calendar.current.dateComponents([.hour, .minute], from: creationDate)
-            if let hourText = DateComponentsFormatter.localizedString(from: hourComponents, unitsStyle: .spellOut) {
-                accessibilityValue = dateText + " " + hourText
-            } else {
-                accessibilityValue = dateText
-            }
-        }
+        accessibilityValue = asset?.accessibilityValueText
         accessibilityTraits = [.button]
     }
 }
-
-extension PHAsset {
-    
-    var accessibilityLabelText: String? {
-        var components: [String] = []
-        switch mediaType {
-        case .image:
-            components.append("Obrázek")
-        case .video:
-            components.append("Video")
-        default: break
-        }
-        
-        if isFavorite {
-            components.append("Oblíbený")
-        }
-        
-        if mediaSubtypes.contains(.photoDepthEffect) {
-            components.append("Efekt hloubky")
-        }
-        if mediaSubtypes.contains(.photoPanorama) {
-            components.append("Panorama")
-        }
-        if mediaSubtypes.contains(.photoLive) {
-            components.append("Live photo")
-        }
-        if mediaSubtypes.contains(.photoScreenshot) {
-            components.append("Snímek obrazovky")
-        }
-        if mediaSubtypes.contains(.videoHighFrameRate) {
-            components.append("Zpomalené")
-        }
-        
-        if pixelWidth > pixelHeight {
-            components.append("Na šířku")
-        } else {
-            components.append("Na výšku")
-        }
-        
-        if mediaType == .video {
-            components.append(String(duration) + " vteřin")
-        }
-        
-        return components.joined(separator: ", ")
-    }
-    
-}
-

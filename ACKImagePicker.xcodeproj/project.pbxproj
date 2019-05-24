@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A30D6F1F221EA56100622E65 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30D6F1E221EA56100622E65 /* OrderedSet.swift */; };
+		A3228D9C229839F600C23159 /* PHAssetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3228D9B229839F600C23159 /* PHAssetExtensions.swift */; };
 		A34519D92297C6370019A777 /* NSLayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */; };
 		A34519DB2297C65E0019A777 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34519DA2297C65E0019A777 /* Reusable.swift */; };
 		A35764192231112F002DBF99 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35764182231112F002DBF99 /* AlbumViewModel.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		A30D6F1E221EA56100622E65 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		A3228D9A2298384000C23159 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A3228D9B229839F600C23159 /* PHAssetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetExtensions.swift; sourceTree = "<group>"; };
 		A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
 		A34519DA2297C65E0019A777 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		A35764182231112F002DBF99 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */,
+				A3228D9B229839F600C23159 /* PHAssetExtensions.swift */,
 				A3D918EF221888B60040F791 /* PHCollectionListExtensions.swift */,
 				A34519DA2297C65E0019A777 /* Reusable.swift */,
 				A3D918EB221888B60040F791 /* UIViewExtensions.swift */,
@@ -214,6 +217,7 @@
 				A3CC9FFF2226DF2B000F3FBA /* CollectionTableViewCell.swift in Sources */,
 				A3D918F4221888B70040F791 /* ImagePickerViewController.swift in Sources */,
 				A3D918F6221888B70040F791 /* PHCollectionListExtensions.swift in Sources */,
+				A3228D9C229839F600C23159 /* PHAssetExtensions.swift in Sources */,
 				A3D918F8221888B70040F791 /* ViewController.swift in Sources */,
 				A3D918D9221888320040F791 /* AppDelegate.swift in Sources */,
 			);
