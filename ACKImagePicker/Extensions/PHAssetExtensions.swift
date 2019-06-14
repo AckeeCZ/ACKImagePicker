@@ -15,6 +15,10 @@ extension PHAsset {
         var components: [String] = []
         if mediaSubtypes.contains(.photoLive) {
             components.append("Live photo")
+        } else if mediaSubtypes.contains(.videoHighFrameRate) {
+            components.append("Zpomalené video")
+        } else if mediaSubtypes.contains(.videoTimelapse) {
+            components.append("Časosběrné video")
         } else if mediaType == .image {
             components.append("Obrázek")
         } else if mediaType == .video {
@@ -24,7 +28,6 @@ extension PHAsset {
         if isFavorite {
             components.append("Oblíbený")
         }
-        
         if mediaSubtypes.contains(.photoDepthEffect) {
             components.append("Efekt hloubky")
         }
@@ -34,9 +37,7 @@ extension PHAsset {
         if mediaSubtypes.contains(.photoScreenshot) {
             components.append("Snímek obrazovky")
         }
-        if mediaSubtypes.contains(.videoHighFrameRate) {
-            components.append("Zpomalené")
-        }
+        
         
         if pixelWidth > pixelHeight {
             components.append("Na šířku")
