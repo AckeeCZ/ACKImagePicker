@@ -45,8 +45,8 @@ extension PHAsset {
             components.append("Na výšku")
         }
         
-        if mediaType == .video {
-            components.append(String(duration) + " vteřin")
+        if mediaType == .video, let duration = Formatters.duration.string(from: duration) {
+            components.append(duration)
         }
         
         return components.joined(separator: ", ")

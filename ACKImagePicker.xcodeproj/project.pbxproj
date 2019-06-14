@@ -12,6 +12,7 @@
 		A34519D92297C6370019A777 /* NSLayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */; };
 		A34519DB2297C65E0019A777 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34519DA2297C65E0019A777 /* Reusable.swift */; };
 		A35764192231112F002DBF99 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35764182231112F002DBF99 /* AlbumViewModel.swift */; };
+		A38F733B22B3E697000A05FE /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38F733A22B3E697000A05FE /* Formatters.swift */; };
 		A3CC9FFD2226B0AE000F3FBA /* SSCheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */; };
 		A3CC9FFF2226DF2B000F3FBA /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */; };
 		A3D918D9221888320040F791 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D918D8221888320040F791 /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 		A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
 		A34519DA2297C65E0019A777 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		A35764182231112F002DBF99 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		A38F733A22B3E697000A05FE /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSCheckMark.swift; sourceTree = "<group>"; };
 		A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		A3D918D5221888320040F791 /* ACKImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACKImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +112,7 @@
 		A3D918D7221888320040F791 /* ACKImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				A38F733A22B3E697000A05FE /* Formatters.swift */,
 				A34519D72297C6210019A777 /* Extensions */,
 				A34519DD2297C7E50019A777 /* ViewControllers */,
 				A34519DC2297C7D30019A777 /* Cells */,
@@ -207,6 +210,7 @@
 			files = (
 				A35764192231112F002DBF99 /* AlbumViewModel.swift in Sources */,
 				A3D918F3221888B70040F791 /* ACKPhotosViewController.swift in Sources */,
+				A38F733B22B3E697000A05FE /* Formatters.swift in Sources */,
 				A3CC9FFD2226B0AE000F3FBA /* SSCheckMark.swift in Sources */,
 				A3D918F7221888B70040F791 /* AssetCollectionViewCell.swift in Sources */,
 				A3D918F5221888B70040F791 /* ACKCollectionViewController.swift in Sources */,
