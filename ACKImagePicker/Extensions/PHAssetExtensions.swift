@@ -13,12 +13,12 @@ extension PHAsset {
     
     var accessibilityLabelText: String? {
         var components: [String] = []
-        switch mediaType {
-        case .image:
+        if mediaSubtypes.contains(.photoLive) {
+            components.append("Live photo")
+        } else if mediaType == .image {
             components.append("Obrázek")
-        case .video:
+        } else if mediaType == .video {
             components.append("Video")
-        default: break
         }
         
         if isFavorite {
@@ -30,9 +30,6 @@ extension PHAsset {
         }
         if mediaSubtypes.contains(.photoPanorama) {
             components.append("Panorama")
-        }
-        if mediaSubtypes.contains(.photoLive) {
-            components.append("Live photo")
         }
         if mediaSubtypes.contains(.photoScreenshot) {
             components.append("Snímek obrazovky")
