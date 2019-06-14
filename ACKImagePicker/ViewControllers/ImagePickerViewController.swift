@@ -121,6 +121,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         case .allPhotos:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.textLabel?.text = NSLocalizedString("All Photos", comment: "")
+            cell.accessoryType = .disclosureIndicator
             return cell
             
         case .smartAlbums:
@@ -128,6 +129,7 @@ extension ImagePickerViewController: UITableViewDataSource {
             
             let cell: CollectionTableViewCell = tableView.dequeueCell(for: indexPath)
             cell.title = collection.localizedTitle
+            cell.accessoryType = .disclosureIndicator
             
             // Initialize new viewModel which performs the fetch
             if albumViewModels[indexPath] == nil {
@@ -148,6 +150,7 @@ extension ImagePickerViewController: UITableViewDataSource {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             let collection = userCollections.object(at: indexPath.row)
             cell.textLabel?.text = collection.localizedTitle
+            cell.accessoryType = .disclosureIndicator
             return cell
         }
     }

@@ -92,10 +92,12 @@ extension ACKCollectionViewController: UITableViewDataSource {
         case .allPhotos:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.textLabel?.text = NSLocalizedString("All photos", comment: "")
+            cell.accessoryType = .disclosureIndicator
             return cell
         case .collections:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.textLabel?.text = collections?[indexPath.row].localizedTitle
+            cell.accessoryType = .disclosureIndicator
             return cell
         }
     }
