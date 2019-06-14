@@ -57,6 +57,8 @@ final class CollectionTableViewCell: UITableViewCell {
         self.thumbImageView = thumbImageView
         
         let titleLabel = UILabel()
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        titleLabel.adjustsFontForContentSizeCategory = true
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
