@@ -21,8 +21,8 @@ open class ImagePickerViewController: UIViewController {
         var title: String? {
             switch self {
             case .allPhotos: return nil
-            case .smartAlbums: return NSLocalizedString("Smart Albums", comment: "")
-            case .userCollections: return NSLocalizedString("Albums", comment: "")
+            case .smartAlbums: return "picker.section.smart_albums".localized()
+            case .userCollections: return "picker.section.albums".localized()
             }
         }
     }
@@ -57,7 +57,7 @@ open class ImagePickerViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = NSLocalizedString("Photos", comment: "")
+        navigationItem.title = "picker.title".localized()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
         
         tableView.dataSource = self
@@ -120,7 +120,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         switch sections[indexPath.section] {
         case .allPhotos:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = NSLocalizedString("All Photos", comment: "")
+            cell.textLabel?.text = "picker.all_photos".localized()
             cell.accessoryType = .disclosureIndicator
             return cell
             

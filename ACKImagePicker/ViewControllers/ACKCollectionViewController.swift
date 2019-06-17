@@ -91,7 +91,7 @@ extension ACKCollectionViewController: UITableViewDataSource {
         switch sections[indexPath.section] {
         case .allPhotos:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = NSLocalizedString("All photos", comment: "")
+            cell.textLabel?.text = "picker.all_photos".localized()
             cell.accessoryType = .disclosureIndicator
             return cell
         case .collections:

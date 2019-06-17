@@ -107,7 +107,7 @@ final class ACKPhotosViewController: UIViewController {
         
         let emptyLabel = UILabel()
         emptyLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        emptyLabel.text = NSLocalizedString("Nothing here", comment: "")
+        emptyLabel.text = "photos.empty".localized()
         view.addSubview(emptyLabel)
         emptyLabel.makeCenterEqualToSuperview()
         self.emptyLabel = emptyLabel
@@ -121,7 +121,7 @@ final class ACKPhotosViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Select", comment: ""), style: .plain, target: self, action: #selector(selectBarButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "photos.button.select".localized(), style: .plain, target: self, action: #selector(selectBarButtonTapped(_:)))
         
         updateSelection()
     }
@@ -154,7 +154,7 @@ final class ACKPhotosViewController: UIViewController {
     }
     
     private func updateSelection() {
-        let title = NSLocalizedString("Selected", comment: "") + " " + String(selectedImages.count)
+        let title = "photos.selected".localized() + " " + String(selectedImages.count)
         if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages() {
             navigationItem.title = title + " / " + String(maxNumberOfImages)
         } else {

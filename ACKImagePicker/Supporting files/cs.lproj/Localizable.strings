@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  ACKImagePicker
+
+  Created by Lukáš Hromadník on 17/06/2019.
+  Copyright © 2019 Lukáš Hromadník. All rights reserved.
+*/
+
+picker.section.smart_albums = "Chytrá alba";
+picker.section.albums = "Moje alba";
+picker.title = "Fotografie";
+picker.all_photos = "Všechny fotografie";
+
+photos.empty = "Nic tu není";
+photos.button.select = "Vybrat";
+photos.selected = "Vybráno";
+
+asset.live_photo = "Live photo";
+asset.high_frame_rate = "Zpomalené video";
+asset.timelapse = "Časosběrné video";
+asset.image = "Obrázek";
+asset.video = "Video";
+asset.is_favorite = "Oblíbené";
+asset.depth_effect = "Efekt hloubky";
+asset.panorama = "Panorama";
+asset.screenshot = "Snímek obrazovky";
+asset.height = "Na výšku";
+asset.width = "Na šířku";
