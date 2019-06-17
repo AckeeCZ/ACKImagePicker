@@ -13,4 +13,5 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '9.0'
     s.source_files     = 'ACKImagePicker/*.swift'
     s.swift_version    = '5.0'
+    s.resource_bundle = { "ACKImagePicker" => ["ACKImagePicker/Supporting files/*.lproj/*.strings"] }
 end
