@@ -45,7 +45,7 @@ final class ViewController: UIViewController {
     
     @objc
     private func galleryBarButtonTapped(_ sender: UIBarButtonItem) {
-        let controller = ImagePickerViewController()
+        let controller = ACKImagePicker()
         controller.maximumNumberOfImages = 3
         controller.onImagesPicked = { [weak self] images in
             self?.images = images
@@ -53,9 +53,7 @@ final class ViewController: UIViewController {
             self?.dismiss(animated: true)
         }
         
-        let navigationController = UINavigationController(rootViewController: controller)
-        
-        present(navigationController, animated: true)
+        present(controller, animated: true)
     }
 
 }

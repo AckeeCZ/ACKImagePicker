@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-open class ImagePickerViewController: UIViewController {
+class ImagePickerViewController: UIViewController {
     
     private let imageManager = PHImageManager()
     
@@ -27,8 +27,8 @@ open class ImagePickerViewController: UIViewController {
         }
     }
     
-    open var onImagesPicked: (([UIImage]) -> Void)?
-    open var maximumNumberOfImages: Int? = nil
+    var onImagesPicked: (([UIImage]) -> Void)?
+    var maximumNumberOfImages: Int? = nil
     
     private let sections: [Section] = [.allPhotos, .smartAlbums, .userCollections]
     private var albumViewModels: [IndexPath: AlbumViewModel] = [:]
