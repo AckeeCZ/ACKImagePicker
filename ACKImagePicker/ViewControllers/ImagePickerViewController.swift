@@ -34,7 +34,44 @@ class ImagePickerViewController: UIViewController {
     private var albumViewModels: [IndexPath: AlbumViewModel] = [:]
     
     private var allPhotos: PHFetchResult<PHAsset>!
-    private var smartAlbums: PHFetchResult<PHAssetCollection>!
+    private var smartAlbumsResults: PHFetchResult<PHAssetCollection>! {
+        didSet {
+            smartAlbumsResults.enumerateObjects { [weak self] collection, _, _ in
+                guard self?.smartSubtypes.contains(collection.assetCollectionSubtype) ?? false else { return }
+                self?.smartAlbums.append(collection)
+            }
+        }
+    }
+    private var smartAlbums: [PHAssetCollection] = []
+    private let smartSubtypes: [PHAssetCollectionSubtype] = {
+        var smartSubtypes: [PHAssetCollectionSubtype] = [
+            .smartAlbumGeneric,
+            .smartAlbumPanoramas,
+//            .smartAlbumVideos,
+            .smartAlbumFavorites,
+//            .smartAlbumTimelapses,
+            .smartAlbumAllHidden,
+            .smartAlbumRecentlyAdded,
+            .smartAlbumBursts,
+//            .smartAlbumSlomoVideos,
+            .smartAlbumUserLibrary,
+            .smartAlbumSelfPortraits,
+            .smartAlbumScreenshots
+        ]
+        
+        if #available(iOS 10.2, *) {
+            smartSubtypes.append(.smartAlbumDepthEffect)
+        }
+        if #available(iOS 10.3, *) {
+            smartSubtypes.append(.smartAlbumLivePhotos)
+        }
+        if #available(iOS 11.0, *) {
+            smartSubtypes.append(.smartAlbumAnimated)
+            smartSubtypes.append(.smartAlbumLongExposures)
+        }
+        return smartSubtypes
+    }()
+    
     private var userCollections: PHFetchResult<PHCollection>!
     
     private weak var tableView: UITableView!
@@ -65,11 +102,10 @@ class ImagePickerViewController: UIViewController {
         
         let allPhotosOptions = PHFetchOptions()
         allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
-        smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        allPhotos = PHAsset.fetchAssets(with: .image, options: allPhotosOptions)
+
+        smartAlbumsResults = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
         userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-        
-        tableView.register(CollectionTableViewCell.self, forCellReuseIdentifier: CollectionTableViewCell.reuseIdentifier)
         
         PHPhotoLibrary.shared().register(self)
     }
@@ -125,7 +161,7 @@ extension ImagePickerViewController: UITableViewDataSource {
             return cell
             
         case .smartAlbums:
-            let collection = smartAlbums.object(at: indexPath.row)
+            let collection = smartAlbums[indexPath.row]
             
             let cell: CollectionTableViewCell = tableView.dequeueCell(for: indexPath)
             cell.title = collection.localizedTitle
@@ -204,8 +240,8 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
             }
 
             // Update the cached fetch results, and reload the table sections to match.
-            if let changeDetails = changeInstance.changeDetails(for: smartAlbums) {
-                smartAlbums = changeDetails.fetchResultAfterChanges
+            if let changeDetails = changeInstance.changeDetails(for: smartAlbumsResults) {
+                smartAlbumsResults = changeDetails.fetchResultAfterChanges
                 self?.reloadSection(.smartAlbums)
             }
             

@@ -46,8 +46,13 @@ final class ACKPhotosViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.title = assetCollection.localizedTitle
-
-        self.fetchResult = PHAsset.fetchAssets(in: assetCollection, options: nil)
+        
+        // Fetch only photos
+        let options = PHFetchOptions()
+        options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        
+        self.fetchResult = PHAsset.fetchAssets(in: assetCollection, options: options)
+        
         self.state = fetchResult?.count == 0 ? .noData : .data
     }
     
