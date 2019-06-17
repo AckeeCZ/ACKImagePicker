@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ACKImagePicker
 
 final class ViewController: UIViewController {
     
@@ -83,6 +84,8 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 private class ImageCell: UICollectionViewCell {
+    
+    static let reuseIdentifier = "ImageCell"
     
     var image: UIImage? {
         get { return imageView.image }

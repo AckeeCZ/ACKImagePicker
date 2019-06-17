@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-final class ImagePickerViewController: UIViewController {
+open class ImagePickerViewController: UIViewController {
     
     private let imageManager = PHImageManager()
     
@@ -27,8 +27,8 @@ final class ImagePickerViewController: UIViewController {
         }
     }
     
-    var onImagesPicked: (([UIImage]) -> Void)?
-    var maximumNumberOfImages: Int? = nil
+    open var onImagesPicked: (([UIImage]) -> Void)?
+    open var maximumNumberOfImages: Int? = nil
     
     private let sections: [Section] = [.allPhotos, .smartAlbums, .userCollections]
     private var albumViewModels: [IndexPath: AlbumViewModel] = [:]
@@ -41,7 +41,7 @@ final class ImagePickerViewController: UIViewController {
     
     // MARK: - Controller lifecycle
     
-    override func loadView() {
+    override open func loadView() {
         super.loadView()
         
         view.backgroundColor = .white
@@ -54,7 +54,7 @@ final class ImagePickerViewController: UIViewController {
         self.tableView = tableView
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = NSLocalizedString("Photos", comment: "")
@@ -74,7 +74,7 @@ final class ImagePickerViewController: UIViewController {
         PHPhotoLibrary.shared().register(self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: animated) }
@@ -104,11 +104,11 @@ final class ImagePickerViewController: UIViewController {
 
 extension ImagePickerViewController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case .allPhotos: return 1
         case .smartAlbums: return smartAlbums.count
@@ -116,7 +116,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
         case .allPhotos:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -159,11 +159,11 @@ extension ImagePickerViewController: UITableViewDataSource {
 
 extension ImagePickerViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .allPhotos:
             let controller = ACKPhotosViewController(fetchResult: allPhotos)
@@ -190,7 +190,7 @@ extension ImagePickerViewController: UITableViewDelegate {
 
 extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
     
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
+    public func photoLibraryDidChange(_ changeInstance: PHChange) {
         
         // Change notifications may originate from a background queue.
         // Re-dispatch to the main queue before acting on the change,

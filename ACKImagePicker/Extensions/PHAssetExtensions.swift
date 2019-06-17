@@ -13,7 +13,7 @@ extension PHAsset {
     
     var accessibilityLabelText: String? {
         var components: [String] = []
-        if mediaSubtypes.contains(.photoLive) {
+        if #available(iOS 9.1, *), mediaSubtypes.contains(.photoLive) {
             components.append("Live photo")
         } else if mediaSubtypes.contains(.videoHighFrameRate) {
             components.append("Zpomalené video")
@@ -28,7 +28,7 @@ extension PHAsset {
         if isFavorite {
             components.append("Oblíbený")
         }
-        if mediaSubtypes.contains(.photoDepthEffect) {
+        if #available(iOS 10.2, *), mediaSubtypes.contains(.photoDepthEffect) {
             components.append("Efekt hloubky")
         }
         if mediaSubtypes.contains(.photoPanorama) {

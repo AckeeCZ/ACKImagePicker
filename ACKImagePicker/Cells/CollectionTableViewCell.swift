@@ -58,7 +58,9 @@ final class CollectionTableViewCell: UITableViewCell {
         
         let titleLabel = UILabel()
         titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        titleLabel.adjustsFontForContentSizeCategory = true
+        if #available(iOS 10.0, *) {
+            titleLabel.adjustsFontForContentSizeCategory = true
+        }
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([

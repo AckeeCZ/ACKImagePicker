@@ -176,7 +176,7 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
         let cell: AssetCollectionViewCell = collectionView.dequeueCell(for: indexPath)
         
         // Add a badge to the Live Photo
-        if asset.mediaSubtypes.contains(.photoLive) {
+        if #available(iOS 9.1, *), asset.mediaSubtypes.contains(.photoLive) {
             cell.livePhotoBadgeImage = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
         }
         

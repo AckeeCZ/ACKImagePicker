@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A3FC20AC22B77320005E60F9"
-               BuildableName = "ACKImagePicker.framework"
-               BlueprintName = "ACKImagePicker"
+               BlueprintIdentifier = "A3D918D4221888320040F791"
+               BuildableName = "ACKImagePickerExample.app"
+               BlueprintName = "ACKImagePickerExample"
                ReferencedContainer = "container:ACKImagePicker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A3D918D4221888320040F791"
+            BuildableName = "ACKImagePickerExample.app"
+            BlueprintName = "ACKImagePickerExample"
+            ReferencedContainer = "container:ACKImagePicker.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -42,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A3FC20AC22B77320005E60F9"
-            BuildableName = "ACKImagePicker.framework"
-            BlueprintName = "ACKImagePicker"
+            BlueprintIdentifier = "A3D918D4221888320040F791"
+            BuildableName = "ACKImagePickerExample.app"
+            BlueprintName = "ACKImagePickerExample"
             ReferencedContainer = "container:ACKImagePicker.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -60,15 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A3FC20AC22B77320005E60F9"
-            BuildableName = "ACKImagePicker.framework"
-            BlueprintName = "ACKImagePicker"
+            BlueprintIdentifier = "A3D918D4221888320040F791"
+            BuildableName = "ACKImagePickerExample.app"
+            BlueprintName = "ACKImagePickerExample"
             ReferencedContainer = "container:ACKImagePicker.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
