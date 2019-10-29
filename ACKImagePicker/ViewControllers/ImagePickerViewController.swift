@@ -166,43 +166,42 @@ extension ImagePickerViewController: UITableViewDataSource {
             let image: UIImage!
             switch collection.assetCollectionSubtype {
             case .smartAlbumPanoramas:
-                image = UIImage(named: "panoramas")
+                image = Assets.panoramas.image
             case .smartAlbumVideos:
-                image = UIImage(named: "videos")
+                image = Assets.videos.image
             case .smartAlbumFavorites:
-                image = UIImage(named: "favourites")
+                image = Assets.favourites.image
             case .smartAlbumTimelapses:
-                image = UIImage(named: "time-lapse")
+                image = Assets.timelapse.image
             case .smartAlbumAllHidden:
-                image = UIImage(named: "hidden")
+                image = Assets.hidden.image
             case .smartAlbumRecentlyAdded:
-                image = UIImage(named: "recently_added")
+                image = Assets.recentlyAdded.image
             case .smartAlbumBursts:
-                image = UIImage(named: "bursts")
+                image = Assets.burts.image
             case .smartAlbumSelfPortraits:
-                image = UIImage(named: "selfies")
+                image = Assets.selfies.image
             case .smartAlbumScreenshots:
-                image = UIImage(named: "screenshots")
+                image = Assets.screenshots.image
             case .smartAlbumSlomoVideos:
-                image = UIImage(named: "slo-mo")
+                image = Assets.sloMo.image
             case .smartAlbumDepthEffect:
-                image = UIImage(named: "random")
+                image = Assets.random.image
             case .smartAlbumLivePhotos:
-                image = UIImage(named: "live_photos")
+                image = Assets.livePhotos.image
             case .smartAlbumAnimated:
-                image = UIImage(named: "animated")
+                image = Assets.animated.image
             case .smartAlbumLongExposures:
-                image = UIImage(named: "long_exposure")
-            @unknown default:
-                image = UIImage(named: "random")
+                image = Assets.longExposure.image
+            default:
+                image = Assets.random.image
             }
             
             let cell: CollectionTableViewCell = tableView.dequeueCell(for: indexPath)
             cell.title = collection.localizedTitle
             cell.accessoryType = .disclosureIndicator
-            cell.thumbImage = image.withRenderingMode(.alwaysOriginal)
             
-            // Initialize new viewModel which performs the fetch
+            // Initialize a new viewModel which performs the fetch
             if albumViewModels[indexPath] == nil {
                 albumViewModels[indexPath] = AlbumViewModel(collection: collection, imageManager: imageManager)
             }

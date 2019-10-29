@@ -29,6 +29,7 @@
 		A3D918E0221888340040F791 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D918DF221888340040F791 /* Assets.xcassets */; };
 		A3D918E3221888340040F791 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3D918E1221888340040F791 /* LaunchScreen.storyboard */; };
 		A3D918F8221888B70040F791 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D918F1221888B70040F791 /* ViewController.swift */; };
+		A3EBCB5123686A1500FEA458 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EBCB5023686A1500FEA458 /* Assets.swift */; };
 		A3FC20B122B77320005E60F9 /* ACKImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = A3FC20AF22B77320005E60F9 /* ACKImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3FC20B422B77320005E60F9 /* ACKImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3FC20AD22B77320005E60F9 /* ACKImagePicker.framework */; };
 		A3FC20B522B77320005E60F9 /* ACKImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A3FC20AD22B77320005E60F9 /* ACKImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -85,6 +86,7 @@
 		A3D918EF221888B60040F791 /* PHCollectionListExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHCollectionListExtensions.swift; sourceTree = "<group>"; };
 		A3D918F0221888B70040F791 /* AssetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetCollectionViewCell.swift; sourceTree = "<group>"; };
 		A3D918F1221888B70040F791 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A3EBCB5023686A1500FEA458 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Assets.swift; path = ACKImagePicker/Assets.swift; sourceTree = "<group>"; };
 		A3FC20AD22B77320005E60F9 /* ACKImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ACKImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3FC20AF22B77320005E60F9 /* ACKImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACKImagePicker.h; sourceTree = "<group>"; };
 		A3FC20B022B77320005E60F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		A3D918CC221888320040F791 = {
 			isa = PBXGroup;
 			children = (
+				A3EBCB5023686A1500FEA458 /* Assets.swift */,
 				A3FC20AE22B77320005E60F9 /* ACKImagePicker */,
 				A3D918D7221888320040F791 /* ACKImagePickerExample */,
 				A3D918D6221888320040F791 /* Products */,
@@ -337,6 +340,7 @@
 				A37995D722B775B90008AAE7 /* PHCollectionListExtensions.swift in Sources */,
 				A37995DB22B775C60008AAE7 /* ACKPhotosViewController.swift in Sources */,
 				A37995DD22B775CB0008AAE7 /* AssetCollectionViewCell.swift in Sources */,
+				A3EBCB5123686A1500FEA458 /* Assets.swift in Sources */,
 				A37995DE22B775CE0008AAE7 /* CollectionTableViewCell.swift in Sources */,
 				A37995D522B775B20008AAE7 /* NSLayoutConstraintExtensions.swift in Sources */,
 				A37995E122B775D60008AAE7 /* OrderedSet.swift in Sources */,
