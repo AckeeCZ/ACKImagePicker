@@ -45,6 +45,7 @@ final class CollectionTableViewCell: UITableViewCell {
         thumbImageView.clipsToBounds = true
         thumbImageView.contentMode = .scaleAspectFill
         thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+//        thumbImageView.backgroundColor = .white
         contentView.addSubview(thumbImageView)
         thumbImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
@@ -82,7 +83,7 @@ final class CollectionTableViewCell: UITableViewCell {
     // MARK: - Selection
     
     private func updateSelection(_ isSelected: Bool, animated: Bool) {
-        thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+//        thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

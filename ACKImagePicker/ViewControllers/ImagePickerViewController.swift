@@ -162,10 +162,45 @@ extension ImagePickerViewController: UITableViewDataSource {
             
         case .smartAlbums:
             let collection = smartAlbums[indexPath.row]
+
+            let image: UIImage!
+            switch collection.assetCollectionSubtype {
+            case .smartAlbumPanoramas:
+                image = UIImage(named: "panoramas")
+            case .smartAlbumVideos:
+                image = UIImage(named: "videos")
+            case .smartAlbumFavorites:
+                image = UIImage(named: "favourites")
+            case .smartAlbumTimelapses:
+                image = UIImage(named: "time-lapse")
+            case .smartAlbumAllHidden:
+                image = UIImage(named: "hidden")
+            case .smartAlbumRecentlyAdded:
+                image = UIImage(named: "recently_added")
+            case .smartAlbumBursts:
+                image = UIImage(named: "bursts")
+            case .smartAlbumSelfPortraits:
+                image = UIImage(named: "selfies")
+            case .smartAlbumScreenshots:
+                image = UIImage(named: "screenshots")
+            case .smartAlbumSlomoVideos:
+                image = UIImage(named: "slo-mo")
+            case .smartAlbumDepthEffect:
+                image = UIImage(named: "random")
+            case .smartAlbumLivePhotos:
+                image = UIImage(named: "live_photos")
+            case .smartAlbumAnimated:
+                image = UIImage(named: "animated")
+            case .smartAlbumLongExposures:
+                image = UIImage(named: "long_exposure")
+            @unknown default:
+                image = UIImage(named: "random")
+            }
             
             let cell: CollectionTableViewCell = tableView.dequeueCell(for: indexPath)
             cell.title = collection.localizedTitle
             cell.accessoryType = .disclosureIndicator
+            cell.thumbImage = image.withRenderingMode(.alwaysOriginal)
             
             // Initialize new viewModel which performs the fetch
             if albumViewModels[indexPath] == nil {
@@ -173,10 +208,10 @@ extension ImagePickerViewController: UITableViewDataSource {
             }
             
             let albumViewModel = albumViewModels[indexPath]
-            cell.thumbImage = albumViewModel?.image
+            cell.thumbImage = albumViewModel?.image ?? image.withRenderingMode(.alwaysOriginal)
             cell.assetIdentifier = albumViewModel?.assetIdentifier
             albumViewModel?.onImage = { [weak cell] image, identifier in
-                guard cell?.assetIdentifier == identifier else { return }
+                guard cell?.assetIdentifier == identifier, let image = image else { return }
                 cell?.thumbImage = image
             }
             
@@ -269,7 +304,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         options.deliveryMode = .highQualityFormat
         
         photos.forEach { asset in
-            manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { image, _ in
+            manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: options) { image, _ in
                 guard let image = image else { return }
                 images.append(image)
             }

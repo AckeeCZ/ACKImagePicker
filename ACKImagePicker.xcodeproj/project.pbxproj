@@ -24,6 +24,7 @@
 		A37995E522B788980008AAE7 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37995E422B788980008AAE7 /* Localization.swift */; };
 		A37995E722B78DDE0008AAE7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A37995E922B78DDE0008AAE7 /* Localizable.strings */; };
 		A37995EC22B7A2F10008AAE7 /* ACKImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37995EB22B7A2F10008AAE7 /* ACKImagePicker.swift */; };
+		A3B198ED23634EE700C2CBD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B198EC23634EE700C2CBD1 /* Assets.xcassets */; };
 		A3D918D9221888320040F791 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D918D8221888320040F791 /* AppDelegate.swift */; };
 		A3D918E0221888340040F791 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D918DF221888340040F791 /* Assets.xcassets */; };
 		A3D918E3221888340040F791 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3D918E1221888340040F791 /* LaunchScreen.storyboard */; };
@@ -69,6 +70,7 @@
 		A37995EA22B791C50008AAE7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A37995EB22B7A2F10008AAE7 /* ACKImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACKImagePicker.swift; sourceTree = "<group>"; };
 		A38F733A22B3E697000A05FE /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		A3B198EC23634EE700C2CBD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSCheckMark.swift; sourceTree = "<group>"; };
 		A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		A3D918D5221888320040F791 /* ACKImagePickerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACKImagePickerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +198,7 @@
 		A3FC20BA22B77331005E60F9 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				A3B198EC23634EE700C2CBD1 /* Assets.xcassets */,
 				A37995E922B78DDE0008AAE7 /* Localizable.strings */,
 				A3FC20AF22B77320005E60F9 /* ACKImagePicker.h */,
 				A3FC20B022B77320005E60F9 /* Info.plist */,
@@ -307,6 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3B198ED23634EE700C2CBD1 /* Assets.xcassets in Resources */,
 				A37995E722B78DDE0008AAE7 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,7 +516,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.ackee.enterprise.ACKImagePickerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development cz.ackee.enterprise.*";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development cz.ackee.enterprise.* 1571145857";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
