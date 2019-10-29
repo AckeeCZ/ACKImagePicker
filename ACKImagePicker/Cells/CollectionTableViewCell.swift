@@ -45,7 +45,6 @@ final class CollectionTableViewCell: UITableViewCell {
         thumbImageView.clipsToBounds = true
         thumbImageView.contentMode = .scaleAspectFill
         thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-//        thumbImageView.backgroundColor = .white
         contentView.addSubview(thumbImageView)
         thumbImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
