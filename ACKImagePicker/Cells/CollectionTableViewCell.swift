@@ -82,7 +82,7 @@ final class CollectionTableViewCell: UITableViewCell {
     // MARK: - Selection
     
     private func updateSelection(_ isSelected: Bool, animated: Bool) {
-//        thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+        thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
