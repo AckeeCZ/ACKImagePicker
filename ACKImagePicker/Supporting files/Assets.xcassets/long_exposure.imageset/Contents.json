@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "long_exposure-2.png",
+      "filename" : "long_exposure.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "long_exposure-1.png",
+      "filename" : "long_exposure@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "long_exposure.png",
+      "filename" : "long_exposure@3x.png",
       "scale" : "3x"
     }
   ],
