@@ -8,7 +8,7 @@
 
 import UIKit
 
-private final class BundleToken { }
+internal final class BundleToken { }
 
 enum Assets: String {
     case animated

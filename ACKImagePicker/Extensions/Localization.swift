@@ -8,20 +8,10 @@
 
 import Foundation
 
-extension Bundle {
-    
-    private static let bundleID = "cz.ackee.enterprise.ACKImagePicker"
-    
-    static var module: Bundle {
-        return Bundle(identifier: bundleID) ?? .main
-    }
-    
-}
-
 extension String {
     
     func localized(withComment comment: String = "") -> String {
-        return NSLocalizedString(self, bundle: Bundle.module, comment: comment)
+        return NSLocalizedString(self, bundle: Bundle(for: BundleToken.self), comment: comment)
     }
     
 }
