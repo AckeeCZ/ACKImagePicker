@@ -520,7 +520,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.ackee.enterprise.ACKImagePickerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development cz.ackee.enterprise.* 1571145857";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development cz.ackee.enterprise.* 1573738454";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
