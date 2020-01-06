@@ -95,7 +95,7 @@ class ImagePickerViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "picker.title".localized()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonTapped))
         
         tableView.dataSource = self
         tableView.delegate = self

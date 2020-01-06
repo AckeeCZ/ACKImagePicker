@@ -64,6 +64,12 @@
 		A3228D9B229839F600C23159 /* PHAssetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetExtensions.swift; sourceTree = "<group>"; };
 		A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
 		A34519DA2297C65E0019A777 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		A34F52B523C3679500D3D88F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A34F52B623C3679500D3D88F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A34F52B723C367A100D3D88F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A34F52B823C367A100D3D88F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A34F52B923C369DC00D3D88F /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A34F52BA23C369DC00D3D88F /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A35764182231112F002DBF99 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		A37995E422B788980008AAE7 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		A37995E622B78DAB0008AAE7 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -287,6 +293,9 @@
 				en,
 				Base,
 				cs,
+				de,
+				pl,
+				sk,
 			);
 			mainGroup = A3D918CC221888320040F791;
 			productRefGroup = A3D918D6221888320040F791 /* Products */;
@@ -370,6 +379,9 @@
 			children = (
 				A37995E822B78DDE0008AAE7 /* cs */,
 				A37995EA22B791C50008AAE7 /* en */,
+				A34F52B623C3679500D3D88F /* de */,
+				A34F52B823C367A100D3D88F /* pl */,
+				A34F52BA23C369DC00D3D88F /* sk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -379,6 +391,9 @@
 			children = (
 				A3D918E2221888340040F791 /* Base */,
 				A37995E622B78DAB0008AAE7 /* cs */,
+				A34F52B523C3679500D3D88F /* de */,
+				A34F52B723C367A100D3D88F /* pl */,
+				A34F52B923C369DC00D3D88F /* sk */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

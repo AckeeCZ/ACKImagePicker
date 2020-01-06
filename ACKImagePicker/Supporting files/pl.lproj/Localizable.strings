@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  ACKImagePicker
+
+  Created by Lukáš Hromadník on 17/06/2019.
+  Copyright © 2019 Lukáš Hromadník. All rights reserved.
+*/
+
+picker.section.smart_albums = "Inteligentne albumy";
+picker.section.albums = "Albumy";
+picker.title = "Zdjęcia";
+picker.all_photos = "Wszystkie zdjęcia";
+
+photos.empty = "Nic tu nie ma";
+photos.button.select = "Wybierz";
+photos.selected = "Wybrany";
+
+asset.live_photo = "Zdjęcie na żywo";
+asset.high_frame_rate = "Wideo o wysokiej częstotliwości klatek";
+asset.timelapse = "Ekspozycja poklatkowa";
+asset.image = "Wizerunek";
+asset.video = "Wideo";
+asset.is_favorite = "Ulubiony";
+asset.depth_effect = "Efekt głębi";
+asset.panorama = "Panorama";
+asset.screenshot = "Zrzut ekranu";
+asset.height = "Wysokość";
+asset.width = "Szerokość";
