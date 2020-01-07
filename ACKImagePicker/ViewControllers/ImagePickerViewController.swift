@@ -145,10 +145,6 @@ class ImagePickerViewController: UIViewController {
             switch status {
             case .authorized:
                 self?.setupPhotos()
-
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
             default:
                 break
             }
