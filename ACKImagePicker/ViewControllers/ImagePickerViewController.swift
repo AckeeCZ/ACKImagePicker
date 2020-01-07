@@ -33,8 +33,8 @@ class ImagePickerViewController: UIViewController {
     private let sections: [Section] = [.allPhotos, .smartAlbums, .userCollections]
     private var albumViewModels: [IndexPath: AlbumViewModel] = [:]
     
-    private var allPhotos: PHFetchResult<PHAsset>!
-    private var smartAlbumsResults: PHFetchResult<PHAssetCollection>! {
+    private var allPhotos: PHFetchResult<PHAsset> = .init()
+    private var smartAlbumsResults: PHFetchResult<PHAssetCollection> = .init() {
         didSet {
             smartAlbumsResults.enumerateObjects { [weak self] collection, _, _ in
                 guard self?.smartSubtypes.contains(collection.assetCollectionSubtype) ?? false else { return }
@@ -72,7 +72,7 @@ class ImagePickerViewController: UIViewController {
         return smartSubtypes
     }()
     
-    private var userCollections: PHFetchResult<PHCollection>!
+    private var userCollections: PHFetchResult<PHCollection> = .init()
     
     private weak var tableView: UITableView!
     
@@ -100,14 +100,7 @@ class ImagePickerViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        let allPhotosOptions = PHFetchOptions()
-        allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        allPhotos = PHAsset.fetchAssets(with: .image, options: allPhotosOptions)
-
-        smartAlbumsResults = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
-        userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-        
-        PHPhotoLibrary.shared().register(self)
+        checkAuthorizationStatus()
     }
     
     override open func viewWillAppear(_ animated: Bool) {
@@ -135,7 +128,43 @@ class ImagePickerViewController: UIViewController {
         guard let index = sections.enumerated().first(where: { _, element in element == section })?.offset else { return }
         tableView.reloadSections(IndexSet(integer: index), with: .automatic)
     }
-    
+
+    private func checkAuthorizationStatus() {
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .notDetermined:
+            authorize()
+        case .authorized:
+            setupPhotos()
+        default:
+            break
+        }
+    }
+
+    private func authorize() {
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
+            switch status {
+            case .authorized:
+                self?.setupPhotos()
+
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            default:
+                break
+            }
+        }
+    }
+
+    private func setupPhotos() {
+        let allPhotosOptions = PHFetchOptions()
+        allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        allPhotos = PHAsset.fetchAssets(with: .image, options: allPhotosOptions)
+
+        smartAlbumsResults = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
+        userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+
+        PHPhotoLibrary.shared().register(self)
+    }
 }
 
 extension ImagePickerViewController: UITableViewDataSource {
