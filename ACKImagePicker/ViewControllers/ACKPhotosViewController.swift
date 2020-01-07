@@ -160,7 +160,7 @@ final class ACKPhotosViewController: UIViewController {
     
     private func updateSelection() {
         let title = "photos.selected".localized() + " " + String(selectedImages.count)
-        if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages() {
+        if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages {
             navigationItem.title = title + " / " + String(maxNumberOfImages)
         } else {
             navigationItem.title = title
@@ -172,7 +172,7 @@ final class ACKPhotosViewController: UIViewController {
 extension ACKPhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResult?.count ?? 0
+        fetchResult?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -211,7 +211,7 @@ extension ACKPhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
         
-        if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages(), selectedImages.count >= maxNumberOfImages {
+        if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages, selectedImages.count >= maxNumberOfImages {
             collectionView.deselectItem(at: indexPath, animated: false)
             return
         }

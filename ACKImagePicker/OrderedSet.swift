@@ -11,7 +11,7 @@ import Foundation
 final class OrderedSet<Item> {
     private let storage = NSMutableOrderedSet()
     
-    var count: Int { return storage.count }
+    var count: Int { storage.count }
     
     func add(_ object: Item) {
         storage.add(object)
@@ -26,5 +26,4 @@ final class OrderedSet<Item> {
     func forEach(_ body: (Item) -> Void) {
         storage.forEach { body($0 as! Item) }
     }
-    
 }

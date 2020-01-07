@@ -10,7 +10,6 @@ import UIKit
 import ACKImagePicker
 
 final class ViewController: UIViewController {
-    
     private var images: [UIImage] = []
     
     private weak var collectionView: UICollectionView!
@@ -61,7 +60,7 @@ final class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -76,17 +75,16 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 200)
+        CGSize(width: collectionView.bounds.width, height: 200)
     }
 
 }
 
 private class ImageCell: UICollectionViewCell {
-    
     static let reuseIdentifier = "ImageCell"
     
     var image: UIImage? {
-        get { return imageView.image }
+        get { imageView.image }
         set { imageView.image = newValue }
     }
     
@@ -109,5 +107,4 @@ private class ImageCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         self.imageView = imageView
     }
-    
 }

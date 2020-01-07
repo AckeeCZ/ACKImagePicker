@@ -11,12 +11,12 @@ import Foundation
 open class ACKImagePicker: UINavigationController {
     
     open var onImagesPicked: (([UIImage]) -> Void)? {
-        get { return rootController.onImagesPicked }
+        get { rootController.onImagesPicked }
         set { rootController.onImagesPicked = newValue }
     }
     
     open var maximumNumberOfImages: Int? {
-        get { return rootController.maximumNumberOfImages }
+        get { rootController.maximumNumberOfImages }
         set { rootController.maximumNumberOfImages = newValue }
     }
     

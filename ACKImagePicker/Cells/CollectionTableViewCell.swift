@@ -13,12 +13,12 @@ final class CollectionTableViewCell: UITableViewCell {
     var assetIdentifier: String?
     
     var thumbImage: UIImage? {
-        get { return thumbImageView.image }
+        get { thumbImageView.image }
         set { thumbImageView.image = newValue }
     }
     
     var title: String? {
-        get { return titleLabel.text }
+        get { titleLabel.text }
         set { titleLabel.text = newValue }
     }
     

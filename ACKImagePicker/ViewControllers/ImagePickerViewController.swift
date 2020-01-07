@@ -166,7 +166,7 @@ class ImagePickerViewController: UIViewController {
 extension ImagePickerViewController: UITableViewDataSource {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        sections.count
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -311,15 +311,13 @@ extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
             }
         }
     }
-
 }
 
 extension ImagePickerViewController: ACKImagePickerDelegate {
-    
-    func maximumNumberOfSelectedImages() -> Int? {
-        return maximumNumberOfImages
+    var maximumNumberOfSelectedImages: Int? {
+        maximumNumberOfImages
     }
-    
+
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
         var images: [UIImage] = []
         let manager = PHImageManager.default()
@@ -337,5 +335,4 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         
         onImagesPicked?(images)
     }
-
 }

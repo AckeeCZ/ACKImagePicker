@@ -21,12 +21,12 @@ final class AssetCollectionViewCell: UICollectionViewCell {
     }
     
     var thumbnailImage: UIImage? {
-        get { return imageView.image }
+        get { imageView.image }
         set { imageView.image = newValue }
     }
     
     var livePhotoBadgeImage: UIImage? {
-        get { return livePhotoBadgeImageView.image }
+        get { livePhotoBadgeImageView.image }
         set { livePhotoBadgeImageView.image = newValue }
     }
     
