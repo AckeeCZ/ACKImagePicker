@@ -15,7 +15,7 @@ protocol ACKImagePickerDelegate: class {
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>)
 }
 
-final class ACKCollectionViewController: UIViewController {
+final class ACKCollectionViewController: BaseViewController {
     
     enum Section {
         case allPhotos

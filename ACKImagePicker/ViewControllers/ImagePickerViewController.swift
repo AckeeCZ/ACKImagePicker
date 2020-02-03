@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class ImagePickerViewController: UIViewController {
+class ImagePickerViewController: BaseViewController {
     
     private let imageManager = PHImageManager()
     
@@ -319,20 +319,37 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
     }
 
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
+        // get current top VC to show loader on it
+        let currentViewController = navigationController?.topViewController as? BaseViewController
+        
         var images: [UIImage] = []
         let manager = PHImageManager.default()
         let options = PHImageRequestOptions()
-        options.isSynchronous = true
         options.resizeMode = .exact
         options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
         
+        // group of imageRequest tasks, used for waiting for all of images to be downloaded
+        let group = DispatchGroup()
+        
+        // show loader
+        currentViewController?.startLoadingAnimation()
+        
+        // start requests for all selected images
         photos.forEach { asset in
+            group.enter()
             manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: options) { image, _ in
-                guard let image = image else { return }
-                images.append(image)
+                if let image = image {
+                    images.append(image)
+                }
+                group.leave()
             }
         }
         
-        onImagesPicked?(images)
+        // call `onImagesPicked` block on main thread when whole group is finished
+        group.notify(queue: .main) { [weak self] in
+            currentViewController?.stopLoadingAnimation()
+            self?.onImagesPicked?(images)
+        }
     }
 }
