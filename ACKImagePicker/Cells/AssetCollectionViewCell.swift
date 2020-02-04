@@ -75,7 +75,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         self.livePhotoBadgeImageView = livePhotoBadgeImageView
         
         let checkmarkView = SSCheckMark()
-        checkmarkView.checkMarkColor = .blue
+        checkmarkView.checkMarkColor = .systemBlue
         contentView.addSubview(checkmarkView)
         checkmarkView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
