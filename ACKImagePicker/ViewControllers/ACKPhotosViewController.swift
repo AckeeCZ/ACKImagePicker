@@ -94,13 +94,7 @@ final class ACKPhotosViewController: BaseViewController {
         
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 1
-        let width = ((view.bounds.width - layout.minimumInteritemSpacing * numberOfColumns) / numberOfColumns).rounded(.towardZero)
-        let cellSize = CGSize(width: width, height: width)
-        layout.itemSize = cellSize
-        layout.minimumLineSpacing = (view.bounds.width - numberOfColumns * width) / (numberOfColumns - 1)
-        
-        let scale = UIScreen.main.scale
-        thumbnailSize = CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
+        // rest of layout attributes is set in `viewDidLayoutSubviews()` because final frame/bounds is needed to compute it
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
@@ -129,6 +123,29 @@ final class ACKPhotosViewController: BaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "photos.button.select".localized(), style: .plain, target: self, action: #selector(selectBarButtonTapped(_:)))
         
         updateSelection()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // setup layout attributes
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            
+            // compute column width
+            let width = ((collectionView.bounds.width - layout.minimumInteritemSpacing * numberOfColumns) / numberOfColumns).rounded(.towardZero)
+            
+            // create and set final cell size
+            let cellSize = CGSize(width: width, height: width)
+            layout.itemSize = cellSize
+            
+            // make vertical spacing same as horizontal spacing
+            layout.minimumLineSpacing = (view.bounds.width - numberOfColumns * width) / (numberOfColumns - 1)
+            
+            // set thumbnail size for optimal image requests
+            thumbnailSize = CGSize(width: cellSize.width * UIScreen.main.scale, height: cellSize.height * UIScreen.main.scale)
+            
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
     
     // MARK: - Actions
