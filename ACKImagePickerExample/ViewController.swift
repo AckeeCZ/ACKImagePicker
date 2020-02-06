@@ -24,7 +24,11 @@ final class ViewController: UIViewController {
         collectionViewLayout.minimumInteritemSpacing = 1
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            collectionView.backgroundColor = .systemBackground
+        } else {
+            collectionView.backgroundColor = .white
+        }
         view.addSubview(collectionView)
         self.collectionView = collectionView
     }
