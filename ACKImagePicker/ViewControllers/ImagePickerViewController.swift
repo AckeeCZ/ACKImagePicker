@@ -37,8 +37,10 @@ class ImagePickerViewController: BaseViewController {
     private var smartAlbumsResults: PHFetchResult<PHAssetCollection> = .init() {
         didSet {
             smartAlbumsResults.enumerateObjects { [weak self] collection, _, _ in
-                guard self?.smartSubtypes.contains(collection.assetCollectionSubtype) ?? false else { return }
-                self?.smartAlbums.append(collection)
+                // Add only those albums that we want
+                if self?.smartSubtypes.contains(collection.assetCollectionSubtype) == true {
+                    self?.smartAlbums.append(collection)
+                }
             }
         }
     }
