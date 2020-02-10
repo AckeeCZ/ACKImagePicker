@@ -85,7 +85,11 @@ final class ACKPhotosViewController: BaseViewController {
     override func loadView() {
         super.loadView()
         
-        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
         
         let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true
@@ -98,7 +102,11 @@ final class ACKPhotosViewController: BaseViewController {
         // rest of layout attributes is set in `viewDidLayoutSubviews()` because final frame/bounds is needed to compute it
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            collectionView.backgroundColor = .systemBackground
+        } else {
+            collectionView.backgroundColor = .white
+        }
         collectionView.alwaysBounceVertical = true
         collectionView.allowsMultipleSelection = true
         view.addSubview(collectionView)
