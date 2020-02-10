@@ -32,6 +32,7 @@ final class AlbumViewModel {
     private func makeFetch() {
         let options = PHFetchOptions()
         options.fetchLimit = 1
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         let result = PHAsset.fetchAssets(in: collection, options: options)
         if let firstAsset = result.firstObject {
             assetIdentifier = firstAsset.localIdentifier

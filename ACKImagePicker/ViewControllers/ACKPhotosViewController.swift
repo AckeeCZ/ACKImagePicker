@@ -50,6 +50,7 @@ final class ACKPhotosViewController: BaseViewController {
         // Fetch only photos
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
         self.fetchResult = PHAsset.fetchAssets(in: assetCollection, options: options)
         
