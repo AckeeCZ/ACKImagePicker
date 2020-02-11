@@ -11,14 +11,15 @@ import Photos
 
 final class AssetCollectionViewCell: UICollectionViewCell {
     
-    // Needed for correct asset to be loaded after request
-    var assetIdentifier: String!
     var imageRequestID: PHImageRequestID?
     var asset: PHAsset? {
         didSet {
             setupAccessibility()
         }
     }
+    
+    /// Block which is called as first  in `prepareForReuse` function (before all other actions)
+    var prepareForReuseBlock: ((AssetCollectionViewCell) -> ())?
     
     var thumbnailImage: UIImage? {
         get { imageView.image }
@@ -92,8 +93,13 @@ final class AssetCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        imageView.image = nil
-        livePhotoBadgeImageView.image = nil
+        prepareForReuseBlock?(self)
+        
+        imageRequestID = nil
+        asset = nil
+        thumbnailImage = nil
+        livePhotoBadgeImage = nil
+        prepareForReuseBlock = nil
     }
     
     // MARK: - Accessibility

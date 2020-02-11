@@ -30,7 +30,7 @@ final class ACKPhotosViewController: BaseViewController {
     
     private var selectedImages: OrderedSet<PHAsset> = .init()
     
-    private let imageManager = PHCachingImageManager()
+    private let imageManager = PHCachingImageManager.default()
     private var thumbnailSize = CGSize.zero
     private var previousPreheatRect = CGRect.zero
     
@@ -212,12 +212,29 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
         }
         
         // Set identifier for the image completion, needed because of the reuse
-        cell.assetIdentifier = asset.localIdentifier
-        cell.imageRequestID = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil) { [weak cell] image, _ in
-            guard cell?.assetIdentifier == asset.localIdentifier else { return }
-            cell?.asset = asset
+        cell.asset = asset
+        
+        // cancel image request on reuse
+        cell.prepareForReuseBlock = { [weak self] cell in
+            if let requestID = cell.imageRequestID {
+                self?.imageManager.cancelImageRequest(requestID)
+            }
+        }
+        
+        // extract simple raw string ID from asset object to be used in async block below safely (we don't mess with objects if it's not necessary)
+        let assetsID = asset.localIdentifier
+        
+        // image request options - network access must be allowed to fetch thumbnails for icloud images
+        let options = PHImageRequestOptions()
+        options.isNetworkAccessAllowed = true
+        
+        cell.imageRequestID = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: options) { [weak cell] image, info in
+            
+            // skip if cell's asset ID if different from original asset ID (possibly could happen because of wrong reusing, but never did during testing)
+            // skip if imageRequest was cancelled
+            if cell?.asset?.localIdentifier != assetsID || (info?[PHImageCancelledKey] as? Bool) ?? false { return }
+            
             cell?.thumbnailImage = image
-            cell?.imageRequestID = nil
         }
         
         return cell
@@ -225,14 +242,6 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
 }
 
 extension ACKPhotosViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? AssetCollectionViewCell else { return }
-        
-        if let imageRequestID = cell.imageRequestID {
-            imageManager.cancelImageRequest(imageRequestID)
-        }
-    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
