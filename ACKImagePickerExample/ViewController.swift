@@ -106,7 +106,7 @@ private class ImageCell: UICollectionViewCell {
     
     private func setup() {
         let imageView = UIImageView(frame: contentView.bounds)
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
         self.imageView = imageView
