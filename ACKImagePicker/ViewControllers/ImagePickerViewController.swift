@@ -324,8 +324,21 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         // get current top VC to show loader on it
         let currentViewController = navigationController?.topViewController as? BaseViewController
         
+        // Disable interaction with current view
+        currentViewController?.view.isUserInteractionEnabled = false
+        
         let progressView: UIProgressView?
         if let currentViewController = currentViewController {
+            let overlayView = UIView()
+            overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            overlayView.isUserInteractionEnabled = false
+            currentViewController.view.addSubview(overlayView)
+            overlayView.translatesAutoresizingMaskIntoConstraints = false
+            overlayView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor).isActive = true
+            overlayView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor).isActive = true
+            overlayView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor).isActive = true
+            overlayView.topAnchor.constraint(equalTo: currentViewController.view.topAnchor).isActive = true
+            
             let currentProgressView = UIProgressView()
             currentViewController.view.addSubview(currentProgressView)
             currentProgressView.translatesAutoresizingMaskIntoConstraints = false
@@ -370,13 +383,13 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
                 if let image = image {
                     images.append(image)
                 }
-//                group.leave()
+                group.leave()
             }
         }
         
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .main) { [weak self] in
-//            progressView?.removeFromSuperview()
+            progressView?.removeFromSuperview()
             self?.stopLoadingAnimation()
             self?.onImagesPicked?(images)
         }
