@@ -329,17 +329,20 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
             let currentProgressView = UIProgressView()
             currentViewController.view.addSubview(currentProgressView)
             currentProgressView.translatesAutoresizingMaskIntoConstraints = false
-            currentProgressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor, constant: 20).isActive = true
-            currentProgressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor, constant: -20).isActive = true
+            currentProgressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+            currentProgressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor, constant: 0).isActive = true
+            currentProgressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor, constant: 0).isActive = true
             if #available(iOS 11.0, *) {
-                currentProgressView.bottomAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
+                currentProgressView.topAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.topAnchor).isActive = true
             } else {
-                currentProgressView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor, constant: -30).isActive = true
+                currentProgressView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
             }
             progressView = currentProgressView
         } else {
             progressView = nil
         }
+        
+        currentViewController?.startLoadingAnimation()
         
         var images: [UIImage] = []
         let manager = PHImageManager.default()
@@ -348,7 +351,13 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true
         options.progressHandler = { progress, _, _, _ in
-            progressView?.progress = Float(progress)
+            DispatchQueue.main.async {
+                guard let progressView = progressView else { return }
+                let imageFraction: Float = 1 / Float(photos.count)
+                let newProgress = Float(progress) * imageFraction + Float(images.count) / Float(photos.count)
+                guard progressView.progress < newProgress else { return }
+                progressView.setProgress(newProgress, animated: true)
+            }
         }
         
         // group of imageRequest tasks, used for waiting for all of images to be downloaded
@@ -361,13 +370,14 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
                 if let image = image {
                     images.append(image)
                 }
-                group.leave()
+//                group.leave()
             }
         }
         
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .main) { [weak self] in
-            progressView?.removeFromSuperview()
+//            progressView?.removeFromSuperview()
+            self?.stopLoadingAnimation()
             self?.onImagesPicked?(images)
         }
     }
