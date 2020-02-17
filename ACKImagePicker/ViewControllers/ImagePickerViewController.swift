@@ -327,34 +327,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         // Disable interaction with current view
         currentViewController?.view.isUserInteractionEnabled = false
         
-        let progressView: UIProgressView?
-        if let currentViewController = currentViewController {
-            let overlayView = UIView()
-            overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-            overlayView.isUserInteractionEnabled = false
-            currentViewController.view.addSubview(overlayView)
-            overlayView.translatesAutoresizingMaskIntoConstraints = false
-            overlayView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor).isActive = true
-            overlayView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor).isActive = true
-            overlayView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor).isActive = true
-            overlayView.topAnchor.constraint(equalTo: currentViewController.view.topAnchor).isActive = true
-            
-            let currentProgressView = UIProgressView()
-            currentViewController.view.addSubview(currentProgressView)
-            currentProgressView.translatesAutoresizingMaskIntoConstraints = false
-            currentProgressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
-            currentProgressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor, constant: 0).isActive = true
-            currentProgressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor, constant: 0).isActive = true
-            if #available(iOS 11.0, *) {
-                currentProgressView.topAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.topAnchor).isActive = true
-            } else {
-                currentProgressView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-            }
-            progressView = currentProgressView
-        } else {
-            progressView = nil
-        }
-        
+        let (progressView, overlayView) = setupUI(in: currentViewController)
         currentViewController?.startLoadingAnimation()
         
         var images: [UIImage] = []
@@ -390,8 +363,36 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .main) { [weak self] in
             progressView?.removeFromSuperview()
+            overlayView?.removeFromSuperview()
             self?.stopLoadingAnimation()
             self?.onImagesPicked?(images)
         }
+    }
+    
+    private func setupUI(in currentViewController: BaseViewController?) -> (progressView: UIProgressView?, overlayView: UIView?) {
+        guard let currentViewController = currentViewController else { return (progressView: nil, overlayView: nil) }
+        let overlayView = UIView()
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        overlayView.isUserInteractionEnabled = false
+        currentViewController.view.addSubview(overlayView)
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor).isActive = true
+        overlayView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor).isActive = true
+        overlayView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor).isActive = true
+        overlayView.topAnchor.constraint(equalTo: currentViewController.view.topAnchor).isActive = true
+        
+        let progressView = UIProgressView()
+        currentViewController.view.addSubview(progressView)
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        progressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor, constant: 0).isActive = true
+        progressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor, constant: 0).isActive = true
+        if #available(iOS 11.0, *) {
+            progressView.topAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        } else {
+            progressView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        }
+        
+        return (progressView: progressView, overlayView: overlayView)
     }
 }
