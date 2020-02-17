@@ -324,18 +324,35 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         // get current top VC to show loader on it
         let currentViewController = navigationController?.topViewController as? BaseViewController
         
+        let progressView: UIProgressView?
+        if let currentViewController = currentViewController {
+            let currentProgressView = UIProgressView()
+            currentViewController.view.addSubview(currentProgressView)
+            currentProgressView.translatesAutoresizingMaskIntoConstraints = false
+            currentProgressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor, constant: 20).isActive = true
+            currentProgressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor, constant: -20).isActive = true
+            if #available(iOS 11.0, *) {
+                currentProgressView.bottomAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
+            } else {
+                currentProgressView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor, constant: -30).isActive = true
+            }
+            progressView = currentProgressView
+        } else {
+            progressView = nil
+        }
+        
         var images: [UIImage] = []
         let manager = PHImageManager.default()
         let options = PHImageRequestOptions()
         options.resizeMode = .exact
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true
+        options.progressHandler = { progress, _, _, _ in
+            progressView?.progress = Float(progress)
+        }
         
         // group of imageRequest tasks, used for waiting for all of images to be downloaded
         let group = DispatchGroup()
-        
-        // show loader
-        currentViewController?.startLoadingAnimation()
         
         // start requests for all selected images
         photos.forEach { asset in
@@ -350,7 +367,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .main) { [weak self] in
-            currentViewController?.stopLoadingAnimation()
+            progressView?.removeFromSuperview()
             self?.onImagesPicked?(images)
         }
     }
