@@ -157,10 +157,23 @@ class ImagePickerViewController: BaseViewController {
         let allPhotosOptions = PHFetchOptions()
         allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         allPhotos = PHAsset.fetchAssets(with: .image, options: allPhotosOptions)
+        
+        let loadData: () -> () = { [weak self] in
+            self?.smartAlbumsResults = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
+            self?.reloadSection(.smartAlbums)
+            self?.userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+            self?.reloadSection(.userCollections)
+        }
 
-        smartAlbumsResults = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
-        userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-
+        // `loadData` must be on main thread, `setupPhotos` can be called from main or background thread
+        if Thread.isMainThread {
+            loadData()
+        } else {
+            DispatchQueue.main.sync {
+                loadData()
+            }
+        }
+        
         PHPhotoLibrary.shared().register(self)
     }
 }
