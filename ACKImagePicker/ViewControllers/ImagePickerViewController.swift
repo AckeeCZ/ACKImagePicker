@@ -364,6 +364,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         group.notify(queue: .main) { [weak self] in
             progressView?.removeFromSuperview()
             overlayView?.removeFromSuperview()
+            currentViewController?.view.isUserInteractionEnabled = true
             self?.stopLoadingAnimation()
             self?.onImagesPicked?(images)
         }
