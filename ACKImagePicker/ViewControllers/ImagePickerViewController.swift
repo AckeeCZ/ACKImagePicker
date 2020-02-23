@@ -377,17 +377,21 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         overlayView.isUserInteractionEnabled = false
         currentViewController.view.addSubview(overlayView)
         overlayView.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor).isActive = true
-        overlayView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor).isActive = true
-        overlayView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor).isActive = true
-        overlayView.topAnchor.constraint(equalTo: currentViewController.view.topAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            overlayView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor),
+            overlayView.topAnchor.constraint(equalTo: currentViewController.view.topAnchor),
+        ])
         
         let progressView = UIProgressView()
         currentViewController.view.addSubview(progressView)
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
-        progressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor, constant: 0).isActive = true
-        progressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor, constant: 0).isActive = true
+        NSLayoutConstraint.activate([
+            progressView.heightAnchor.constraint(equalToConstant: 5),
+            progressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor),
+        ])
         if #available(iOS 11.0, *) {
             progressView.topAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.topAnchor).isActive = true
         } else {
