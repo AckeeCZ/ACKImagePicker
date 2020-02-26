@@ -337,18 +337,30 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         // get current top VC to show loader on it
         let currentViewController = navigationController?.topViewController as? BaseViewController
         
+        // Disable interaction with current view
+        currentViewController?.view.isUserInteractionEnabled = false
+        
+        let (progressView, overlayView) = setupUI(in: currentViewController)
+        currentViewController?.startLoadingAnimation()
+        
         var images: [UIImage] = []
         let manager = PHImageManager.default()
         let options = PHImageRequestOptions()
         options.resizeMode = .exact
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true
+        options.progressHandler = { progress, _, _, _ in
+            DispatchQueue.main.async {
+                guard let progressView = progressView else { return }
+                let imageFraction: Float = 1 / Float(photos.count)
+                let newProgress = Float(progress) * imageFraction + Float(images.count) / Float(photos.count)
+                guard progressView.progress < newProgress else { return }
+                progressView.setProgress(newProgress, animated: true)
+            }
+        }
         
         // group of imageRequest tasks, used for waiting for all of images to be downloaded
         let group = DispatchGroup()
-        
-        // show loader
-        currentViewController?.startLoadingAnimation()
         
         // start requests for all selected images
         photos.forEach { asset in
@@ -363,8 +375,42 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .main) { [weak self] in
-            currentViewController?.stopLoadingAnimation()
+            progressView?.removeFromSuperview()
+            overlayView?.removeFromSuperview()
+            currentViewController?.view.isUserInteractionEnabled = true
+            self?.stopLoadingAnimation()
             self?.onImagesPicked?(images)
         }
+    }
+    
+    private func setupUI(in currentViewController: BaseViewController?) -> (progressView: UIProgressView?, overlayView: UIView?) {
+        guard let currentViewController = currentViewController else { return (progressView: nil, overlayView: nil) }
+        let overlayView = UIView()
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        overlayView.isUserInteractionEnabled = false
+        currentViewController.view.addSubview(overlayView)
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            overlayView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor),
+            overlayView.topAnchor.constraint(equalTo: currentViewController.view.topAnchor),
+        ])
+        
+        let progressView = UIProgressView()
+        currentViewController.view.addSubview(progressView)
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            progressView.heightAnchor.constraint(equalToConstant: 5),
+            progressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor),
+        ])
+        if #available(iOS 11.0, *) {
+            progressView.topAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        } else {
+            progressView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        }
+        
+        return (progressView: progressView, overlayView: overlayView)
     }
 }

@@ -48,6 +48,7 @@ class BaseViewController: UIViewController {
     
     internal func startLoadingAnimation() {
         loadingView.isHidden = false
+        view.bringSubviewToFront(loadingView)
         activityIndicator.startAnimating()
     }
     
