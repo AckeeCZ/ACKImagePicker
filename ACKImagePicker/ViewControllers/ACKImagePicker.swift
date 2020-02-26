@@ -8,13 +8,16 @@
 
 import Foundation
 
+/// View controller that enables users to select image from the user's media library
 open class ACKImagePicker: UINavigationController {
     
+    /// Called when user finished selecting images
     open var onImagesPicked: (([UIImage]) -> Void)? {
         get { rootController.onImagesPicked }
         set { rootController.onImagesPicked = newValue }
     }
     
+    /// Maximum number of images that user can select
     open var maximumNumberOfImages: Int? {
         get { rootController.maximumNumberOfImages }
         set { rootController.maximumNumberOfImages = newValue }
