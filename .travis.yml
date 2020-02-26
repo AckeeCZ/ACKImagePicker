@@ -1,7 +1,28 @@
-osx_image: xcode11
+osx_image: xcode11.3
 language: objective-c
+env:
+  global:
+  - FRAMEWORK_NAME=ACKImagePicker
+before_install:
+- brew update
+- brew outdated carthage || brew upgrade carthage
+before_deploy:
+- carthage build --no-skip-current --cache-builds
+- carthage archive $FRAMEWORK_NAME
+after_deploy:
+- pod trunk push
 script:
 - set -o pipefail
-- xcodebuild -project Example/ParallaxOverlayExample.xcodeproj -scheme ParallaxOverlayExample
-  -sdk iphonesimulator -destination 'OS=13.0,name=iPhone Xʀ,platform=iOS Simulator'
+- xcodebuild -project ACKImagePicker.xcodeproj -scheme ACKImagePickerExample
+  -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.3'
   -configuration Debug ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- pod lib lint
+deploy:
+  provider: releases
+  api_key:
+    secure: APc3KBJsO2dGk5rvU/m3KsokR1+/ej7aSSsiT3VJmjDEP4fxJyTadDmF/bub5hV/rRE2M/lJogTwC2dEE/fxMlCifTrI3MI0bxO6o8JQVhaEIjpFUE5UDpEuediUwHuNCgHXAuULRnupwxa+QW8KleuOOD4sVanBgf4mAdc18JNVvEwRs03B5ZGE9Kb3G1xtZW/eUfA1BVbhbDLz9gFjG61S1gTLdyhsdgFztd/CLKSE8wRB7oOYHoZ+QOX06UYMZBTQFfgHxxGxBC7lnQ7jAdYmAqAJmYaypKphfmjkty7mHMuKX/nkdhFCAKNaBSjOgs8lwuWS4W03/pzln8i2/OU0xfpmpL/ofSiamgywM8adyWyjUcX7gPRHo0bU2bJraA3OxwbhUTgnQcmWIfTsRDp9fAeHzZ04ddVZ3I92vJFglpJLGwAoW16AFB9kscNtKe1EKHrq8V1Q20VfV8Gvr/OKdK2AMk369R0k1TnBJex6glnYp9c2dqF+DHtl5VYirjIdduXxBgCH9a3aIK7B5M64iRT8m5xakUa1XNRVmFLR7+Z4VrfpdR3FYgUIINpyvKlPbqu/Gwl/Wpjf3yidYEx2qIu4JjtrUcVSJX3ERSlh2W7uNPEEBci5R3sqGXMTk8ETBJZFpzonS2xZvwlFM4JvW5b70B9tBZ60pQAI8Es=
+  file: "$FRAMEWORK_NAME.framework.zip"
+  skip_cleanup: true
+  on:
+    repo: AckeeCZ/ACKImagePicker
+    tags: true
