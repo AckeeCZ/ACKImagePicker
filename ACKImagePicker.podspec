@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     DESC
     s.homepage         = 'https://github.com/AckeeCZ/ACKImagePicker'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
-    s.author           = { 'Lukáš Hromadník' => 'lukas.hromadnik@gmail.com' }
+    s.author           = { 'Ackee' => 'info@ackee.cz' }
     s.social_media_url = "https://twitter.com/AckeeCZ"
     s.source           = { :git => 'https://github.com/AckeeCZ/ACKImagePicker.git', :tag => s.version.to_s }
     s.ios.deployment_target = '9.0'
