@@ -180,11 +180,11 @@ class ImagePickerViewController: BaseViewController {
 
 extension ImagePickerViewController: UITableViewDataSource {
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case .allPhotos: return 1
         case .smartAlbums: return smartAlbums.count
@@ -192,7 +192,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         }
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
         case .allPhotos:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -270,11 +270,11 @@ extension ImagePickerViewController: UITableViewDataSource {
 
 extension ImagePickerViewController: UITableViewDelegate {
     
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .allPhotos:
             let controller = ACKPhotosViewController(fetchResult: allPhotos)
@@ -301,7 +301,7 @@ extension ImagePickerViewController: UITableViewDelegate {
 
 extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
     
-    public func photoLibraryDidChange(_ changeInstance: PHChange) {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
         
         // Change notifications may originate from a background queue.
         // Re-dispatch to the main queue before acting on the change,
