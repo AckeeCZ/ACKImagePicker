@@ -6,7 +6,7 @@
 //  Copyright © 2019 Lukáš Hromadník. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// View controller that enables users to select image from the user's media library
 open class ACKImagePicker: UINavigationController {
