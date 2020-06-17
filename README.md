@@ -1,4 +1,4 @@
-![ackee|ACKategories](Resources/cover-image.png)
+![ackee|ACKImagePicker](Resources/cover-image.png)
 
 ![Build](https://github.com/AckeeCZ/ACKImagePicker/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/cocoapods/v/ACKImagePicker.svg?style=flat)](http://cocoapods.org/pods/ACKImagePicker)
