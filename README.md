@@ -1,14 +1,14 @@
+![ackee|ACKategories](Resources/cover-image.png)
+
 ![Build](https://github.com/AckeeCZ/ACKImagePicker/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/cocoapods/v/ACKImagePicker.svg?style=flat)](http://cocoapods.org/pods/ACKImagePicker)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/ACKImagePicker.svg?style=flat)](http://cocoapods.org/pods/ACKImagePicker)
 [![Platform](https://img.shields.io/cocoapods/p/ACKImagePicker.svg?style=flat)](http://cocoapods.org/pods/ACKImagePicker)
 
-## ACKImagePicker
-
 ACKImagePicker lets users choose multiple photos from different albums in their media library with a native-like appearance.
 
-<img src="https://raw.githubusercontent.com/AckeeCZ/ACKImagePicker/master/Resources/ackimagepicker_1.png" width="300"> <img src="https://raw.githubusercontent.com/AckeeCZ/ACKImagePicker/master/Resources/ackimagepicker_2.png" width="300">
+<img src="Resources/ackimagepicker_1.png" width="300"> <img src="Resources/ackimagepicker_2.png" width="300">
 
 ## Installation
 
@@ -19,6 +19,7 @@ ACKImagePicker is available through [CocoaPods](http://cocoapods.org). To instal
 ```ruby
 pod "ACKImagePicker", "~> 0.2.0"
 ```
+
 
 ### Carthage
 
