@@ -17,7 +17,7 @@ ACKImagePicker lets users choose multiple photos from different albums in their 
 ACKImagePicker is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod "ACKImagePicker", "~> 0.2.0"
+pod "ACKImagePicker", "~> 0.2.1"
 ```
 
 
@@ -26,7 +26,7 @@ pod "ACKImagePicker", "~> 0.2.0"
 You can also use [Carthage](https://github.com/Carthage/Carthage). Specify this repo in your Cartfile:
 
 ```
-github "AckeeCZ/ACKImagePicker" ~> 0.2.0
+github "AckeeCZ/ACKImagePicker" ~> 0.2.1
 ```
 
 ## Usage

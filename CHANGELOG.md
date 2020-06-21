@@ -1,6 +1,8 @@
 
 ## Next
 
+## 0.2.1
+
 ### Added
 - SwiftPM support ([#10](https://github.com/AckeeCZ/ACKImagePicker/pull/10)) by @olejnjak
 
