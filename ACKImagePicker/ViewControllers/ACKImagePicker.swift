@@ -28,6 +28,7 @@ open class ACKImagePicker: UINavigationController {
     convenience init() {
         let rootController = ImagePickerViewController()
         self.init(rootViewController: rootController)
+        navigationBar.isTranslucent = false
         self.rootController = rootController
     }
 
