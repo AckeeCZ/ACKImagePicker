@@ -1,6 +1,8 @@
 
 ## Next
 
+## 0.2.2
+
 ## Fixed
 - fix crash on iOS 10 ([#12](https://github.com/AckeeCZ/ACKImagePicker/pull/12)) by @olejnjak
 - fix inset on iOS 10 ([#12](https://github.com/AckeeCZ/ACKImagePicker/pull/12)) by @olejnjak
