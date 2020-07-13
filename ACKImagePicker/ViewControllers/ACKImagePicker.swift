@@ -28,6 +28,16 @@ open class ACKImagePicker: UINavigationController {
     convenience init() {
         let rootController = ImagePickerViewController()
         self.init(rootViewController: rootController)
+        
+        // on iOS 10 we have trouble with `UINavigationBar` covering list of photos
+        // and this is the simplest solution
+        // https://user-images.githubusercontent.com/3148214/87172417-80530080-c2d4-11ea-82bb-914f0f8419ce.png
+        if #available(iOS 11, *) {
+            navigationBar.isTranslucent = true
+        } else {
+            navigationBar.isTranslucent = false
+        }
+        
         self.rootController = rootController
     }
 

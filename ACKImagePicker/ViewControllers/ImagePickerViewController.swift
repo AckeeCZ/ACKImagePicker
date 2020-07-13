@@ -408,7 +408,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         if #available(iOS 11.0, *) {
             progressView.topAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.topAnchor).isActive = true
         } else {
-            progressView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+            progressView.topAnchor.constraint(equalTo: currentViewController.topLayoutGuide.bottomAnchor).isActive = true
         }
         
         return (progressView: progressView, overlayView: overlayView)
