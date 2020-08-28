@@ -60,6 +60,7 @@ final class ProgressViewController: UIViewController {
         self.progressLabel = progressLabel
         
         let progressTextLabel = UILabel()
+        // TODO: Localize
         progressTextLabel.text = "Nahrávám"
         backgroundView.addSubview(progressTextLabel)
         progressTextLabel.translatesAutoresizingMaskIntoConstraints = false

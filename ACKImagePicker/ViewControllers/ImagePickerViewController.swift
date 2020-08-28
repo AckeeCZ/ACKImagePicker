@@ -276,7 +276,7 @@ extension ImagePickerViewController: UITableViewDataSource {
 
 extension ImagePickerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].title
+        sections[section].title
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -337,12 +337,6 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
     }
 
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
-        // get current top VC to show loader on it
-        let currentViewController = navigationController?.topViewController as? BaseViewController
-        
-        // Disable interaction with current view
-        currentViewController?.view.isUserInteractionEnabled = false
-        
         let progressView = showProgress()
         
         var images: [UIImage] = []
@@ -375,40 +369,16 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .main) { [weak self] in
-            currentViewController?.view.isUserInteractionEnabled = true
-            progressView.dismiss(animated: false)
-            self?.onImagesPicked?(images)
+            if progressView.progress == 0 {
+                progressView.progress = 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                    progressView.dismiss(animated: false)
+                    self?.onImagesPicked?(images)
+                }
+            } else {
+                progressView.dismiss(animated: false)
+                self?.onImagesPicked?(images)
+            }
         }
     }
-    
-//    private func setupUI(in currentViewController: BaseViewController?) -> (progressView: UIProgressView?, overlayView: UIView?) {
-//        guard let currentViewController = currentViewController else { return (progressView: nil, overlayView: nil) }
-//        let overlayView = UIView()
-//        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//        overlayView.isUserInteractionEnabled = false
-//        currentViewController.view.addSubview(overlayView)
-//        overlayView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            overlayView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor),
-//            overlayView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor),
-//            overlayView.bottomAnchor.constraint(equalTo: currentViewController.view.bottomAnchor),
-//            overlayView.topAnchor.constraint(equalTo: currentViewController.view.topAnchor),
-//        ])
-//        
-//        let progressView = UIProgressView()
-//        currentViewController.view.addSubview(progressView)
-//        progressView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            progressView.heightAnchor.constraint(equalToConstant: 5),
-//            progressView.leadingAnchor.constraint(equalTo: currentViewController.view.leadingAnchor),
-//            progressView.trailingAnchor.constraint(equalTo: currentViewController.view.trailingAnchor),
-//        ])
-//        if #available(iOS 11.0, *) {
-//            progressView.topAnchor.constraint(equalTo: currentViewController.view.safeAreaLayoutGuide.topAnchor).isActive = true
-//        } else {
-//            progressView.topAnchor.constraint(equalTo: currentViewController.topLayoutGuide.bottomAnchor).isActive = true
-//        }
-//        
-//        return (progressView: progressView, overlayView: overlayView)
-//    }
 }
