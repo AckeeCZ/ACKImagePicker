@@ -9,83 +9,64 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    private weak var loadingView: UIView!
-    private weak var activityIndicator: UIActivityIndicatorView!
     private weak var progressView: CircularProgressView!
+    private weak var backgroundView: UIView!
+    
+    // MARK: - Controller lifecycle
     
     override func loadView() {
         super.loadView()
         
-//        let loadingView = UIView()
-//        if #available(iOS 13.0, *) {
-//            loadingView.backgroundColor = .systemBackground
-//        } else {
-//            loadingView.backgroundColor = .white
-//        }
-//        loadingView.layer.cornerRadius = 10
-//        view.addSubview(loadingView)
-//        loadingView.makeCenterEqualToSuperview()
-//        self.loadingView = loadingView
-//
-//        let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
-//        if #available(iOS 13.0, *) {
-//            activityIndicator.color = .label
-//        } else {
-//            activityIndicator.color = .black
-//        }
-//        loadingView.addSubview(activityIndicator)
-//        activityIndicator.makeEdgesEqualToSuperview(insets: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
-//        self.activityIndicator = activityIndicator
-//
-//        stopLoadingAnimation()
+        let backgroundView = UIView()
+        if #available(iOSApplicationExtension 13.0, *) {
+            backgroundView.backgroundColor = .red
+        } else {
+            backgroundView.backgroundColor = .white
+        }
+        backgroundView.layer.cornerRadius = 8
+        view.addSubview(backgroundView)
+        backgroundView.makeCenterEqualToSuperview()
+        NSLayoutConstraint.activate([
+            backgroundView.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
+        ])
+        self.backgroundView = backgroundView
         
         let progressView = CircularProgressView()
-//        progressView.isProgressAnimationEnabled = false
-//        progressView.backgroundColor = .red
-//        progressView.mainColor = .blue
-        view.addSubview(progressView)
-//        progressView.makeCenterEqualToSuperview()
+        backgroundView.addSubview(progressView)
         progressView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            progressView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            progressView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            progressView.widthAnchor.constraint(equalToConstant: 50),
-            progressView.heightAnchor.constraint(equalToConstant: 50),
+            progressView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            progressView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 10),
+            progressView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -10),
+            progressView.heightAnchor.constraint(equalTo: progressView.widthAnchor)
         ])
         self.progressView = progressView
+        
+        let progressLabel = UILabel()
+        progressLabel.text = "25 %"
+        progressLabel.font = .boldSystemFont(ofSize: 16)
+        backgroundView.addSubview(progressLabel)
+        progressLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            progressLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor),
+            progressLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor)
+        ])
+        
+        let progressTextLabel = UILabel()
+        progressTextLabel.text = "Nahrávám"
+        backgroundView.addSubview(progressTextLabel)
+        progressTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            progressTextLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 10),
+            progressTextLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 8),
+            progressTextLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -8),
+            progressTextLabel.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -10)
+        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        view.bringSubviewToFront(loadingView)
-        view.bringSubviewToFront(progressView)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        progressView.progress = 0.3
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-            self?.progressView.progress = 0.75
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.progressView.progress = 0.4
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.progressView.progress = 1
-        }
-    }
-    
-    func startLoadingAnimation() {
-//        loadingView.isHidden = false
-        view.bringSubviewToFront(progressView)
-//        activityIndicator.startAnimating()
-    }
-    
-    func stopLoadingAnimation() {
-//        loadingView.isHidden = true
-//        activityIndicator.stopAnimating()
+        view.bringSubviewToFront(backgroundView)
     }
 }
