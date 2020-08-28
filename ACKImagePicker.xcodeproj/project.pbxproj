@@ -25,6 +25,7 @@
 		A37995E522B788980008AAE7 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37995E422B788980008AAE7 /* Localization.swift */; };
 		A37995E722B78DDE0008AAE7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A37995E922B78DDE0008AAE7 /* Localizable.strings */; };
 		A37995EC22B7A2F10008AAE7 /* ACKImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37995EB22B7A2F10008AAE7 /* ACKImagePicker.swift */; };
+		A379BA7024F948F300B51CF8 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379BA6F24F948F300B51CF8 /* CircularProgressView.swift */; };
 		A3B198ED23634EE700C2CBD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B198EC23634EE700C2CBD1 /* Assets.xcassets */; };
 		A3D918D9221888320040F791 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D918D8221888320040F791 /* AppDelegate.swift */; };
 		A3D918E0221888340040F791 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D918DF221888340040F791 /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		A37995E822B78DDE0008AAE7 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A37995EA22B791C50008AAE7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A37995EB22B7A2F10008AAE7 /* ACKImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACKImagePicker.swift; sourceTree = "<group>"; };
+		A379BA6F24F948F300B51CF8 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		A38F733A22B3E697000A05FE /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		A3B198EC23634EE700C2CBD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSCheckMark.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				A34519DD2297C7E50019A777 /* ViewControllers */,
 				A34519DC2297C7D30019A777 /* Cells */,
 				A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */,
+				A379BA6F24F948F300B51CF8 /* CircularProgressView.swift */,
 				A35764182231112F002DBF99 /* AlbumViewModel.swift */,
 				A30D6F1E221EA56100622E65 /* OrderedSet.swift */,
 				A3EBCB5023686A1500FEA458 /* Assets.swift */,
@@ -362,6 +365,7 @@
 				A37995E522B788980008AAE7 /* Localization.swift in Sources */,
 				A37995D922B775C00008AAE7 /* UIViewExtensions.swift in Sources */,
 				A37995D822B775BD0008AAE7 /* Reusable.swift in Sources */,
+				A379BA7024F948F300B51CF8 /* CircularProgressView.swift in Sources */,
 				A37995DF22B775D10008AAE7 /* SSCheckMark.swift in Sources */,
 				A37995EC22B7A2F10008AAE7 /* ACKImagePicker.swift in Sources */,
 			);
@@ -539,7 +543,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.ackee.enterprise.ACKImagePickerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development cz.ackee.enterprise.* 1573738454";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development cz.ackee.enterprise.*";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
