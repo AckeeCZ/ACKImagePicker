@@ -17,7 +17,6 @@ enum ScreenState {
 }
 
 final class ACKPhotosViewController: BaseViewController {
-    
     var numberOfColumns: CGFloat = 4
     
     weak var delegate: ACKImagePickerDelegate?
@@ -196,7 +195,6 @@ final class ACKPhotosViewController: BaseViewController {
 }
 
 extension ACKPhotosViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         fetchResult?.count ?? 0
     }
@@ -229,7 +227,6 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
         options.isNetworkAccessAllowed = true
         
         cell.imageRequestID = imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: options) { [weak cell] image, info in
-            
             // skip if cell's asset ID if different from original asset ID (possibly could happen because of wrong reusing, but never did during testing)
             // skip if imageRequest was cancelled
             if cell?.asset?.localIdentifier != assetsID || (info?[PHImageCancelledKey] as? Bool) ?? false { return }
@@ -242,7 +239,6 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
 }
 
 extension ACKPhotosViewController: UICollectionViewDelegate {
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
         

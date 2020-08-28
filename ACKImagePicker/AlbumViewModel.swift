@@ -10,14 +10,12 @@ import Photos
 import UIKit
 
 final class AlbumViewModel {
-    
     var assetIdentifier: String?
     var image: UIImage?
     var onImage: ((UIImage?, String) -> Void)?
     
     private let collection: PHAssetCollection
     private let imageManager: PHImageManager
-    
     
     // MARK: - Initialization
     
@@ -44,5 +42,4 @@ final class AlbumViewModel {
             }
         }
     }
-    
 }

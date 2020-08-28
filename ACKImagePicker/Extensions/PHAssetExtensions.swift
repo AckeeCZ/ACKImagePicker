@@ -10,7 +10,6 @@ import Foundation
 import Photos
 
 extension PHAsset {
-    
     var accessibilityLabelText: String? {
         var components: [String] = []
         if #available(iOS 9.1, *), mediaSubtypes.contains(.photoLive) {
@@ -62,5 +61,4 @@ extension PHAsset {
             return dateText
         }
     }
-    
 }

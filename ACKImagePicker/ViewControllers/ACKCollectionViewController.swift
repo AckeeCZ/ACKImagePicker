@@ -16,7 +16,6 @@ protocol ACKImagePickerDelegate: class {
 }
 
 final class ACKCollectionViewController: BaseViewController {
-    
     enum Section {
         case allPhotos
         case collections
@@ -72,11 +71,9 @@ final class ACKCollectionViewController: BaseViewController {
         
         tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: animated) }
     }
-    
 }
 
 extension ACKCollectionViewController: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
@@ -102,11 +99,9 @@ extension ACKCollectionViewController: UITableViewDataSource {
             return cell
         }
     }
-    
 }
 
 extension ACKCollectionViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case .allPhotos:

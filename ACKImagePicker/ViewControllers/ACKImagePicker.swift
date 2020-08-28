@@ -40,5 +40,4 @@ open class ACKImagePicker: UINavigationController {
         
         self.rootController = rootController
     }
-
 }

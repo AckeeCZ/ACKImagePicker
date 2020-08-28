@@ -10,7 +10,6 @@ import UIKit
 import Photos
 
 class ImagePickerViewController: BaseViewController {
-    
     private let imageManager = PHImageManager()
     
     enum Section: Int {
@@ -179,7 +178,6 @@ class ImagePickerViewController: BaseViewController {
 }
 
 extension ImagePickerViewController: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
@@ -265,11 +263,9 @@ extension ImagePickerViewController: UITableViewDataSource {
             return cell
         }
     }
-    
 }
 
 extension ImagePickerViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
     }
@@ -296,11 +292,9 @@ extension ImagePickerViewController: UITableViewDelegate {
             }
         }
     }
-    
 }
 
 extension ImagePickerViewController: PHPhotoLibraryChangeObserver {
-    
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         
         // Change notifications may originate from a background queue.
@@ -354,6 +348,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
                 guard let progressView = progressView else { return }
                 let imageFraction: Float = 1 / Float(photos.count)
                 let newProgress = Float(progress) * imageFraction + Float(images.count) / Float(photos.count)
+                print(newProgress)
                 guard progressView.progress < newProgress else { return }
                 progressView.setProgress(newProgress, animated: true)
             }

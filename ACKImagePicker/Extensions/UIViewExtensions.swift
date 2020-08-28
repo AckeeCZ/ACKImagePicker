@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIView {
-    
     func makeEdgesEqualToSuperview(insets: UIEdgeInsets = .zero) {
         guard let superview = superview else { assertionFailure(); return }
         translatesAutoresizingMaskIntoConstraints = false
@@ -31,5 +30,4 @@ extension UIView {
             NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: superview, attribute: .centerY, multiplier: 1, constant: 0)
         ])
     }
-    
 }
