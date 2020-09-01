@@ -81,4 +81,3 @@ final class ProgressViewController: UIViewController {
         progressLabel?.text = "\(Int(progress * 100)) %"
     }
 }
-

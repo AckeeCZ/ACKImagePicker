@@ -339,18 +339,28 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
         let progressView = showProgress()
         
+        // We need to store the download progress per asset
+        // based on its request ID
+        var progress: [PHImageRequestID: Double] = [:] {
+            didSet {
+                // Always update the UI on the main thread
+                DispatchQueue.main.async {
+                    // Sum all intermediate progresses and divide them by number of photos
+                    progressView.progress = CGFloat(progress.values.reduce(0, +) / Double(photos.count))
+                }
+            }
+        }
+        
         var images: [UIImage] = []
         let manager = PHImageManager.default()
         let options = PHImageRequestOptions()
         options.resizeMode = .exact
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true
-        options.progressHandler = { progress, _, _, _ in
-            DispatchQueue.main.async {
-                let imageFraction: Float = 1 / Float(photos.count)
-                let newProgress = Float(progress) * imageFraction + Float(images.count) / Float(photos.count)
-                progressView.progress = CGFloat(newProgress)
-            }
+        options.progressHandler = { progressValue, _, _, info in
+            guard let requestID = info?[PHImageResultRequestIDKey] as? PHImageRequestID else { assertionFailure(); return }
+            // Update the progress value for the current request
+            progress[requestID] = progressValue
         }
         
         // group of imageRequest tasks, used for waiting for all of images to be downloaded
@@ -359,24 +369,25 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         // start requests for all selected images
         photos.forEach { asset in
             group.enter()
-            manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: options) { image, _ in
+            let requestID = manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: options) { image, info in
                 if let image = image {
                     images.append(image)
+                    if let requestID = info?[PHImageResultRequestIDKey] as? PHImageRequestID {
+                        // When the download is finished or when the image is available locally
+                        // this will set the progress to the correct value
+                        progress[requestID] = 1
+                    }
                 }
                 group.leave()
             }
+            // Set the initial value for the progress
+            progress[requestID] = 0
         }
         
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .main) { [weak self] in
-            if progressView.progress == 0 {
-                progressView.progress = 1
-                // Show 100 % to the user, showing only 0 % is not nice
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                    progressView.dismiss(animated: false)
-                    self?.onImagesPicked?(images)
-                }
-            } else {
+            // Show the completed progress for a brief moment, it's nicer than immediate dismiss
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                 progressView.dismiss(animated: false)
                 self?.onImagesPicked?(images)
             }
