@@ -371,6 +371,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         group.notify(queue: .main) { [weak self] in
             if progressView.progress == 0 {
                 progressView.progress = 1
+                // Show 100 % to the user, showing only 0 % is not nice
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                     progressView.dismiss(animated: false)
                     self?.onImagesPicked?(images)

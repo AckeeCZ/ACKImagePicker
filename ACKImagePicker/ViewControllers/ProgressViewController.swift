@@ -19,6 +19,8 @@ final class ProgressViewController: UIViewController {
     private weak var progressLabel: UILabel!
     private weak var backgroundView: UIView!
     
+    // MARK: - Controller lifecycle
+    
     override func loadView() {
         super.loadView()
         
