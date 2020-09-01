@@ -63,6 +63,7 @@ final class ProgressViewController: UIViewController {
         
         let progressTextLabel = UILabel()
         progressTextLabel.text = "progress.loading".localized()
+        progressTextLabel.textAlignment = .center
         backgroundView.addSubview(progressTextLabel)
         progressTextLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
