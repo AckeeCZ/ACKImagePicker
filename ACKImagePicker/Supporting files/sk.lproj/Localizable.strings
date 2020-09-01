@@ -26,3 +26,5 @@ asset.panorama = "Panoráma";
 asset.screenshot = "Snímok obrazovky";
 asset.height = "Na výšku";
 asset.width = "Na šírku";
+
+progress.loading = "Nahrávam";

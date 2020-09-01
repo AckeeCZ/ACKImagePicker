@@ -26,3 +26,5 @@ asset.panorama = "Panorama";
 asset.screenshot = "Screenshot";
 asset.height = "Height";
 asset.width = "Width";
+
+progress.loading = "Loading";
