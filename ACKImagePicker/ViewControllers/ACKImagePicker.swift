@@ -10,25 +10,25 @@ import UIKit
 
 /// View controller that enables users to select image from the user's media library
 open class ACKImagePicker: UINavigationController {
-    
+
     /// Called when user finished selecting images
     open var onImagesPicked: (([UIImage]) -> Void)? {
         get { rootController.onImagesPicked }
         set { rootController.onImagesPicked = newValue }
     }
-    
+
     /// Maximum number of images that user can select
     open var maximumNumberOfImages: Int? {
         get { rootController.maximumNumberOfImages }
         set { rootController.maximumNumberOfImages = newValue }
     }
-    
+
     private weak var rootController: ImagePickerViewController!
-    
+
     convenience init() {
         let rootController = ImagePickerViewController()
         self.init(rootViewController: rootController)
-        
+
         // on iOS 10 we have trouble with `UINavigationBar` covering list of photos
         // and this is the simplest solution
         // https://user-images.githubusercontent.com/3148214/87172417-80530080-c2d4-11ea-82bb-914f0f8419ce.png
@@ -37,7 +37,7 @@ open class ACKImagePicker: UINavigationController {
         } else {
             navigationBar.isTranslucent = false
         }
-        
+
         self.rootController = rootController
     }
 }

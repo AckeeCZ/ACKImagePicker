@@ -14,18 +14,18 @@ final class ProgressViewController: UIViewController {
             updateProgress()
         }
     }
-    
+
     private weak var progressView: CircularProgressView!
     private weak var progressLabel: UILabel!
     private weak var backgroundView: UIView!
-    
+
     // MARK: - Controller lifecycle
-    
+
     override func loadView() {
         super.loadView()
-        
+
         view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        
+
         let backgroundView = UIView()
         if #available(iOSApplicationExtension 13.0, *) {
             backgroundView.backgroundColor = .systemBackground
@@ -39,7 +39,7 @@ final class ProgressViewController: UIViewController {
             backgroundView.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
         ])
         self.backgroundView = backgroundView
-        
+
         let progressView = CircularProgressView()
         backgroundView.addSubview(progressView)
         progressView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ final class ProgressViewController: UIViewController {
             progressView.heightAnchor.constraint(equalTo: progressView.widthAnchor)
         ])
         self.progressView = progressView
-        
+
         let progressLabel = UILabel()
         progressLabel.font = .boldSystemFont(ofSize: 16)
         backgroundView.addSubview(progressLabel)
@@ -60,7 +60,7 @@ final class ProgressViewController: UIViewController {
             progressLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor)
         ])
         self.progressLabel = progressLabel
-        
+
         let progressTextLabel = UILabel()
         progressTextLabel.text = "progress.loading".localized()
         progressTextLabel.textAlignment = .center
@@ -72,10 +72,10 @@ final class ProgressViewController: UIViewController {
             progressTextLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -8),
             progressTextLabel.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -10)
         ])
-        
+
         updateProgress()
     }
-    
+
     private func updateProgress() {
         progressView?.progress = progress
         progressLabel?.text = "\(Int(progress * 100)) %"

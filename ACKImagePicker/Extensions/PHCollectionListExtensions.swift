@@ -8,7 +8,7 @@
 import Photos
 
 extension PHCollectionList {
-    
+
     func fetchAllAssets() -> PHFetchResult<PHAsset> {
         let collections = PHCollectionList.fetchCollections(in: self, options: nil)
         var identifiers: [String] = []
@@ -23,10 +23,10 @@ extension PHCollectionList {
                 }
             }
         }
-        
+
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-       
+
         return PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: options)
     }
 

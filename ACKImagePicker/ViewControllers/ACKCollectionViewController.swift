@@ -20,55 +20,55 @@ final class ACKCollectionViewController: BaseViewController {
         case allPhotos
         case collections
     }
-    
+
     weak var delegate: ACKImagePickerDelegate?
-    
+
     private let sections: [Section] = [.allPhotos, .collections]
-    
+
     private let collection: PHCollectionList
     private var collections: PHFetchResult<PHCollection>?
-    
+
     private weak var tableView: UITableView!
-    
+
     // MARK: - Initialization
-    
+
     init(collection: PHCollectionList) {
         self.collection = collection
-        
+
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Controller lifecycle
-    
+
     override func loadView() {
         super.loadView()
-        
+
         let tableView = UITableView(frame: .zero)
         view.addSubview(tableView)
         tableView.makeEdgesEqualToSuperview()
         self.tableView = tableView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.title = collection.localizedTitle
-        
+
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         if collection.canContainCollections {
             collections = PHCollectionList.fetchCollections(in: collection, options: nil)
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: animated) }
     }
 }
@@ -77,14 +77,14 @@ extension ACKCollectionViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case .allPhotos: return 1
         case .collections: return collections?.count ?? 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
         case .allPhotos:
@@ -121,7 +121,7 @@ extension ACKCollectionViewController: UITableViewDelegate {
             }
         }
     }
-    
+
 }
 
 extension ACKCollectionViewController: ACKImagePickerDelegate {

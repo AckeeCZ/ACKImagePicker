@@ -13,21 +13,21 @@ final class AlbumViewModel {
     var assetIdentifier: String?
     var image: UIImage?
     var onImage: ((UIImage?, String) -> Void)?
-    
+
     private let collection: PHAssetCollection
     private let imageManager: PHImageManager
-    
+
     // MARK: - Initialization
-    
+
     init(collection: PHAssetCollection, imageManager: PHImageManager) {
         self.collection = collection
         self.imageManager = imageManager
-        
+
         makeFetch()
     }
-    
+
     // MARK: - Helpers
-    
+
     private func makeFetch() {
         let options = PHFetchOptions()
         options.fetchLimit = 1
