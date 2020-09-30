@@ -4,7 +4,7 @@ import UIKit
 ///
 /// It draws itself within specified rect.
 /// The size is derived from the size of the rect where the smaller dimension (width / height) is used.
-/// The view itslef is drawn in the middle of the rect.
+/// The view itself is drawn in the middle of the rect.
 /// As a primary color is used `tintColor` of the view.
 public final class CircularProgressView: UIView {
     
