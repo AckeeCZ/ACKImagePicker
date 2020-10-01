@@ -10,52 +10,52 @@ import UIKit
 import Photos
 
 final class AssetCollectionViewCell: UICollectionViewCell {
-    
+
     var imageRequestID: PHImageRequestID?
     var asset: PHAsset? {
         didSet {
             setupAccessibility()
         }
     }
-    
+
     /// Block which is called as first  in `prepareForReuse` function (before all other actions)
     var prepareForReuseBlock: ((AssetCollectionViewCell) -> ())?
-    
+
     var thumbnailImage: UIImage? {
         get { imageView.image }
         set { imageView.image = newValue }
     }
-    
+
     var livePhotoBadgeImage: UIImage? {
         get { livePhotoBadgeImageView.image }
         set { livePhotoBadgeImageView.image = newValue }
     }
-    
+
     override var isSelected: Bool {
         didSet {
             checkmarkView.isChecked = isSelected
         }
     }
-    
+
     private weak var imageView: UIImageView!
     private weak var livePhotoBadgeImageView: UIImageView!
     private weak var checkmarkView: SSCheckMark!
-    
+
     // MARK: - Initialization
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
         setupAccessibility()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Components setup
-    
+
     private func setup() {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -63,7 +63,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         imageView.makeEdgesEqualToSuperview()
         self.imageView = imageView
-        
+
         let livePhotoBadgeImageView = UIImageView()
         contentView.addSubview(livePhotoBadgeImageView)
         livePhotoBadgeImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +74,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
             NSLayoutConstraint(item: livePhotoBadgeImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 28),
         ])
         self.livePhotoBadgeImageView = livePhotoBadgeImageView
-        
+
         let checkmarkView = SSCheckMark()
         checkmarkView.checkMarkColor = .systemBlue
         contentView.addSubview(checkmarkView)
@@ -87,23 +87,23 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         ])
         self.checkmarkView = checkmarkView
     }
-    
+
     // MARK: - Reuse
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         prepareForReuseBlock?(self)
-        
+
         imageRequestID = nil
         asset = nil
         thumbnailImage = nil
         livePhotoBadgeImage = nil
         prepareForReuseBlock = nil
     }
-    
+
     // MARK: - Accessibility
-    
+
     private func setupAccessibility() {
         isAccessibilityElement = true
 

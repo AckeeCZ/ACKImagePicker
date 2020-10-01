@@ -10,7 +10,6 @@ import Foundation
 import Photos
 
 extension PHAsset {
-    
     var accessibilityLabelText: String? {
         var components: [String] = []
         if #available(iOS 9.1, *), mediaSubtypes.contains(.photoLive) {
@@ -24,7 +23,7 @@ extension PHAsset {
         } else if mediaType == .video {
             components.append("asset.video".localized())
         }
-        
+
         if isFavorite {
             components.append("asset.is_favorite".localized())
         }
@@ -37,21 +36,20 @@ extension PHAsset {
         if mediaSubtypes.contains(.photoScreenshot) {
             components.append("asset.screenshot".localized())
         }
-        
-        
+
         if pixelWidth > pixelHeight {
             components.append("asset.height".localized())
         } else {
             components.append("asset.width".localized())
         }
-        
+
         if mediaType == .video, let duration = Formatters.duration.string(from: duration) {
             components.append(duration)
         }
-        
+
         return components.joined(separator: ", ")
     }
-    
+
     var accessibilityValueText: String? {
         guard let creationDate = creationDate else { return nil }
         let dateText = DateFormatter.localizedString(from: creationDate, dateStyle: .medium, timeStyle: .none)
@@ -62,5 +60,4 @@ extension PHAsset {
             return dateText
         }
     }
-    
 }

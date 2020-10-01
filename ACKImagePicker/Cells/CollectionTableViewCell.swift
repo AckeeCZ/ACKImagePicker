@@ -9,36 +9,36 @@
 import UIKit
 
 final class CollectionTableViewCell: UITableViewCell {
-    
+
     var assetIdentifier: String?
-    
+
     var thumbImage: UIImage? {
         get { thumbImageView.image }
         set { thumbImageView.image = newValue }
     }
-    
+
     var title: String? {
         get { titleLabel.text }
         set { titleLabel.text = newValue }
     }
-    
+
     private weak var thumbImageView: UIImageView!
     private weak var titleLabel: UILabel!
-    
+
     // MARK: - Initializaiton
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Components setup
-    
+
     private func setup() {
         let thumbImageView = UIImageView()
         thumbImageView.layer.cornerRadius = 3
@@ -55,7 +55,7 @@ final class CollectionTableViewCell: UITableViewCell {
             NSLayoutConstraint(item: thumbImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 44, priority: 999)
         ])
         self.thumbImageView = thumbImageView
-        
+
         let titleLabel = UILabel()
         titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
         if #available(iOS 10.0, *) {
@@ -70,30 +70,30 @@ final class CollectionTableViewCell: UITableViewCell {
         ])
         self.titleLabel = titleLabel
     }
-    
+
     // MARK: - Reuse
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         thumbImage = nil
     }
-    
+
     // MARK: - Selection
-    
+
     private func updateSelection(_ isSelected: Bool, animated: Bool) {
         thumbImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         updateSelection(selected, animated: animated)
     }
-    
+
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        
+
         updateSelection(highlighted, animated: animated)
     }
 }
