@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ACKImagePicker'
-    s.version          = '0.2.2'
+    s.version          = '0.3.0'
     s.summary          = 'Simplify image picking'
     s.description      = <<-DESC
     ACKImagePicker creates a system-like image picker experience.

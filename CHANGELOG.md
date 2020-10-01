@@ -1,6 +1,9 @@
 
 ## Next
 
+## 0.3.0
+
+## Added
 - Add new download progress UI ([#13](https://github.com/AckeeCZ/ACKImagePicker/pull/13)) by @LukasHromadnik
 
 ## 0.2.2
