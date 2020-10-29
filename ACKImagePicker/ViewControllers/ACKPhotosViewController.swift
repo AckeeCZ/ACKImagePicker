@@ -16,7 +16,7 @@ enum ScreenState {
     case noData
 }
 
-final class ACKPhotosViewController: BaseViewController {
+final class ACKPhotosViewController: UIViewController {
     var numberOfColumns: CGFloat = 4
 
     weak var delegate: ACKImagePickerDelegate?

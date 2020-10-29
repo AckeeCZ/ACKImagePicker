@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class ImagePickerViewController: BaseViewController {
+class ImagePickerViewController: UIViewController {
     private let imageManager = PHImageManager()
 
     enum Section: Int {

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8847986E23E89C0600BB8D55 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847986D23E89C0600BB8D55 /* BaseViewController.swift */; };
 		A36C828024F96C240002E6B3 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C827F24F96C240002E6B3 /* ProgressViewController.swift */; };
 		A37995D422B775AF0008AAE7 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38F733A22B3E697000A05FE /* Formatters.swift */; };
 		A37995D522B775B20008AAE7 /* NSLayoutConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */; };
@@ -63,7 +62,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8847986D23E89C0600BB8D55 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		A30D6F1E221EA56100622E65 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		A3228D9B229839F600C23159 /* PHAssetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetExtensions.swift; sourceTree = "<group>"; };
 		A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 		A34519DD2297C7E50019A777 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				8847986D23E89C0600BB8D55 /* BaseViewController.swift */,
 				A36C827F24F96C240002E6B3 /* ProgressViewController.swift */,
 				A3D918EE221888B60040F791 /* ACKCollectionViewController.swift */,
 				A3D918EC221888B60040F791 /* ACKPhotosViewController.swift */,
@@ -357,7 +354,6 @@
 				A37995D422B775AF0008AAE7 /* Formatters.swift in Sources */,
 				A37995D722B775B90008AAE7 /* PHCollectionListExtensions.swift in Sources */,
 				A37995DB22B775C60008AAE7 /* ACKPhotosViewController.swift in Sources */,
-				8847986E23E89C0600BB8D55 /* BaseViewController.swift in Sources */,
 				A37995DD22B775CB0008AAE7 /* AssetCollectionViewCell.swift in Sources */,
 				A3EBCB5123686A1500FEA458 /* Assets.swift in Sources */,
 				A37995DE22B775CE0008AAE7 /* CollectionTableViewCell.swift in Sources */,
