@@ -12,7 +12,7 @@ protocol Reusable { }
 
 extension Reusable {
     static var reuseIdentifier: String {
-        return NSStringFromClass(self as! AnyObject.Type)
+        NSStringFromClass(self as! AnyObject.Type)
     }
 }
 

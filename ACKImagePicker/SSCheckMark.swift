@@ -16,7 +16,6 @@ enum SSCheckMarkStyle {
 }
 
 open class SSCheckMark: UIView {
-
     open var isChecked: Bool = false {
         didSet { setNeedsDisplay() }
     }

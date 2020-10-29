@@ -10,7 +10,6 @@ import UIKit
 import Photos
 
 final class AssetCollectionViewCell: UICollectionViewCell {
-
     var imageRequestID: PHImageRequestID?
     var asset: PHAsset? {
         didSet {
