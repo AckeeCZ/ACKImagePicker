@@ -49,6 +49,7 @@ final class ViewController: UIViewController {
     @objc
     private func galleryBarButtonTapped(_ sender: UIBarButtonItem) {
         let controller = ACKImagePicker()
+        controller.tintColor = .orange
         controller.maximumNumberOfImages = 3
         controller.onImagesPicked = { [weak self] images in
             self?.images = images

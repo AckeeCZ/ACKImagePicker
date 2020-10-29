@@ -203,6 +203,7 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
         guard let asset = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return UICollectionViewCell() }
 
         let cell: AssetCollectionViewCell = collectionView.dequeueCell(for: indexPath)
+        cell.tintColor = navigationController?.navigationBar.tintColor
 
         // Add a badge to the Live Photo
         if #available(iOS 9.1, *), asset.mediaSubtypes.contains(.photoLive) {

@@ -180,6 +180,7 @@ class ImagePickerViewController: UIViewController {
 
     private func showProgress() -> ProgressViewController {
         let controller = ProgressViewController()
+        controller.progressTintColor = navigationController?.navigationBar.tintColor
         controller.modalPresentationStyle = .overCurrentContext
         present(controller, animated: false)
         return controller
