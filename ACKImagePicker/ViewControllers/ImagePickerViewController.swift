@@ -210,7 +210,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         case .smartAlbums:
             let collection = smartAlbums[indexPath.row]
 
-            let image: UIImage!
+            let image: UIImage?
             switch collection.assetCollectionSubtype {
             case .smartAlbumPanoramas:
                 image = Assets.panoramas.image
@@ -254,7 +254,7 @@ extension ImagePickerViewController: UITableViewDataSource {
             }
 
             let albumViewModel = albumViewModels[indexPath]
-            cell.thumbImage = albumViewModel?.image ?? image.withRenderingMode(.alwaysOriginal)
+            cell.thumbImage = albumViewModel?.image ?? image?.withRenderingMode(.alwaysOriginal)
             cell.assetIdentifier = albumViewModel?.assetIdentifier
             albumViewModel?.onImage = { [weak cell] image, identifier in
                 guard cell?.assetIdentifier == identifier, let image = image else { return }
