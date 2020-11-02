@@ -29,8 +29,7 @@ enum Assets: String {
     case timelapse = "time-lapse"
     case videos
 
-    // TODO: Remove !
-    var image: UIImage! {
+    var image: UIImage? {
         UIImage(named: rawValue, in: Bundle(for: BundleToken.self), compatibleWith: nil)
     }
 }

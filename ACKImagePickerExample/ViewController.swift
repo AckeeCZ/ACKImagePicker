@@ -41,7 +41,7 @@ final class ViewController: UIViewController {
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.reuseIdentifier)
         
         navigationItem.title = "ACKImagePicker"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(galleryBarButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(galleryBarButtonTapped))
     }
     
     // MARK: - Actions
@@ -62,7 +62,6 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         images.count
     }
@@ -73,42 +72,10 @@ extension ViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: collectionView.bounds.width, height: 200)
-    }
-
-}
-
-private class ImageCell: UICollectionViewCell {
-    static let reuseIdentifier = "ImageCell"
-    
-    var image: UIImage? {
-        get { imageView.image }
-        set { imageView.image = newValue }
-    }
-    
-    private weak var imageView: UIImageView!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setup() {
-        let imageView = UIImageView(frame: contentView.bounds)
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        contentView.addSubview(imageView)
-        self.imageView = imageView
     }
 }
