@@ -24,6 +24,7 @@ final class OrderedSet<Item> {
     }
 
     func forEach(_ body: (Item) -> Void) {
+        // swiftlint:disable:next force_cast
         storage.forEach { body($0 as! Item) }
     }
 }

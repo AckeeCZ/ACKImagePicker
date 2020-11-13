@@ -35,7 +35,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
             checkmarkView.isChecked = isSelected
         }
     }
-    
+
     override var tintColor: UIColor! {
         get { checkmarkView.checkMarkColor }
         set { checkmarkView.checkMarkColor = newValue }

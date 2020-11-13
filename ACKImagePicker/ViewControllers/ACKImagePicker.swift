@@ -22,7 +22,7 @@ open class ACKImagePicker: UINavigationController {
         get { rootController.maximumNumberOfImages }
         set { rootController.maximumNumberOfImages = newValue }
     }
-    
+
     /// Tint color used in navigation bar, check mark and progress
     open var tintColor: UIColor? {
         get { navigationBar.tintColor }
@@ -30,7 +30,7 @@ open class ACKImagePicker: UINavigationController {
     }
 
     private weak var rootController: ImagePickerViewController!
-    
+
     // MARK: - Initialization
 
     convenience init() {

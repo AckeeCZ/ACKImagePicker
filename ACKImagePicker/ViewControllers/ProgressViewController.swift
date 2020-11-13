@@ -14,7 +14,7 @@ final class ProgressViewController: UIViewController {
             updateProgress()
         }
     }
-    
+
     var progressTintColor: UIColor! {
         didSet {
             progressView?.tintColor = progressTintColor
