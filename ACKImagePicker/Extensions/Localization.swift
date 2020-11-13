@@ -9,7 +9,6 @@
 import Foundation
 
 extension String {
-
     /// Uses the string as a localization key
     ///
     /// - Returns: Localized value for the given key

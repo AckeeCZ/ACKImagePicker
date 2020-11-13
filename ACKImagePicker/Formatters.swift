@@ -9,7 +9,6 @@
 import Foundation
 
 enum Formatters {
-
     /// Duration formatter used for the accessibility
     static let duration: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()

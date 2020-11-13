@@ -37,9 +37,8 @@ final class AssetCollectionViewCell: UICollectionViewCell {
     }
     
     override var tintColor: UIColor! {
-        didSet {
-            checkmarkView.checkMarkColor = tintColor
-        }
+        get { checkmarkView.checkMarkColor }
+        set { checkmarkView.checkMarkColor = newValue }
     }
 
     private weak var imageView: UIImageView!
