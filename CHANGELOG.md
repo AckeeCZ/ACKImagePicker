@@ -1,5 +1,5 @@
 
-## Next
+## 0.3.1
 
 ## Added
 - Tint color ([#15](https://github.com/AckeeCZ/ACKImagePicker/pull/15)) by @LukasHromadnik
