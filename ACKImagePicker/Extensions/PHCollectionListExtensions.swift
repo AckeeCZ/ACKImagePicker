@@ -8,7 +8,6 @@
 import Photos
 
 extension PHCollectionList {
-
     func fetchAllAssets() -> PHFetchResult<PHAsset> {
         let collections = PHCollectionList.fetchCollections(in: self, options: nil)
         var identifiers: [String] = []
@@ -29,5 +28,4 @@ extension PHCollectionList {
 
         return PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: options)
     }
-
 }

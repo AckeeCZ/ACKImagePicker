@@ -180,6 +180,7 @@ class ImagePickerViewController: UIViewController {
 
     private func showProgress() -> ProgressViewController {
         let controller = ProgressViewController()
+        controller.progressTintColor = navigationController?.navigationBar.tintColor
         controller.modalPresentationStyle = .overCurrentContext
         present(controller, animated: false)
         return controller
@@ -199,6 +200,7 @@ extension ImagePickerViewController: UITableViewDataSource {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
         case .allPhotos:

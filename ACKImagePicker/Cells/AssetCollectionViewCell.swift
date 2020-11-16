@@ -36,6 +36,11 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    override var tintColor: UIColor! {
+        get { checkmarkView.checkMarkColor }
+        set { checkmarkView.checkMarkColor = newValue }
+    }
+
     private weak var imageView: UIImageView!
     private weak var livePhotoBadgeImageView: UIImageView!
     private weak var checkmarkView: SSCheckMark!
@@ -75,7 +80,6 @@ final class AssetCollectionViewCell: UICollectionViewCell {
         self.livePhotoBadgeImageView = livePhotoBadgeImageView
 
         let checkmarkView = SSCheckMark()
-        checkmarkView.checkMarkColor = .systemBlue
         contentView.addSubview(checkmarkView)
         checkmarkView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([

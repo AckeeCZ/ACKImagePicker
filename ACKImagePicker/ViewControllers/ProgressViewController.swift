@@ -15,6 +15,12 @@ final class ProgressViewController: UIViewController {
         }
     }
 
+    var progressTintColor: UIColor? {
+        didSet {
+            progressView?.tintColor = progressTintColor
+        }
+    }
+
     private weak var progressView: CircularProgressView!
     private weak var progressLabel: UILabel!
     private weak var backgroundView: UIView!
@@ -41,6 +47,7 @@ final class ProgressViewController: UIViewController {
         self.backgroundView = backgroundView
 
         let progressView = CircularProgressView()
+        progressView.tintColor = progressTintColor
         backgroundView.addSubview(progressView)
         progressView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
