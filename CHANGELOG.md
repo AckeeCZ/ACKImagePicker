@@ -1,3 +1,8 @@
+# Changelog
+
+## Next 
+
+- Use Xcode 12.4 ([#16](https://github.com/AckeeCZ/ACKImagePicker/pull/16)) by @olejnjak
 
 ## 0.3.1
 
