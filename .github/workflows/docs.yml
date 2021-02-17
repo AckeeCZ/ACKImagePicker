@@ -14,12 +14,7 @@ jobs:
       - name: Generate Documentation
         uses: SwiftDocOrg/swift-doc@master
         with:
-          inputs: "ACKategories-iOS"
-          output: "Documentation"
-      - name: Generate Documentation
-        uses: SwiftDocOrg/swift-doc@master
-        with:
-          inputs: "ACKategoriesCore"
+          inputs: "ACKImagePicker"
           output: "Documentation"
       - name: Upload Documentation to Wiki
         uses: SwiftDocOrg/github-wiki-publish-action@master
