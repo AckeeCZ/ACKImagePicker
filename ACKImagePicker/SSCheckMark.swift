@@ -24,7 +24,7 @@ open class SSCheckMark: UIView {
         didSet { setNeedsDisplay() }
     }
 
-    var checkMarkColor: UIColor = .red
+    var checkMarkColor: UIColor = .systemBlue
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

@@ -38,7 +38,7 @@ final class AssetCollectionViewCell: UICollectionViewCell {
 
     override var tintColor: UIColor! {
         get { checkmarkView.checkMarkColor }
-        set { checkmarkView.checkMarkColor = newValue }
+        set { checkmarkView.checkMarkColor = newValue ?? .systemBlue } // newValue is UIColor!, so there can also be nil, which then would crash
     }
 
     private weak var imageView: UIImageView!
