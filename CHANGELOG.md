@@ -2,6 +2,8 @@
 
 ## Next 
 
+## 0.3.2
+
 - Use Xcode 12.4 ([#16](https://github.com/AckeeCZ/ACKImagePicker/pull/16)) by @olejnjak
 - Fix crash when checkMarkColor is nil ([#17](https://github.com/AckeeCZ/ACKImagePicker/pull/17)) by @janmisar
 
