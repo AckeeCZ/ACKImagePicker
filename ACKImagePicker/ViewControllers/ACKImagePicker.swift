@@ -45,7 +45,7 @@ open class ACKImagePicker: UINavigationController {
         } else {
             navigationBar.isTranslucent = false
         }
-        
+
         // on iOS 13.0+ opaque background needs to be set
         // using `UINavigationBarAppearance`
         if #available(iOS 13.0, *) {
