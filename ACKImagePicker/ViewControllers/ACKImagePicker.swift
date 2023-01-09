@@ -46,6 +46,15 @@ open class ACKImagePicker: UINavigationController {
             navigationBar.isTranslucent = false
         }
 
+        // on iOS 13.0+ opaque background needs to be set
+        // using `UINavigationBarAppearance`
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            navigationBar.standardAppearance = appearance
+            navigationBar.scrollEdgeAppearance = appearance
+        }
+
         self.rootController = rootController
     }
 }

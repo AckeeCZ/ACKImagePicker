@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-protocol ACKImagePickerDelegate: class {
+protocol ACKImagePickerDelegate: AnyObject {
     var maximumNumberOfSelectedImages: Int? { get }
 
     func didSelectPhotos(_ photos: OrderedSet<PHAsset>)

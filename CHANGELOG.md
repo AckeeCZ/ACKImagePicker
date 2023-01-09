@@ -1,6 +1,10 @@
 # Changelog
 
-## Next 
+## Next
+
+### Fixed
+
+- Fix `ACKImagePicker` navigationBar opacity for iOS 13.0+ ([#20](https://github.com/AckeeCZ/ACKImagePicker/pull/20)) by @IgorRosocha
 
 ## 0.3.2
 
