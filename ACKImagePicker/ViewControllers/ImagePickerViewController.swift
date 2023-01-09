@@ -389,7 +389,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         // call `onImagesPicked` block on main thread when whole group is finished
         group.notify(queue: .global(qos: .background)) { [weak self] in
             let images = photos.map(\.localIdentifier).compactMap { images[$0] }
-            
+
             // Show the completed progress for a brief moment, it's nicer than immediate dismiss
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                 progressView.dismiss(animated: false)

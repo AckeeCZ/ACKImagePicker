@@ -13,7 +13,7 @@ struct OrderedSet<Element>: CustomStringConvertible {
     private var iterator = 0
 
     var count: Int { storage.count }
-    
+
     var description: String {
         "OrderedSet [" + storage.map { String(describing: $0) }.joined(separator: ", ") + "]"
     }
@@ -32,7 +32,7 @@ struct OrderedSet<Element>: CustomStringConvertible {
 extension OrderedSet: Sequence, IteratorProtocol {
     mutating func next() -> Element? {
         guard iterator < count else { return nil }
-        
+
         defer { iterator += 1 }
         return storage[iterator] as? Element
     }
