@@ -353,7 +353,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
             }
         }
 
-        var images: [UIImage] = []
+        var images = [String: UIImage]()
         let manager = PHImageManager.default()
         let options = PHImageRequestOptions()
         options.resizeMode = .exact
@@ -373,7 +373,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
             group.enter()
             let requestID = manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: options) { image, info in
                 if let image = image {
-                    images.append(image)
+                    images[asset.localIdentifier] = image
                     if let requestID = info?[PHImageResultRequestIDKey] as? PHImageRequestID {
                         // When the download is finished or when the image is available locally
                         // this will set the progress to the correct value
@@ -387,7 +387,9 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         }
 
         // call `onImagesPicked` block on main thread when whole group is finished
-        group.notify(queue: .main) { [weak self] in
+        group.notify(queue: .global(qos: .background)) { [weak self] in
+            let images = photos.map(\.localIdentifier).compactMap { images[$0] }
+            
             // Show the completed progress for a brief moment, it's nicer than immediate dismiss
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                 progressView.dismiss(animated: false)
