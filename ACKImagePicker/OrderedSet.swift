@@ -8,23 +8,32 @@
 
 import Foundation
 
-final class OrderedSet<Item> {
+struct OrderedSet<Element>: CustomStringConvertible {
     private let storage = NSMutableOrderedSet()
+    private var iterator = 0
 
     var count: Int { storage.count }
 
-    func add(_ object: Item) {
+    var description: String {
+        "OrderedSet [" + storage.map { String(describing: $0) }.joined(separator: ", ") + "]"
+    }
+
+    mutating func add(_ object: Element) {
         storage.add(object)
     }
 
-    func remove(_ object: Item) {
+    mutating func remove(_ object: Element) {
         let index = storage.index(of: object)
         guard index != NSNotFound else { return }
         storage.removeObject(at: index)
     }
+}
 
-    func forEach(_ body: (Item) -> Void) {
-        // swiftlint:disable:next force_cast
-        storage.forEach { body($0 as! Item) }
+extension OrderedSet: Sequence, IteratorProtocol {
+    mutating func next() -> Element? {
+        guard iterator < count else { return nil }
+
+        defer { iterator += 1 }
+        return storage[iterator] as? Element
     }
 }
