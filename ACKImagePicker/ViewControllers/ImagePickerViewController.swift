@@ -338,7 +338,7 @@ extension ImagePickerViewController: ACKImagePickerDelegate {
         maximumNumberOfImages
     }
 
-    func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
+    func didSelectPhotos(_ photos: [PHAsset]) {
         let progressView = showProgress()
 
         // We need to store the download progress per asset

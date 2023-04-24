@@ -12,7 +12,7 @@ import Photos
 protocol ACKImagePickerDelegate: AnyObject {
     var maximumNumberOfSelectedImages: Int? { get }
 
-    func didSelectPhotos(_ photos: OrderedSet<PHAsset>)
+    func didSelectPhotos(_ photos: [PHAsset])
 }
 
 final class ACKCollectionViewController: UIViewController {
@@ -129,7 +129,7 @@ extension ACKCollectionViewController: ACKImagePickerDelegate {
         delegate?.maximumNumberOfSelectedImages
     }
 
-    func didSelectPhotos(_ photos: OrderedSet<PHAsset>) {
+    func didSelectPhotos(_ photos: [PHAsset]) {
         delegate?.didSelectPhotos(photos)
     }
 }

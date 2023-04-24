@@ -21,7 +21,6 @@
 		A37995DE22B775CE0008AAE7 /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFE2226DF2B000F3FBA /* CollectionTableViewCell.swift */; };
 		A37995DF22B775D10008AAE7 /* SSCheckMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */; };
 		A37995E022B775D30008AAE7 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35764182231112F002DBF99 /* AlbumViewModel.swift */; };
-		A37995E122B775D60008AAE7 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30D6F1E221EA56100622E65 /* OrderedSet.swift */; };
 		A37995E522B788980008AAE7 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37995E422B788980008AAE7 /* Localization.swift */; };
 		A37995E722B78DDE0008AAE7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A37995E922B78DDE0008AAE7 /* Localizable.strings */; };
 		A37995EC22B7A2F10008AAE7 /* ACKImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37995EB22B7A2F10008AAE7 /* ACKImagePicker.swift */; };
@@ -63,7 +62,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A30D6F1E221EA56100622E65 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
 		A3228D9B229839F600C23159 /* PHAssetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHAssetExtensions.swift; sourceTree = "<group>"; };
 		A34519D82297C6370019A777 /* NSLayoutConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtensions.swift; sourceTree = "<group>"; };
 		A34519DA2297C65E0019A777 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -206,7 +204,6 @@
 				A3CC9FFC2226B0AE000F3FBA /* SSCheckMark.swift */,
 				A379BA6F24F948F300B51CF8 /* CircularProgressView.swift */,
 				A35764182231112F002DBF99 /* AlbumViewModel.swift */,
-				A30D6F1E221EA56100622E65 /* OrderedSet.swift */,
 				A3EBCB5023686A1500FEA458 /* Assets.swift */,
 				A3FC20BA22B77331005E60F9 /* Supporting files */,
 			);
@@ -362,7 +359,6 @@
 				A3EBCB5123686A1500FEA458 /* Assets.swift in Sources */,
 				A37995DE22B775CE0008AAE7 /* CollectionTableViewCell.swift in Sources */,
 				A37995D522B775B20008AAE7 /* NSLayoutConstraintExtensions.swift in Sources */,
-				A37995E122B775D60008AAE7 /* OrderedSet.swift in Sources */,
 				A37995E022B775D30008AAE7 /* AlbumViewModel.swift in Sources */,
 				A37995DA22B775C30008AAE7 /* ACKCollectionViewController.swift in Sources */,
 				A37995E522B788980008AAE7 /* Localization.swift in Sources */,
@@ -540,7 +536,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = PXDF48X6VX;
 				INFOPLIST_FILE = "ACKImagePickerExample/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -562,7 +558,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "ACKImagePickerExample/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -589,7 +585,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "ACKImagePicker/Supporting files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -619,7 +615,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "ACKImagePicker/Supporting files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
