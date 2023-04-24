@@ -2,6 +2,10 @@
 
 ## Next
 
+- Increased deployment target to 12.0 ([#27](https://github.com/AckeeCZ/ACKImagePicker/pull/27)) by @LukasHromadnik
+- Removed `OrderedSet` ([#27](https://github.com/AckeeCZ/ACKImagePicker/pull/27)) by @LukasHromadnik
+- Refactor `SSCheckmark` ([#26](https://github.com/AckeeCZ/ACKImagePicker/pull/26)) by @RomanPodymov
+
 ## 0.3.3
 
 ### Fixed
