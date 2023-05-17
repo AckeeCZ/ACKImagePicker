@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## 0.4.0
 
 - Increased deployment target to 12.0 ([#27](https://github.com/AckeeCZ/ACKImagePicker/pull/27)) by @LukasHromadnik
 - Removed `OrderedSet` ([#27](https://github.com/AckeeCZ/ACKImagePicker/pull/27)) by @LukasHromadnik
