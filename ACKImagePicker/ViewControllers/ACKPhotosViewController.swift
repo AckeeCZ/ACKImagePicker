@@ -27,7 +27,7 @@ final class ACKPhotosViewController: UIViewController {
         }
     }
 
-    private var selectedImages: OrderedSet<PHAsset> = .init()
+    private var selectedImages: [Int] = []
 
     private let imageManager = PHCachingImageManager.default()
     private var thumbnailSize = CGSize.zero
@@ -160,7 +160,7 @@ final class ACKPhotosViewController: UIViewController {
 
     @objc
     private func selectBarButtonTapped(_ sender: UIBarButtonItem) {
-        delegate?.didSelectPhotos(selectedImages)
+        delegate?.didSelectPhotos(selectedImages.compactMap { fetchResult?.object(at: $0) })
     }
 
     // MARK: - Helpers
@@ -241,21 +241,21 @@ extension ACKPhotosViewController: UICollectionViewDataSource {
 
 extension ACKPhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
-
         if let maxNumberOfImages = delegate?.maximumNumberOfSelectedImages, selectedImages.count >= maxNumberOfImages {
             collectionView.deselectItem(at: indexPath, animated: false)
             return
         }
 
-        selectedImages.add(object)
+        // Just to be sure, check if the indexPath is already selected.
+        // If so, do nothing :-)
+        guard !selectedImages.contains(indexPath.item) else { return }
+
+        selectedImages.append(indexPath.item)
         updateSelection()
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let object = fetchResult?.object(at: indexPath.item) else { assertionFailure(); return }
-
-        selectedImages.remove(object)
+        selectedImages.removeAll { $0 == indexPath.item }
         updateSelection()
     }
 }
