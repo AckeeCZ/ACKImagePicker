@@ -246,6 +246,10 @@ extension ACKPhotosViewController: UICollectionViewDelegate {
             return
         }
 
+        // Just to be sure, check if the indexPath is already selected.
+        // If so, do nothing :-)
+        guard !selectedImages.contains(indexPath.item) else { return }
+
         selectedImages.append(indexPath.item)
         updateSelection()
     }
